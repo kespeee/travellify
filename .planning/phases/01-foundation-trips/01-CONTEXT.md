@@ -49,7 +49,7 @@ Trip start/end are conceptually dates, not moments: "Rome, May 10–18" doesn't 
 
 ### D5 — Validation: inline disabled Save button (no alerts)
 
-- Save button in Create/Edit sheet disabled until: name non-empty (trimmed), endDate ≥ startDate, at least one destination added.
+- Save button in Create/Edit sheet disabled until: name non-empty (trimmed), endDate ≥ startDate. Destinations are OPTIONAL (aligned with UI-SPEC — user can save a trip with zero destinations and add them later).
 - No error alerts for validation — just a dimmed button. Matches "Clean & native" vibe.
 - Duplicate destination names allowed within one trip (user may intentionally re-visit a city).
 
@@ -64,7 +64,7 @@ User chose command-line scaffolding. Plan:
 - First task in Phase 1: "Scaffold Xcode project" — creates `Travellify.xcodeproj`, `Travellify/TravellifyApp.swift`, `Travellify/Assets.xcassets/`, `Travellify/Info.plist`-equivalent build settings.
 - Deployment target: iOS 17.0. Bundle ID: `com.kespeee.travellify` (user can rename later in Signing & Capabilities).
 - Swift language mode: 6. Swift Testing target added from day 1.
-- **Fallback:** if `xcodebuild -list` can't open the generated project cleanly, planner/executor should pivot to "user creates project in Xcode, then I fill files" — flag in the plan as a checkpoint.
+- **Fallback (MANDATORY checkpoint):** researcher flagged CLI scaffold as LOW confidence on Xcode 26. Plan MUST include an explicit checkpoint after scaffold attempt: if `xcodebuild -list` or first build fails, executor pauses and asks the user to create the project via Xcode GUI (File > New > Project > iOS App, Travellify, SwiftUI, SwiftData, iOS 17.0, Swift 6) and resume. Expected dev env: `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` must prefix all `xcodebuild` invocations since `xcode-select` points at CommandLineTools.
 
 ### D8 — Architecture: SwiftUI views + `@Observable` view-local state, no MVVM layer in v1
 
