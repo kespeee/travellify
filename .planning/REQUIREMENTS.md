@@ -97,45 +97,45 @@ Deferred — tracked but out of v1 roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | TBD | Pending |
-| FOUND-02 | TBD | Pending |
-| FOUND-03 | TBD | Pending |
-| TRIP-01 | TBD | Pending |
-| TRIP-02 | TBD | Pending |
-| TRIP-03 | TBD | Pending |
-| TRIP-04 | TBD | Pending |
-| TRIP-05 | TBD | Pending |
-| TRIP-06 | TBD | Pending |
-| DOC-01 | TBD | Pending |
-| DOC-02 | TBD | Pending |
-| DOC-03 | TBD | Pending |
-| DOC-04 | TBD | Pending |
-| DOC-05 | TBD | Pending |
-| DOC-06 | TBD | Pending |
-| DOC-07 | TBD | Pending |
-| DOC-08 | TBD | Pending |
-| PACK-01 | TBD | Pending |
-| PACK-02 | TBD | Pending |
-| PACK-03 | TBD | Pending |
-| PACK-04 | TBD | Pending |
-| PACK-05 | TBD | Pending |
-| PACK-06 | TBD | Pending |
-| PACK-07 | TBD | Pending |
-| ACT-01 | TBD | Pending |
-| ACT-02 | TBD | Pending |
-| ACT-03 | TBD | Pending |
-| ACT-04 | TBD | Pending |
-| ACT-05 | TBD | Pending |
-| ACT-06 | TBD | Pending |
-| ACT-07 | TBD | Pending |
-| ACT-08 | TBD | Pending |
-| ACT-09 | TBD | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| TRIP-01 | Phase 1 | Pending |
+| TRIP-02 | Phase 1 | Pending |
+| TRIP-03 | Phase 1 | Pending |
+| TRIP-04 | Phase 1 | Pending |
+| TRIP-05 | Phase 1 | Pending |
+| TRIP-06 | Phase 1 | Pending |
+| DOC-01 | Phase 2 | Pending |
+| DOC-02 | Phase 2 | Pending |
+| DOC-03 | Phase 2 | Pending |
+| DOC-04 | Phase 2 | Pending |
+| DOC-05 | Phase 2 | Pending |
+| DOC-06 | Phase 2 | Pending |
+| DOC-07 | Phase 2 | Pending |
+| DOC-08 | Phase 6 | Pending |
+| PACK-01 | Phase 3 | Pending |
+| PACK-02 | Phase 3 | Pending |
+| PACK-03 | Phase 3 | Pending |
+| PACK-04 | Phase 3 | Pending |
+| PACK-05 | Phase 3 | Pending |
+| PACK-06 | Phase 3 | Pending |
+| PACK-07 | Phase 3 | Pending |
+| ACT-01 | Phase 4 | Pending |
+| ACT-02 | Phase 7 | Pending |
+| ACT-03 | Phase 4 | Pending |
+| ACT-04 | Phase 4 | Pending |
+| ACT-05 | Phase 4 | Pending |
+| ACT-06 | Phase 7 | Pending |
+| ACT-07 | Phase 5 | Pending |
+| ACT-08 | Phase 5 | Pending |
+| ACT-09 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0 (to be filled by roadmapper)
-- Unmapped: 33 (pending roadmap)
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-18*
-*Last updated: 2026-04-18 after initial definition*
+*Last updated: 2026-04-18 — DOC-08 moved to Phase 6; ACT-02, ACT-06 moved to Phase 7*
