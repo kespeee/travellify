@@ -1,12 +1,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var path: [AppDestination] = []
+
     var body: some View {
-        Text("Travellify")
-            .padding()
+        NavigationStack(path: $path) {
+            TripListView()
+                .navigationDestination(for: AppDestination.self) { dest in
+                    switch dest {
+                    case .tripDetail(let id):
+                        TripDetailView(tripID: id)
+                    }
+                }
+        }
     }
 }
 
+#if DEBUG
 #Preview {
     ContentView()
+        .modelContainer(previewContainer)
 }
+#endif
