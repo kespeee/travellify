@@ -7,7 +7,6 @@ struct TripDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
-    @State private var selectedTab: TripDetailTab = .documents
     @State private var showEditSheet = false
 
     private var trip: Trip? {
@@ -19,7 +18,6 @@ struct TripDetailView: View {
             if let trip {
                 content(for: trip)
             } else {
-                // Trip was deleted while detail was visible — pop
                 Color.clear
                     .onAppear { dismiss() }
             }
@@ -28,22 +26,32 @@ struct TripDetailView: View {
 
     @ViewBuilder
     private func content(for trip: Trip) -> some View {
-        VStack(spacing: 0) {
-            TripDetailHeader(trip: trip)
+        ScrollView {
+            VStack(spacing: 16) {
+                TripDetailHeader(trip: trip)
 
-            Picker("Section", selection: $selectedTab) {
-                ForEach(TripDetailTab.allCases) { tab in
-                    Text(tab.title).tag(tab)
+                HStack(spacing: 12) {
+                    SectionCard(
+                        title: "Documents",
+                        systemImage: "doc.text",
+                        message: "Documents will appear here."
+                    )
+                    SectionCard(
+                        title: "Packing",
+                        systemImage: "checklist",
+                        message: "Your packing list will appear here."
+                    )
                 }
+
+                SectionCard(
+                    title: "Activities",
+                    systemImage: "calendar",
+                    message: "Your itinerary will appear here.",
+                    minHeight: 220
+                )
             }
-            .pickerStyle(.segmented)
             .padding(.horizontal, 16)
-            .padding(.bottom, 8)
-
-            Divider()
-
-            placeholderContent(for: selectedTab)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.vertical, 12)
         }
         .navigationTitle(trip.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -58,20 +66,35 @@ struct TripDetailView: View {
             TripEditSheet(mode: .edit(trip))
         }
     }
+}
 
-    @ViewBuilder
-    private func placeholderContent(for tab: TripDetailTab) -> some View {
-        VStack(spacing: 8) {
-            Text(tab.placeholderHeading)
-                .font(.title2.weight(.semibold))
-                .foregroundStyle(.primary)
-            Text(tab.placeholderBody)
-                .font(.body)
+private struct SectionCard: View {
+    let title: String
+    let systemImage: String
+    let message: String
+    var minHeight: CGFloat = 140
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: systemImage)
+                    .font(.title3)
+                    .foregroundStyle(.tint)
+                Text(title)
+                    .font(.headline)
+            }
+            Text(message)
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+            Spacer(minLength: 0)
         }
-        .padding(32)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(minHeight: minHeight, alignment: .topLeading)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color(uiColor: .secondarySystemBackground))
+        )
     }
 }
 

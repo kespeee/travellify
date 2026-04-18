@@ -21,6 +21,7 @@ struct TravellifyApp: App {
         WindowGroup {
             ContentView()
                 .modelContainer(container)
+                .preferredColorScheme(.dark)
         }
     }
 }

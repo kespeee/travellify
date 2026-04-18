@@ -23,7 +23,7 @@ struct TripEditSheet: View {
     }
 
     private var isValid: Bool {
-        !trimmedName.isEmpty && endDate >= startDate
+        endDate >= startDate
     }
 
     private var showEndDateError: Bool {
@@ -50,11 +50,6 @@ struct TripEditSheet: View {
                 Section("Trip") {
                     TextField("Trip name", text: $name)
                         .textInputAutocapitalization(.words)
-                    if trimmedName.isEmpty {
-                        Text("Trip name is required.")
-                            .font(.caption)
-                            .foregroundStyle(.red)
-                    }
                 }
 
                 Section("Dates") {
@@ -95,9 +90,6 @@ struct TripEditSheet: View {
                     Button(confirmButtonTitle) { save() }
                         .disabled(!isValid)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
             }
             .onAppear(perform: loadInitialValuesIfNeeded)
         }
@@ -127,7 +119,7 @@ struct TripEditSheet: View {
         switch mode {
         case .create:
             let trip = Trip()
-            trip.name = trimmedName
+            trip.name = trimmedName.isEmpty ? "Untitled Trip" : trimmedName
             trip.startDate = normalizedStart
             trip.endDate = normalizedEnd
             modelContext.insert(trip)
@@ -140,7 +132,7 @@ struct TripEditSheet: View {
             }
 
         case .edit(let trip):
-            trip.name = trimmedName
+            trip.name = trimmedName.isEmpty ? "Untitled Trip" : trimmedName
             trip.startDate = normalizedStart
             trip.endDate = normalizedEnd
             reconcileDestinations(for: trip, with: cleanedDrafts)
