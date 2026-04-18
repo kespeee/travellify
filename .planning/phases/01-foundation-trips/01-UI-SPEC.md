@@ -48,7 +48,7 @@ SwiftUI uses points (pt), not pixels. On standard (1x) displays 1pt = 1px; on Re
 
 **Exceptions:**
 - Minimum touch target: 44pt × 44pt (Apple HIG mandatory). Applies to toolbar buttons, sheet dismiss buttons, and any tappable row.
-- Destination tag chip horizontal padding: 10pt (between sm and md) — fits the inline multi-destination layout at narrow screen width.
+- Destination tag chip horizontal padding: 12pt (`md` ÷ 4 × 3 — one step above `sm`) — provides adequate breathing room for chip text at narrow screen widths while remaining Dynamic Type-safe; aligns with the 4pt grid.
 - NavigationStack large title clearance: handled automatically by SwiftUI `.navigationBarTitleDisplayMode(.large)` — do not override.
 
 ---
@@ -89,7 +89,7 @@ All colors use iOS semantic system colors. They automatically adapt to Light Mod
 
 **Accent reserved for — explicit list (not "all interactive elements"):**
 1. "New Trip" toolbar button (plus icon)
-2. "Save" / "Done" button in sheet navigation bar (right side)
+2. "Create Trip" / "Save Changes" button (sheet nav bar, right side)
 3. Tappable destination chip underline (if implemented as links)
 4. Date picker selection highlight (handled automatically by SwiftUI `DatePicker`)
 
@@ -163,25 +163,25 @@ Phase 1 has exactly one destructive action: Delete Trip.
 
 Components used in Phase 1 only. All are stock SwiftUI — no custom components introduced in this phase unless listed.
 
-| Screen | Component | SwiftUI API |
-|--------|-----------|-------------|
-| Trip List | Sorted list of trips | `List` with `@Query(sort:)` |
-| Trip List | Swipe-to-delete | `.swipeActions(edge: .trailing)` |
-| Trip List | Add button | `ToolbarItem(placement: .navigationBarTrailing)` with `Button` |
-| New Trip Sheet | Input form | `NavigationStack` + `Form` presented as `.sheet` |
-| New Trip Sheet | Trip name field | `TextField("Trip name", text: $name)` |
-| New Trip Sheet | Date range | Two `DatePicker` controls (Start Date, End Date) in `.compact` display mode |
-| New Trip Sheet | Destination list | `List` with inline `TextField` per destination row |
-| New Trip Sheet | Add destination | `Button("Add Destination")` at bottom of destination list |
-| New Trip Sheet | Reorder destinations | `.onMove` on the destination list |
-| New Trip Sheet | Remove destination | `.onDelete` or swipe action on destination row |
-| Trip Detail | Header | `VStack` with trip name (`.title2` semibold), date range (`.subheadline` secondary), destination chips |
-| Trip Detail | Tab switcher | `Picker` with `.segmented` style in toolbar, or `TabView` — see note below |
-| Delete Confirmation | Destructive dialog | `.confirmationDialog` |
+| Screen | Component | SwiftUI API | Accessibility |
+|--------|-----------|-------------|---------------|
+| Trip List | Sorted list of trips | `List` with `@Query(sort:)` | — |
+| Trip List | Swipe-to-delete | `.swipeActions(edge: .trailing)` | — |
+| Trip List | Add button | `ToolbarItem(placement: .navigationBarTrailing)` with `Button` | `.accessibilityLabel("New Trip")` — required; the button renders a `plus` symbol with no visible text label |
+| New Trip Sheet | Input form | `NavigationStack` + `Form` presented as `.sheet` | — |
+| New Trip Sheet | Trip name field | `TextField("Trip name", text: $name)` | — |
+| New Trip Sheet | Date range | Two `DatePicker` controls (Start Date, End Date) in `.compact` display mode | — |
+| New Trip Sheet | Destination list | `List` with inline `TextField` per destination row | — |
+| New Trip Sheet | Add destination | `Button("Add Destination")` at bottom of destination list | — |
+| New Trip Sheet | Reorder destinations | `.onMove` on the destination list | — |
+| New Trip Sheet | Remove destination | `.onDelete` or swipe action on destination row | — |
+| Trip Detail | Header | `VStack` with trip name (`.title2` semibold), date range (`.subheadline` secondary), destination chips | — |
+| Trip Detail | Tab switcher | `Picker` with `.segmented` style in toolbar, or `TabView` — see note below | — |
+| Delete Confirmation | Destructive dialog | `.confirmationDialog` | — |
 
 **Tab switcher decision — Phase 1:** Use a `Picker` with `.pickerStyle(.segmented)` placed in the `navigationBarTitleDisplayMode(.inline)` toolbar for the trip detail view. This is simpler than `TabView` for a scaffold, avoids tab bar conflicts with the root `NavigationStack`, and is easy to replace with `TabView` in later phases when tab content is real.
 
-**Destination chips in Trip Detail header:** Display as a horizontal `ScrollView` + `HStack` of `Text` views styled as rounded rectangle labels. Use `.background(Color.secondarySystemBackground)` + `.clipShape(Capsule())`. No tap action in Phase 1 (edit goes through Edit Trip sheet).
+**Destination chips in Trip Detail header:** Display as a horizontal `ScrollView` + `HStack` of `Text` views styled as rounded rectangle labels. Use `.background(Color.secondarySystemBackground)` + `.clipShape(Capsule())`. Horizontal padding: 12pt (see Spacing Scale exceptions). No tap action in Phase 1 (edit goes through Edit Trip sheet).
 
 ---
 
