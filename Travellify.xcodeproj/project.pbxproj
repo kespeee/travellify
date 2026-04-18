@@ -22,6 +22,8 @@
 		F5AFBD3FA12441FA90797834 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DF1084CE24F7898565D30 /* TripDetailView.swift */; };
 		C6DDDD0B27464CC9903FB903 /* TripRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC83BDE03704AC794C50953 /* TripRow.swift */; };
 		BFFB13523EEA457D8CA29242 /* TripEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */; };
+		AC1F76BACD9B45BC895B3F3E /* TripListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A46C12EA2F42C9B432262C /* TripListView.swift */; };
+		FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		D03DF1084CE24F7898565D30 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
 		5AC83BDE03704AC794C50953 /* TripRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRow.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
+		44A46C12EA2F42C9B432262C /* TripListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListView.swift; sourceTree = "<group>"; };
+		9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEditSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				D03DF1084CE24F7898565D30 /* TripDetailView.swift */,
 				5AC83BDE03704AC794C50953 /* TripRow.swift */,
 				0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */,
+				44A46C12EA2F42C9B432262C /* TripListView.swift */,
+				9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */,
 			);
 			path = Trips;
 			sourceTree = "<group>";
@@ -263,6 +269,8 @@
 				F5AFBD3FA12441FA90797834 /* TripDetailView.swift in Sources */,
 				C6DDDD0B27464CC9903FB903 /* TripRow.swift in Sources */,
 				BFFB13523EEA457D8CA29242 /* TripEmptyState.swift in Sources */,
+				AC1F76BACD9B45BC895B3F3E /* TripListView.swift in Sources */,
+				FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
