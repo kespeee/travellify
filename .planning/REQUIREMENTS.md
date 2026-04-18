@@ -18,7 +18,7 @@
 - [x] **TRIP-03**: User can browse a list of all their trips sorted by date
 - [x] **TRIP-04**: User can open a trip to see its documents, packing list, and activities in one place
 - [x] **TRIP-05**: User can edit a trip's name, dates, and destinations
-- [ ] **TRIP-06**: User can delete a trip, which cascades to delete all of its documents, packing items, and activities
+- [x] **TRIP-06**: User can delete a trip, which cascades to delete all of its documents, packing items, and activities
 
 ### Documents
 
@@ -105,7 +105,7 @@ Deferred — tracked but out of v1 roadmap.
 | TRIP-03 | Phase 1 | Complete |
 | TRIP-04 | Phase 1 | Complete |
 | TRIP-05 | Phase 1 | Complete |
-| TRIP-06 | Phase 1 | Pending |
+| TRIP-06 | Phase 1 | Complete |
 | DOC-01 | Phase 2 | Pending |
 | DOC-02 | Phase 2 | Pending |
 | DOC-03 | Phase 2 | Pending |
