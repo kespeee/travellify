@@ -27,6 +27,10 @@
 		B1A3C4D5E6F741829A0B1C2D /* DestinationDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */; };
 		A1B2C3D4E5F641829A0B1C2E /* TripDetailTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */; };
 		C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */; };
+		E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */; };
+		A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */; };
+		C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */; };
+		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationDraft.swift; sourceTree = "<group>"; };
 		B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailTab.swift; sourceTree = "<group>"; };
 		D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailHeader.swift; sourceTree = "<group>"; };
+		F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPartition.swift; sourceTree = "<group>"; };
+		B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTests.swift; sourceTree = "<group>"; };
+		DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
+		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,7 @@
 				44A46C12EA2F42C9B432262C /* TripListView.swift */,
 				9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */,
 				C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */,
+				F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */,
 			);
 			path = Trips;
 			sourceTree = "<group>";
@@ -170,6 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				5F81BBF1C8304F2A93A9BB45 /* SmokeTests.swift */,
+				B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */,
+				DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */,
+				FC0D1E2F304141829A0B2302 /* PartitionTests.swift */,
 			);
 			path = TravellifyTests;
 			sourceTree = "<group>";
@@ -283,6 +295,7 @@
 				B1A3C4D5E6F741829A0B1C2D /* DestinationDraft.swift in Sources */,
 				A1B2C3D4E5F641829A0B1C2E /* TripDetailTab.swift in Sources */,
 				C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */,
+				E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +304,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A03B541307164A308252F470 /* SmokeTests.swift in Sources */,
+				A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */,
+				C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */,
+				EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

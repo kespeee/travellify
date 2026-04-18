@@ -10,16 +10,12 @@ struct TripListView: View {
     @State private var showNewTrip = false
     @State private var tripPendingDelete: Trip?
 
-    private var today: Date {
-        Calendar.current.startOfDay(for: Date())
-    }
-
     private var upcomingTrips: [Trip] {
-        allTrips.filter { $0.endDate >= today }.sorted { $0.startDate < $1.startDate }
+        TripPartition.upcoming(from: allTrips)
     }
 
     private var pastTrips: [Trip] {
-        allTrips.filter { $0.endDate < today }.sorted { $0.startDate > $1.startDate }
+        TripPartition.past(from: allTrips)
     }
 
     var body: some View {

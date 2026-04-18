@@ -12,7 +12,7 @@ Seven phases deliver a complete local-first iOS travel companion. Phase 1 lays t
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation + Trips** - Data model, schema versioning, navigation shell, and full trip CRUD
+- [x] **Phase 1: Foundation + Trips** - Data model, schema versioning, navigation shell, and full trip CRUD
 - [ ] **Phase 2: Documents** - Document import (camera/Photos/Files), full-screen viewer, rename, delete
 - [ ] **Phase 3: Packing List** - Categorized packing list, swipe check-off, category and item CRUD, progress indicator
 - [ ] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete
@@ -39,7 +39,7 @@ Plans:
 - [x] 01-03-PLAN.md — AppDestination enum + NavigationStack root + TripListView with Upcoming/Past in-memory partitioning + empty state
 - [x] 01-04-PLAN.md — TripEditSheet (create + edit) with validation, date normalization, destination add/remove/reorder
 - [x] 01-05-PLAN.md — TripDetailView (header + 3 cards) + TabView shell + dark theme + swipe-to-delete with confirmation dialog; manual smoke-test passed
-- [ ] 01-06-PLAN.md — Swift Testing coverage: TripTests + SchemaTests + PartitionTests + CloudKit-safety grep gate
+- [x] 01-06-PLAN.md — Swift Testing coverage: TripTests + SchemaTests + PartitionTests + CloudKit-safety grep gate
 **UI hint**: yes
 
 ### Phase 2: Documents
@@ -123,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Trips | 5/6 | In Progress|  |
+| 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
 | 2. Documents | 0/? | Not started | - |
 | 3. Packing List | 0/? | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |
