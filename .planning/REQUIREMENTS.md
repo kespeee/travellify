@@ -7,9 +7,9 @@
 
 ### Foundation
 
-- [ ] **FOUND-01**: App persists all data locally via SwiftData across launches, device restarts, and app kills
-- [ ] **FOUND-02**: SwiftData schema wrapped in `VersionedSchema` from first release (zero migrations initially, infrastructure in place)
-- [ ] **FOUND-03**: All `@Model` classes follow CloudKit-safe conventions (optional inverse relationships, no `@Attribute(.unique)`, no `.deny` delete rules) to preserve a clean v2 migration path
+- [x] **FOUND-01**: App persists all data locally via SwiftData across launches, device restarts, and app kills
+- [x] **FOUND-02**: SwiftData schema wrapped in `VersionedSchema` from first release (zero migrations initially, infrastructure in place)
+- [x] **FOUND-03**: All `@Model` classes follow CloudKit-safe conventions (optional inverse relationships, no `@Attribute(.unique)`, no `.deny` delete rules) to preserve a clean v2 migration path
 
 ### Trips
 
@@ -97,9 +97,9 @@ Deferred — tracked but out of v1 roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
 | TRIP-01 | Phase 1 | Pending |
 | TRIP-02 | Phase 1 | Pending |
 | TRIP-03 | Phase 1 | Pending |

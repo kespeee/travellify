@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 Plan 01 complete — ready for Plan 02
-last_updated: "2026-04-19T00:58:17Z"
-last_activity: 2026-04-19 -- Plan 01-01 complete (Xcode scaffold + smoke test pass)
+stopped_at: Completed 01-02-PLAN.md (SwiftData schema, models, ModelContainer, PreviewContainer)
+last_updated: "2026-04-19T20:05:38Z"
+last_activity: 2026-04-19
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 6
-  completed_plans: 1
-  percent: 2
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State
@@ -26,30 +26,30 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 1 (Foundation + Trips) — EXECUTING
-Plan: 2 of 6
-Status: Executing Phase 1
-Last activity: 2026-04-19 -- Plan 01-01 complete (Xcode scaffold + smoke test pass)
+Plan: 3 of 6
+Status: Ready to execute
+Last activity: 2026-04-18
 
-Progress: [█░░░░░░░░░] 2%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 1
-- Average duration: ~35min
-- Total execution time: ~35min
+- Total plans completed: 2
+- Average duration: ~20min
+- Total execution time: ~40min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation + Trips | 1 | ~35min | ~35min |
+| 1. Foundation + Trips | 2 | ~40min | ~20min |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01 (~35min)
-- Trend: n/a (1 plan)
+- Last 5 plans: 01-01 (~35min), 01-02 (~5min)
+- Trend: improving
 
 *Updated after each plan completion*
 
@@ -67,6 +67,8 @@ Recent decisions affecting current work:
 - [01-01]: Hand-written pbxproj used (no xcodegen — xcodegen not on PATH; aligns with D7 no-tooling constraint)
 - [01-01]: iPhone 16e is the canonical simulator — only available iPhone on this machine; all plans use this simulator name
 - [01-01]: TravellifyApp.swift placed at Travellify/App/TravellifyApp.swift — downstream plans must check this path
+- [01-02]: static let versionIdentifier (not var) required by Swift 6 strict concurrency — Schema.Version is immutable
+- [01-02]: Explicit model list in ModelContainer — safer than graph discovery for placeholder @Model types with no active relationship instances
 
 ### Accumulated Technical Context
 
@@ -93,6 +95,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T00:58:17Z
-Stopped at: Completed 01-01-PLAN.md (Xcode scaffold + smoke test)
-Resume file: .planning/phases/01-foundation-trips/01-02-PLAN.md
+Last session: 2026-04-19T20:05:38Z
+Stopped at: Completed 01-02-PLAN.md (SwiftData schema, models, ModelContainer, PreviewContainer)
+Resume file: .planning/phases/01-foundation-trips/01-03-PLAN.md
