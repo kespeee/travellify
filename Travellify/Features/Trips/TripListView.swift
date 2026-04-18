@@ -8,21 +8,18 @@ struct TripListView: View {
     @Environment(\.modelContext) private var modelContext
 
     @State private var showNewTrip = false
+    @State private var tripPendingDelete: Trip?
 
     private var today: Date {
         Calendar.current.startOfDay(for: Date())
     }
 
     private var upcomingTrips: [Trip] {
-        allTrips
-            .filter { $0.endDate >= today }
-            .sorted { $0.startDate < $1.startDate }
+        allTrips.filter { $0.endDate >= today }.sorted { $0.startDate < $1.startDate }
     }
 
     private var pastTrips: [Trip] {
-        allTrips
-            .filter { $0.endDate < today }
-            .sorted { $0.startDate > $1.startDate }
+        allTrips.filter { $0.endDate < today }.sorted { $0.startDate > $1.startDate }
     }
 
     var body: some View {
@@ -34,18 +31,14 @@ struct TripListView: View {
                     if !upcomingTrips.isEmpty {
                         Section("Upcoming") {
                             ForEach(upcomingTrips) { trip in
-                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    TripRow(trip: trip)
-                                }
+                                row(for: trip)
                             }
                         }
                     }
                     if !pastTrips.isEmpty {
                         Section("Past") {
                             ForEach(pastTrips) { trip in
-                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    TripRow(trip: trip)
-                                }
+                                row(for: trip)
                             }
                         }
                     }
@@ -67,6 +60,40 @@ struct TripListView: View {
         }
         .sheet(isPresented: $showNewTrip) {
             TripEditSheet(mode: .create)
+        }
+        .confirmationDialog(
+            tripPendingDelete.map { "Delete \"\($0.name)\"?" } ?? "",
+            isPresented: Binding(
+                get: { tripPendingDelete != nil },
+                set: { if !$0 { tripPendingDelete = nil } }
+            ),
+            titleVisibility: .visible,
+            presenting: tripPendingDelete
+        ) { trip in
+            Button("Delete Trip", role: .destructive) {
+                modelContext.delete(trip)
+                try? modelContext.save()
+                tripPendingDelete = nil
+            }
+            Button("Cancel", role: .cancel) {
+                tripPendingDelete = nil
+            }
+        } message: { _ in
+            Text("This will also delete all documents, packing items, and activities for this trip.")
+        }
+    }
+
+    @ViewBuilder
+    private func row(for trip: Trip) -> some View {
+        NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+            TripRow(trip: trip)
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button(role: .destructive) {
+                tripPendingDelete = trip
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
         }
     }
 }
