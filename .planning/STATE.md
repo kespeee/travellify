@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-03-PLAN.md (NavigationStack root, TripListView, TripRow, TripEmptyState, stubs)
-last_updated: "2026-04-18T20:15:09.013Z"
+stopped_at: Completed 01-02-PLAN.md (SwiftData schema, models, ModelContainer, PreviewContainer)
+last_updated: "2026-04-18T20:20:30.118Z"
 last_activity: 2026-04-18
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 6
-  completed_plans: 3
-  percent: 50
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 1 (Foundation + Trips) — EXECUTING
-Plan: 4 of 6
+Plan: 5 of 6
 Status: Ready to execute
 Last activity: 2026-04-18
 
@@ -52,6 +52,7 @@ Progress: [█████░░░░░] 50%
 - Trend: improving
 
 *Updated after each plan completion*
+| Phase 01-foundation-trips P04 | 10min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Recent decisions affecting current work:
 - [01-03]: PersistentIdentifier used instead of Trip.ID — SwiftData @Model macro generates ID typealias with internal access; PersistentIdentifier is the correct public routing type for NavigationStack
 - [01-03]: TripDetailView stub signature locked: let tripID: PersistentIdentifier — plan 05 must preserve this exactly
 - [01-03]: TripEditSheet stub signature locked: let mode: Mode with enum Mode { case create; case edit(Trip) } — plan 04 must preserve this exactly
+- [01-04]: Index-based ForEach binding used in TripEditSheet (ForEach(destinations.indices)) — avoids Swift 6 strict concurrency issues with dollar-sign binding on value-type arrays in Xcode 26.2
+- [01-04]: reconcileDestinations diffs DestinationDraft list against persisted Destination children using PersistentIdentifier — delete removed, update existing, insert new; sortIndex rewritten 0..n-1 on every save
+- [01-04]: Zero destinations is valid (UI-SPEC wins over CONTEXT.md D5 discrepancy) — Save enabled with empty destination list
 
 ### Accumulated Technical Context
 
@@ -98,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T20:15:09.008Z
+Last session: 2026-04-18T20:20:30.104Z
 Stopped at: Completed 01-02-PLAN.md (SwiftData schema, models, ModelContainer, PreviewContainer)
 Resume file: None

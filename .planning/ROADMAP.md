@@ -37,7 +37,7 @@ Plans:
 - [x] 01-01-PLAN.md — Scaffold Xcode project (iOS 17 / Swift 6 / Swift Testing target); BLOCKING checkpoint falls back to Xcode GUI if CLI scaffold fails
 - [x] 01-02-PLAN.md — SchemaV1 VersionedSchema + Trip/Destination/placeholder @Model types + ModelContainer wiring + PreviewContainer
 - [x] 01-03-PLAN.md — AppDestination enum + NavigationStack root + TripListView with Upcoming/Past in-memory partitioning + empty state
-- [ ] 01-04-PLAN.md — TripEditSheet (create + edit) with validation, date normalization, destination add/remove/reorder
+- [x] 01-04-PLAN.md — TripEditSheet (create + edit) with validation, date normalization, destination add/remove/reorder
 - [ ] 01-05-PLAN.md — TripDetailView (header + segmented tabs + placeholder bodies) + swipe-to-delete with confirmation dialog; manual smoke-test checkpoint
 - [ ] 01-06-PLAN.md — Swift Testing coverage: TripTests + SchemaTests + PartitionTests + CloudKit-safety grep gate
 **UI hint**: yes
@@ -123,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Trips | 3/6 | In Progress|  |
+| 1. Foundation + Trips | 4/6 | In Progress|  |
 | 2. Documents | 0/? | Not started | - |
 | 3. Packing List | 0/? | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |

@@ -13,11 +13,11 @@
 
 ### Trips
 
-- [ ] **TRIP-01**: User can create a trip with a name and a date range (start date and end date)
-- [ ] **TRIP-02**: User can define a trip as multi-stop by adding multiple destinations (Paris → Rome → Florence) under a single trip
+- [x] **TRIP-01**: User can create a trip with a name and a date range (start date and end date)
+- [x] **TRIP-02**: User can define a trip as multi-stop by adding multiple destinations (Paris → Rome → Florence) under a single trip
 - [x] **TRIP-03**: User can browse a list of all their trips sorted by date
 - [x] **TRIP-04**: User can open a trip to see its documents, packing list, and activities in one place
-- [ ] **TRIP-05**: User can edit a trip's name, dates, and destinations
+- [x] **TRIP-05**: User can edit a trip's name, dates, and destinations
 - [ ] **TRIP-06**: User can delete a trip, which cascades to delete all of its documents, packing items, and activities
 
 ### Documents
@@ -100,11 +100,11 @@ Deferred — tracked but out of v1 roadmap.
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 1 | Complete |
-| TRIP-01 | Phase 1 | Pending |
-| TRIP-02 | Phase 1 | Pending |
+| TRIP-01 | Phase 1 | Complete |
+| TRIP-02 | Phase 1 | Complete |
 | TRIP-03 | Phase 1 | Complete |
 | TRIP-04 | Phase 1 | Complete |
-| TRIP-05 | Phase 1 | Pending |
+| TRIP-05 | Phase 1 | Complete |
 | TRIP-06 | Phase 1 | Pending |
 | DOC-01 | Phase 2 | Pending |
 | DOC-02 | Phase 2 | Pending |
