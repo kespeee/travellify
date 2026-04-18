@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-04-18T19:50:54.917Z"
-last_activity: 2026-04-18 -- Phase 1 execution started
+stopped_at: Phase 1 Plan 01 complete — ready for Plan 02
+last_updated: "2026-04-19T00:58:17Z"
+last_activity: 2026-04-19 -- Plan 01-01 complete (Xcode scaffold + smoke test pass)
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 6
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 2
 ---
 
 # Project State
@@ -26,30 +26,30 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 1 (Foundation + Trips) — EXECUTING
-Plan: 1 of 6
+Plan: 2 of 6
 Status: Executing Phase 1
-Last activity: 2026-04-18 -- Phase 1 execution started
+Last activity: 2026-04-19 -- Plan 01-01 complete (Xcode scaffold + smoke test pass)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 2%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: -
+- Total plans completed: 1
+- Average duration: ~35min
+- Total execution time: ~35min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Foundation + Trips | 1 | ~35min | ~35min |
 
 **Recent Trend:**
 
-- Last 5 plans: n/a
-- Trend: n/a
+- Last 5 plans: 01-01 (~35min)
+- Trend: n/a (1 plan)
 
 *Updated after each plan completion*
 
@@ -64,6 +64,9 @@ Recent decisions affecting current work:
 - [Roadmap]: Documents before Activities because `FileStorageService` proven in Phase 2 is reused for activity photos in Phase 7
 - [Roadmap]: Activity notifications and photos split into dedicated phases (5 and 7) to keep Activity CRUD stable before layering services
 - [Roadmap revision]: Polish + TestFlight moved to Phase 6 (before Activity Photos) so the TestFlight build ships with a stable, locked-down core; photo attachment follows as Phase 7
+- [01-01]: Hand-written pbxproj used (no xcodegen — xcodegen not on PATH; aligns with D7 no-tooling constraint)
+- [01-01]: iPhone 16e is the canonical simulator — only available iPhone on this machine; all plans use this simulator name
+- [01-01]: TravellifyApp.swift placed at Travellify/App/TravellifyApp.swift — downstream plans must check this path
 
 ### Accumulated Technical Context
 
@@ -90,6 +93,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-18T18:56:56.995Z
-Stopped at: Phase 1 UI-SPEC approved
-Resume file: .planning/phases/01-foundation-trips/01-UI-SPEC.md
+Last session: 2026-04-19T00:58:17Z
+Stopped at: Completed 01-01-PLAN.md (Xcode scaffold + smoke test)
+Resume file: .planning/phases/01-foundation-trips/01-02-PLAN.md

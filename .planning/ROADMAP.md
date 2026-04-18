@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. App data survives force-quit, device restart, and app reinstall without data loss
 **Plans**: 6 plans
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Xcode project (iOS 17 / Swift 6 / Swift Testing target); BLOCKING checkpoint falls back to Xcode GUI if CLI scaffold fails
+- [x] 01-01-PLAN.md — Scaffold Xcode project (iOS 17 / Swift 6 / Swift Testing target); BLOCKING checkpoint falls back to Xcode GUI if CLI scaffold fails
 - [ ] 01-02-PLAN.md — SchemaV1 VersionedSchema + Trip/Destination/placeholder @Model types + ModelContainer wiring + PreviewContainer
 - [ ] 01-03-PLAN.md — AppDestination enum + NavigationStack root + TripListView with Upcoming/Past in-memory partitioning + empty state
 - [ ] 01-04-PLAN.md — TripEditSheet (create + edit) with validation, date normalization, destination add/remove/reorder
@@ -123,7 +123,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Trips | 0/? | Not started | - |
+| 1. Foundation + Trips | 1/6 | In progress | - |
 | 2. Documents | 0/? | Not started | - |
 | 3. Packing List | 0/? | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |
