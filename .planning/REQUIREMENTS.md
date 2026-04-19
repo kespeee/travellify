@@ -26,8 +26,8 @@
 - [x] **DOC-02**: User can add a document to a trip by importing from Photos (PHPickerViewController)
 - [x] **DOC-03**: User can add a document to a trip by importing a PDF or image from the Files app (UIDocumentPickerViewController)
 - [x] **DOC-04**: User can view a document full-screen with pinch-to-zoom, supporting both images and PDFs
-- [ ] **DOC-05**: User can rename a document after import
-- [ ] **DOC-06**: User can delete a document from a trip
+- [x] **DOC-05**: User can rename a document after import
+- [x] **DOC-06**: User can delete a document from a trip
 - [x] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
 - [ ] **DOC-08**: User can opt in, via Settings, to require Face ID / passcode authentication before accessing the Documents section of any trip (LocalAuthentication framework)
 
@@ -110,8 +110,8 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-02 | Phase 2 | Complete |
 | DOC-03 | Phase 2 | Complete |
 | DOC-04 | Phase 2 | Complete |
-| DOC-05 | Phase 2 | Pending |
-| DOC-06 | Phase 2 | Pending |
+| DOC-05 | Phase 2 | Complete |
+| DOC-06 | Phase 2 | Complete |
 | DOC-07 | Phase 2 | Complete |
 | DOC-08 | Phase 6 | Pending |
 | PACK-01 | Phase 3 | Pending |
