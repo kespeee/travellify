@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 2 UI-SPEC approved (6/6 PASS)
-last_updated: "2026-04-19T09:41:37.589Z"
-last_activity: 2026-04-18
+last_updated: "2026-04-19T19:55:27.826Z"
+last_activity: 2026-04-19
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 12
+  completed_plans: 7
+  percent: 58
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-18)
 
 **Core value:** Fast, reliable on-trip access to documents, packing list, and today's activities — a traveler on the ground must be able to pull up their passport scan, check off packing items, and see what's next without friction.
-**Current focus:** Phase 1 — Foundation + Trips
+**Current focus:** Phase 2 — documents
 
 ## Current Position
 
-Phase: 1 (Foundation + Trips) — EXECUTING
-Plan: 5 of 6
+Phase: 2 (documents) — EXECUTING
+Plan: 2 of 6
 Status: Ready to execute
-Last activity: 2026-04-18
+Last activity: 2026-04-19
 
 Progress: [█████░░░░░] 50%
 
@@ -53,6 +53,7 @@ Progress: [█████░░░░░] 50%
 
 *Updated after each plan completion*
 | Phase 01-foundation-trips P04 | 10min | 3 tasks | 3 files |
+| Phase 02-documents P01 | 15 | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [02-CONTEXT]: D18 — Import: file copy on background Task, main-context insert on @MainActor. No @ModelActor in v1
 - [02-CONTEXT]: File storage base = Application Support/Documents/<tripUUID>/<docUUID>.<ext>; fileRelativePath stored relative (not absolute) to survive container UUID changes
 - [02-CONTEXT]: Document field additions land in existing SchemaV1 (no production data yet → no SchemaV2 migration stage needed — researcher to confirm)
+- [Phase ?]: D10 lightweight migration confirmed: additive Document fields with defaults do not require SchemaV2
+- [Phase ?]: FileStorage.swift requires manual pbxproj registration — project uses explicit PBXFileReference, not file-system synchronized groups
 
 ### Accumulated Technical Context
 
@@ -113,6 +116,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T09:41:37.581Z
+Last session: 2026-04-19T19:55:20.364Z
 Stopped at: Phase 2 UI-SPEC approved (6/6 PASS)
-Resume file: .planning/phases/02-documents/02-UI-SPEC.md
+Resume file: None

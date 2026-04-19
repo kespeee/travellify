@@ -54,7 +54,7 @@ Plans:
   5. Document files are stored on disk (not as data blobs in the database); app remains responsive during import
 **Plans**: 6 plans
 Plans:
-- [ ] 02-01-PLAN.md — Document @Model fields + DocumentKind enum + FileStorage service + AppDestination.documentList stub
+- [x] 02-01-PLAN.md — Document @Model fields + DocumentKind enum + FileStorage service + AppDestination.documentList stub
 - [ ] 02-02-PLAN.md — DocumentListView (empty state + rows + toolbar Menu + context-menu rename/delete stubs + fullScreenCover stub) + TripDetail Documents-card NavigationLink wire-up
 - [ ] 02-03-PLAN.md — Scan/Photos/Files importer bridges + DocumentImporter (off-main write, on-main insert) + NSCameraUsageDescription
 - [ ] 02-04-PLAN.md — DocumentViewer (PDFKit for PDFs, zoomable image for .image) replacing the list's fullScreenCover stub
@@ -132,7 +132,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
-| 2. Documents | 0/6 | Not started | - |
+| 2. Documents | 1/6 | In Progress|  |
 | 3. Packing List | 0/? | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |
 | 5. Notifications | 0/? | Not started | - |

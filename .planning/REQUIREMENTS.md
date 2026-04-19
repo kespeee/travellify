@@ -28,7 +28,7 @@
 - [ ] **DOC-04**: User can view a document full-screen with pinch-to-zoom, supporting both images and PDFs
 - [ ] **DOC-05**: User can rename a document after import
 - [ ] **DOC-06**: User can delete a document from a trip
-- [ ] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
+- [x] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
 - [ ] **DOC-08**: User can opt in, via Settings, to require Face ID / passcode authentication before accessing the Documents section of any trip (LocalAuthentication framework)
 
 ### Packing
@@ -112,7 +112,7 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-04 | Phase 2 | Pending |
 | DOC-05 | Phase 2 | Pending |
 | DOC-06 | Phase 2 | Pending |
-| DOC-07 | Phase 2 | Pending |
+| DOC-07 | Phase 2 | Complete |
 | DOC-08 | Phase 6 | Pending |
 | PACK-01 | Phase 3 | Pending |
 | PACK-02 | Phase 3 | Pending |
