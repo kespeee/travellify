@@ -67,8 +67,17 @@ struct TripListView: View {
             presenting: tripPendingDelete
         ) { trip in
             Button("Delete Trip", role: .destructive) {
+                // Capture ID before delete — trip reference may become invalid after save
+                let tripIDString = trip.id.uuidString
                 modelContext.delete(trip)
-                try? modelContext.save()
+                do {
+                    try modelContext.save()
+                    // Phase 2 (D16): remove the trip's file subtree AFTER save succeeds.
+                    // Silent on failure — orphan files are tolerable; model delete already succeeded.
+                    try? FileStorage.removeTripFolder(tripIDString: tripIDString)
+                } catch {
+                    // Model delete/save failed — do NOT remove files; keep on-disk state consistent with model.
+                }
                 tripPendingDelete = nil
             }
             Button("Cancel", role: .cancel) {
