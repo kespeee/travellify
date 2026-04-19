@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import PhotosUI
+import OSLog
 
 struct DocumentListView: View {
     let tripID: PersistentIdentifier
@@ -153,7 +154,19 @@ struct DocumentListView: View {
         ) { _ in
             TextField("Name", text: $renameDraft)
             Button("Save") {
-                // TODO(02-05): trim + assign displayName + save
+                let trimmed = renameDraft.trimmingCharacters(in: .whitespaces)
+                guard !trimmed.isEmpty, let doc = docPendingRename else {
+                    docPendingRename = nil
+                    renameDraft = ""
+                    return
+                }
+                // Security invariant (T-02-08): rename NEVER mutates fileRelativePath.
+                doc.displayName = trimmed
+                do {
+                    try modelContext.save()
+                } catch {
+                    importErrorMessage = "Couldn't rename. Please try again."
+                }
                 docPendingRename = nil
                 renameDraft = ""
             }
@@ -174,16 +187,29 @@ struct DocumentListView: View {
             presenting: docPendingDelete
         ) { _ in
             Button("Delete", role: .destructive) {
-                // TODO(02-05): FileStorage.remove + modelContext.delete + save
+                guard let doc = docPendingDelete else { docPendingDelete = nil; return }
+                // Step 1 (D16): remove file — errors logged, NOT surfaced to user
+                do {
+                    try FileStorage.remove(relativePath: doc.fileRelativePath)
+                } catch {
+                    Logger.fileStorage.error("File cleanup failed for id=\(doc.id, privacy: .private): \(error.localizedDescription, privacy: .public)")
+                }
+                // Step 2 (D16): delete model — save errors DO surface
+                modelContext.delete(doc)
+                do {
+                    try modelContext.save()
+                } catch {
+                    importErrorMessage = "Couldn't delete. Please try again."
+                }
                 docPendingDelete = nil
             }
             Button("Cancel", role: .cancel) { docPendingDelete = nil }
         } message: { _ in
             Text("This removes the file from your device and cannot be undone.")
         }
-        // Import error alert — Plan 02-03 sets importErrorMessage; shared shell lives here
+        // Import error alert — shared surface for import, rename, and delete failures
         .alert(
-            "Import Failed",
+            "Something went wrong",
             isPresented: Binding(
                 get: { importErrorMessage != nil },
                 set: { if !$0 { importErrorMessage = nil } }
