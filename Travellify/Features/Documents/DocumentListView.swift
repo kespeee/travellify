@@ -138,18 +138,9 @@ struct DocumentListView: View {
             photosItem = nil
             runImport { try await DocumentImporter.importPhotosItem(item, trip: trip, modelContext: modelContext) }
         }
-        // Viewer — Plan 02-04 replaces the body
+        // Viewer
         .fullScreenCover(item: $openedDocument) { doc in
-            // TODO(02-04): replace with DocumentViewer(document: doc)
-            VStack(spacing: 16) {
-                Text("Viewer coming soon")
-                    .font(.title2.weight(.semibold))
-                Text(doc.displayName)
-                    .foregroundStyle(.secondary)
-                Button("Close") { openedDocument = nil }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.systemBackground))
+            DocumentViewer(document: doc)
         }
         // Rename alert — Plan 02-05 wires Save action
         .alert(
