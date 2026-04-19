@@ -52,7 +52,14 @@ Plans:
   3. User can import a PDF from Files and view it page by page with pinch-to-zoom
   4. User can rename a document and delete a document from a trip
   5. Document files are stored on disk (not as data blobs in the database); app remains responsive during import
-**Plans**: TBD
+**Plans**: 6 plans
+Plans:
+- [ ] 02-01-PLAN.md — Document @Model fields + DocumentKind enum + FileStorage service + AppDestination.documentList stub
+- [ ] 02-02-PLAN.md — DocumentListView (empty state + rows + toolbar Menu + context-menu rename/delete stubs + fullScreenCover stub) + TripDetail Documents-card NavigationLink wire-up
+- [ ] 02-03-PLAN.md — Scan/Photos/Files importer bridges + DocumentImporter (off-main write, on-main insert) + NSCameraUsageDescription
+- [ ] 02-04-PLAN.md — DocumentViewer (PDFKit for PDFs, zoomable image for .image) replacing the list's fullScreenCover stub
+- [ ] 02-05-PLAN.md — Rename + Delete action wiring (T-02-08 invariant) + trip-cascade folder cleanup in TripListView
+- [ ] 02-06-PLAN.md — Swift Testing coverage (FileStorageTests, DocumentTests, ImportTests, ViewerTests) + fixtures + CloudKit-safety gate
 **UI hint**: yes
 
 ### Phase 3: Packing List
@@ -113,6 +120,7 @@ Plans:
   2. Photos appear as a thumbnail grid in the activity detail view; tapping a thumbnail shows the full photo
   3. Photos are stored as files on disk (not data blobs); app memory stays within safe limits during multi-photo import
   4. When an activity is deleted, its associated photo files are removed from disk
+
 **Plans**: TBD
 **UI hint**: yes
 
@@ -124,7 +132,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
-| 2. Documents | 0/? | Not started | - |
+| 2. Documents | 0/6 | Not started | - |
 | 3. Packing List | 0/? | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |
 | 5. Notifications | 0/? | Not started | - |
@@ -133,4 +141,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 ---
 *Roadmap created: 2026-04-18*
-*Last updated: 2026-04-18 — Phases 6 and 7 swapped per user feedback*
+*Last updated: 2026-04-20 — Phase 2 plans finalized (6 plans across 4 waves)*
