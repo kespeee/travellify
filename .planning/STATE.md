@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 UI-SPEC approved (6/6 PASS)
-last_updated: "2026-04-19T20:14:16.362Z"
+stopped_at: Completed 02-03 import bridges + DocumentImporter pipeline
+last_updated: "2026-04-19T20:40:28.839Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 12
-  completed_plans: 8
-  percent: 67
+  completed_plans: 9
+  percent: 75
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 2 (documents) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [█████░░░░░] 50%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Progress: [█████░░░░░] 50%
 | Phase 01-foundation-trips P04 | 10min | 3 tasks | 3 files |
 | Phase 02-documents P01 | 15 | 3 tasks | 5 files |
 | Phase 02-documents P02 | 25min | 3 tasks | 6 files |
+| Phase 02-documents P03 | 23min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [02-CONTEXT]: Document field additions land in existing SchemaV1 (no production data yet → no SchemaV2 migration stage needed — researcher to confirm)
 - [Phase ?]: D10 lightweight migration confirmed: additive Document fields with defaults do not require SchemaV2
 - [Phase ?]: FileStorage.swift requires manual pbxproj registration — project uses explicit PBXFileReference, not file-system synchronized groups
+- [02-03]: All Import/ files require manual pbxproj registration — explicit PBXGroup+PBXFileReference+PBXBuildFile pattern confirmed
+- [02-03]: ScanView coordinator @MainActor warnings under Swift 6 complete concurrency are expected — UIKit overlay infers it; do NOT add explicit @MainActor annotation
+- [02-03]: DocumentImporter Task.detached captures only Sendable primitives (String, Data, URL) — Trip/@Model never crosses actor boundary
 
 ### Accumulated Technical Context
 
@@ -117,6 +121,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T20:14:16.355Z
+Last session: 2026-04-19T20:40:28.834Z
 Stopped at: Phase 2 UI-SPEC approved (6/6 PASS)
 Resume file: None

@@ -22,9 +22,9 @@
 
 ### Documents
 
-- [ ] **DOC-01**: User can add a document to a trip by scanning it with the camera (VisionKit document scanner, multi-page + perspective correction)
-- [ ] **DOC-02**: User can add a document to a trip by importing from Photos (PHPickerViewController)
-- [ ] **DOC-03**: User can add a document to a trip by importing a PDF or image from the Files app (UIDocumentPickerViewController)
+- [x] **DOC-01**: User can add a document to a trip by scanning it with the camera (VisionKit document scanner, multi-page + perspective correction)
+- [x] **DOC-02**: User can add a document to a trip by importing from Photos (PHPickerViewController)
+- [x] **DOC-03**: User can add a document to a trip by importing a PDF or image from the Files app (UIDocumentPickerViewController)
 - [x] **DOC-04**: User can view a document full-screen with pinch-to-zoom, supporting both images and PDFs
 - [ ] **DOC-05**: User can rename a document after import
 - [ ] **DOC-06**: User can delete a document from a trip
@@ -106,9 +106,9 @@ Deferred — tracked but out of v1 roadmap.
 | TRIP-04 | Phase 1 | Complete |
 | TRIP-05 | Phase 1 | Complete |
 | TRIP-06 | Phase 1 | Complete |
-| DOC-01 | Phase 2 | Pending |
-| DOC-02 | Phase 2 | Pending |
-| DOC-03 | Phase 2 | Pending |
+| DOC-01 | Phase 2 | Complete |
+| DOC-02 | Phase 2 | Complete |
+| DOC-03 | Phase 2 | Complete |
 | DOC-04 | Phase 2 | Complete |
 | DOC-05 | Phase 2 | Pending |
 | DOC-06 | Phase 2 | Pending |
