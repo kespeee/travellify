@@ -39,6 +39,8 @@
 		CC0203A1B1C241829A0B5003 /* ScanPDFAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0203A1B1C241829A0B5004 /* ScanPDFAssembler.swift */; };
 		EE0203A1B1C241829A0B5005 /* FilesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0203A1B1C241829A0B5006 /* FilesImporter.swift */; };
 		A10203A1B1C241829A0B5007 /* DocumentImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10203A1B1C241829A0B5008 /* DocumentImporter.swift */; };
+		A20204B2C2D341829A0B6001 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20204B2C2D341829A0B6002 /* PDFKitView.swift */; };
+		A30204B2C2D341829A0B6003 /* DocumentViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30204B2C2D341829A0B6004 /* DocumentViewer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,8 @@
 		DD0203A1B1C241829A0B5004 /* ScanPDFAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPDFAssembler.swift; sourceTree = "<group>"; };
 		FF0203A1B1C241829A0B5006 /* FilesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesImporter.swift; sourceTree = "<group>"; };
 		B10203A1B1C241829A0B5008 /* DocumentImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImporter.swift; sourceTree = "<group>"; };
+		B20204B2C2D341829A0B6002 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
+		B30204B2C2D341829A0B6004 /* DocumentViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +233,8 @@
 				E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */,
 				A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */,
 				CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */,
+				B20204B2C2D341829A0B6002 /* PDFKitView.swift */,
+				B30204B2C2D341829A0B6004 /* DocumentViewer.swift */,
 				C20203A1B1C241829A0B5009 /* Import */,
 			);
 			path = Documents;
@@ -363,6 +369,8 @@
 				CC0203A1B1C241829A0B5003 /* ScanPDFAssembler.swift in Sources */,
 				EE0203A1B1C241829A0B5005 /* FilesImporter.swift in Sources */,
 				A10203A1B1C241829A0B5007 /* DocumentImporter.swift in Sources */,
+				A20204B2C2D341829A0B6001 /* PDFKitView.swift in Sources */,
+				A30204B2C2D341829A0B6003 /* DocumentViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
