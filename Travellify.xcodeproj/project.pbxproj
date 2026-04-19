@@ -3,38 +3,42 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32C7289744ED44C78185F341 /* TravellifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */; };
-		E79341E6B2E64A93B936E0EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B3032E22843EB8E8CEEEA /* ContentView.swift */; };
-		7959EC94BAE94FA081E94236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4624762CA03944AD9F343273 /* Assets.xcassets */; };
-		A03B541307164A308252F470 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F81BBF1C8304F2A93A9BB45 /* SmokeTests.swift */; };
-		DAB9EE09C3DE4941957B13A3 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */; };
-		9606D2561BA244CE80053A3C /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548A0F099E74ECAA4F4BDAC /* Trip.swift */; };
-		4A51F3AAEB8F4855B1786D48 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */; };
-		ADC768AD023D427DAB36400D /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA19DC35A7E403C82B2A2C1 /* Document.swift */; };
-		DA8160F4EA8340A3AB48030A /* PackingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */; };
 		164B93BCE9B64DA28F017D27 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39561E92784D9CB3DAA446 /* Activity.swift */; };
+		32C7289744ED44C78185F341 /* TravellifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */; };
+		4A51F3AAEB8F4855B1786D48 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */; };
+		7959EC94BAE94FA081E94236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4624762CA03944AD9F343273 /* Assets.xcassets */; };
 		82E05B42C9FA4F7FB0742F3C /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00393B58B34D4064ACE82273 /* PreviewContainer.swift */; };
+		9606D2561BA244CE80053A3C /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548A0F099E74ECAA4F4BDAC /* Trip.swift */; };
+		A03B541307164A308252F470 /* SmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F81BBF1C8304F2A93A9BB45 /* SmokeTests.swift */; };
+		A1B2C3D4E5F641829A0B1C2E /* TripDetailTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */; };
+		A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */; };
+		A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */; };
+		AC1F76BACD9B45BC895B3F3E /* TripListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A46C12EA2F42C9B432262C /* TripListView.swift */; };
+		ADC768AD023D427DAB36400D /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA19DC35A7E403C82B2A2C1 /* Document.swift */; };
+		B1A3C4D5E6F741829A0B1C2D /* DestinationDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */; };
+		B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */; };
+		BFFB13523EEA457D8CA29242 /* TripEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */; };
+		C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */; };
+		C6DDDD0B27464CC9903FB903 /* TripRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC83BDE03704AC794C50953 /* TripRow.swift */; };
+		C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */; };
+		D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */; };
+		DA8160F4EA8340A3AB48030A /* PackingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */; };
+		DAB9EE09C3DE4941957B13A3 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */; };
+		E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */; };
+		E79341E6B2E64A93B936E0EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B3032E22843EB8E8CEEEA /* ContentView.swift */; };
+		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
 		EC08EB1AE6974849AD6524CA /* AppDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B181D57824CCEA1807469 /* AppDestination.swift */; };
 		F5AFBD3FA12441FA90797834 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DF1084CE24F7898565D30 /* TripDetailView.swift */; };
-		C6DDDD0B27464CC9903FB903 /* TripRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC83BDE03704AC794C50953 /* TripRow.swift */; };
-		BFFB13523EEA457D8CA29242 /* TripEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */; };
-		AC1F76BACD9B45BC895B3F3E /* TripListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A46C12EA2F42C9B432262C /* TripListView.swift */; };
-		FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */; };
-		B1A3C4D5E6F741829A0B1C2D /* DestinationDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */; };
-		A1B2C3D4E5F641829A0B1C2E /* TripDetailTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */; };
-		C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */; };
-		E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */; };
-		A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */; };
-		C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */; };
-		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
-		A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */; };
-		D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */; };
 		F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */; };
-		B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */; };
+		FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */; };
+		AA0203A1B1C241829A0B5001 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0203A1B1C241829A0B5002 /* ScanView.swift */; };
+		CC0203A1B1C241829A0B5003 /* ScanPDFAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0203A1B1C241829A0B5004 /* ScanPDFAssembler.swift */; };
+		EE0203A1B1C241829A0B5005 /* FilesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0203A1B1C241829A0B5006 /* FilesImporter.swift */; };
+		A10203A1B1C241829A0B5007 /* DocumentImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10203A1B1C241829A0B5008 /* DocumentImporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,36 +52,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8B62FF173AE841D5A7C3D845 /* Travellify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travellify.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED48D319307A48F7885D9E17 /* TravellifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravellifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellifyApp.swift; sourceTree = "<group>"; };
-		C45B3032E22843EB8E8CEEEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4624762CA03944AD9F343273 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5F81BBF1C8304F2A93A9BB45 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
-		CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV1.swift; sourceTree = "<group>"; };
-		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
-		F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
-		BAA19DC35A7E403C82B2A2C1 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
-		CB39561E92784D9CB3DAA446 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		00393B58B34D4064ACE82273 /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
 		0A0B181D57824CCEA1807469 /* AppDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDestination.swift; sourceTree = "<group>"; };
-		D03DF1084CE24F7898565D30 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
-		5AC83BDE03704AC794C50953 /* TripRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRow.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
+		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
 		44A46C12EA2F42C9B432262C /* TripListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListView.swift; sourceTree = "<group>"; };
+		4624762CA03944AD9F343273 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5AC83BDE03704AC794C50953 /* TripRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRow.swift; sourceTree = "<group>"; };
+		5F81BBF1C8304F2A93A9BB45 /* SmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmokeTests.swift; sourceTree = "<group>"; };
+		8B62FF173AE841D5A7C3D845 /* Travellify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travellify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEditSheet.swift; sourceTree = "<group>"; };
-		C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationDraft.swift; sourceTree = "<group>"; };
-		B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailTab.swift; sourceTree = "<group>"; };
-		D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailHeader.swift; sourceTree = "<group>"; };
-		F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPartition.swift; sourceTree = "<group>"; };
-		B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTests.swift; sourceTree = "<group>"; };
-		DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
-		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
-		B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
-		E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDocumentsView.swift; sourceTree = "<group>"; };
 		A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRow.swift; sourceTree = "<group>"; };
+		AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellifyApp.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6A741829A0B1C2F /* TripDetailTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailTab.swift; sourceTree = "<group>"; };
+		B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTests.swift; sourceTree = "<group>"; };
+		BAA19DC35A7E403C82B2A2C1 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationDraft.swift; sourceTree = "<group>"; };
+		C45B3032E22843EB8E8CEEEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListView.swift; sourceTree = "<group>"; };
+		CB39561E92784D9CB3DAA446 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaV1.swift; sourceTree = "<group>"; };
+		D03DF1084CE24F7898565D30 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
+		D4E5F6A7B8C941829A0B1C31 /* TripDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailHeader.swift; sourceTree = "<group>"; };
+		DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
+		E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDocumentsView.swift; sourceTree = "<group>"; };
+		ED48D319307A48F7885D9E17 /* TravellifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TravellifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPartition.swift; sourceTree = "<group>"; };
+		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
+		BB0203A1B1C241829A0B5002 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		DD0203A1B1C241829A0B5004 /* ScanPDFAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPDFAssembler.swift; sourceTree = "<group>"; };
+		FF0203A1B1C241829A0B5006 /* FilesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesImporter.swift; sourceTree = "<group>"; };
+		B10203A1B1C241829A0B5008 /* DocumentImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +106,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E216F7ECAA4407B6915ED4 /* MainGroup */ = {
+		00E216F7ECAA4407B6915ED4 = {
 			isa = PBXGroup;
 			children = (
 				94AC54DBC8244B3396374DC8 /* Travellify */,
@@ -116,28 +124,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		94AC54DBC8244B3396374DC8 /* Travellify */ = {
-			isa = PBXGroup;
-			children = (
-				BEB48BD077214DF394306B90 /* App */,
-				68072AD986CE4CD4A1CC2806 /* Models */,
-				92B685F2294C44158A8F2A84 /* Shared */,
-				5562B32A48F5466CB919BC1F /* Features */,
-				C4D5E6F7A8B941829A0B3003 /* Services */,
-				C45B3032E22843EB8E8CEEEA /* ContentView.swift */,
-				4624762CA03944AD9F343273 /* Assets.xcassets */,
-			);
-			path = Travellify;
-			sourceTree = "<group>";
-		};
-		C4D5E6F7A8B941829A0B3003 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		5562B32A48F5466CB919BC1F /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,46 +131,6 @@
 				DB0E1F2031425341829A0B50 /* Documents */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		DB0E1F2031425341829A0B50 /* Documents */ = {
-			isa = PBXGroup;
-			children = (
-				E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */,
-				A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */,
-				CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */,
-			);
-			path = Documents;
-			sourceTree = "<group>";
-		};
-		68072AD986CE4CD4A1CC2806 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */,
-				2548A0F099E74ECAA4F4BDAC /* Trip.swift */,
-				F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */,
-				BAA19DC35A7E403C82B2A2C1 /* Document.swift */,
-				38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */,
-				CB39561E92784D9CB3DAA446 /* Activity.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		92B685F2294C44158A8F2A84 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				00393B58B34D4064ACE82273 /* PreviewContainer.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BEB48BD077214DF394306B90 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */,
-				0A0B181D57824CCEA1807469 /* AppDestination.swift */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		57143E37F16B43CF87DDD422 /* Trips */ = {
@@ -203,6 +149,19 @@
 			path = Trips;
 			sourceTree = "<group>";
 		};
+		68072AD986CE4CD4A1CC2806 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */,
+				2548A0F099E74ECAA4F4BDAC /* Trip.swift */,
+				F2AAD8A4A4E44884A3B29AC9 /* Destination.swift */,
+				BAA19DC35A7E403C82B2A2C1 /* Document.swift */,
+				38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */,
+				CB39561E92784D9CB3DAA446 /* Activity.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6F9CB64631214585A9EF6ED5 /* TravellifyTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +171,67 @@
 				FC0D1E2F304141829A0B2302 /* PartitionTests.swift */,
 			);
 			path = TravellifyTests;
+			sourceTree = "<group>";
+		};
+		92B685F2294C44158A8F2A84 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				00393B58B34D4064ACE82273 /* PreviewContainer.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		94AC54DBC8244B3396374DC8 /* Travellify */ = {
+			isa = PBXGroup;
+			children = (
+				BEB48BD077214DF394306B90 /* App */,
+				68072AD986CE4CD4A1CC2806 /* Models */,
+				92B685F2294C44158A8F2A84 /* Shared */,
+				5562B32A48F5466CB919BC1F /* Features */,
+				C4D5E6F7A8B941829A0B3003 /* Services */,
+				C45B3032E22843EB8E8CEEEA /* ContentView.swift */,
+				4624762CA03944AD9F343273 /* Assets.xcassets */,
+			);
+			path = Travellify;
+			sourceTree = "<group>";
+		};
+		BEB48BD077214DF394306B90 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */,
+				0A0B181D57824CCEA1807469 /* AppDestination.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C4D5E6F7A8B941829A0B3003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C20203A1B1C241829A0B5009 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				BB0203A1B1C241829A0B5002 /* ScanView.swift */,
+				DD0203A1B1C241829A0B5004 /* ScanPDFAssembler.swift */,
+				FF0203A1B1C241829A0B5006 /* FilesImporter.swift */,
+				B10203A1B1C241829A0B5008 /* DocumentImporter.swift */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		DB0E1F2031425341829A0B50 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */,
+				A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */,
+				CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */,
+				C20203A1B1C241829A0B5009 /* Import */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +321,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2254D2B3CA9043AFBA55EAD9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A03B541307164A308252F470 /* SmokeTests.swift in Sources */,
+				A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */,
+				C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */,
+				EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A4232BBCEEB498ABA81C38E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,17 +359,10 @@
 				D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */,
 				F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */,
 				B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2254D2B3CA9043AFBA55EAD9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A03B541307164A308252F470 /* SmokeTests.swift in Sources */,
-				A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */,
-				C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */,
-				EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */,
+				AA0203A1B1C241829A0B5001 /* ScanView.swift in Sources */,
+				CC0203A1B1C241829A0B5003 /* ScanPDFAssembler.swift in Sources */,
+				EE0203A1B1C241829A0B5005 /* FilesImporter.swift in Sources */,
+				A10203A1B1C241829A0B5007 /* DocumentImporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +440,59 @@
 			};
 			name = Debug;
 		};
+		28C280389AA44251A040640F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J435K46CMV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Travellify to use the camera to scan documents for your trips.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		2A75D0F60D534DC6BC22C37B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Travellify.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Travellify";
+			};
+			name = Release;
+		};
 		6D5F6923670F47878E332828 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -475,11 +552,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
 				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J435K46CMV;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow Travellify to use the camera to scan documents for your trips.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -489,8 +568,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_STRICT_CONCURRENCY = complete;
@@ -498,42 +578,13 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
-		};
-		28C280389AA44251A040640F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGNING_ALLOWED = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
 		};
 		F25D67F39A6648D99D3B2D2F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
@@ -549,35 +600,14 @@
 			};
 			name = Debug;
 		};
-		2A75D0F60D534DC6BC22C37B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGNING_ALLOWED = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kespeee.travellify.tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Travellify.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Travellify";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F6D0D056BAFD421382089A34 /* Build configuration list for PBXProject "Travellify" */ = {
+		861B0AFA8228454EB63EDB3C /* Build configuration list for PBXNativeTarget "TravellifyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				02DF5A6A80994977A6C882CE /* Debug */,
-				6D5F6923670F47878E332828 /* Release */,
+				F25D67F39A6648D99D3B2D2F /* Debug */,
+				2A75D0F60D534DC6BC22C37B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -591,17 +621,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		861B0AFA8228454EB63EDB3C /* Build configuration list for PBXNativeTarget "TravellifyTests" */ = {
+		F6D0D056BAFD421382089A34 /* Build configuration list for PBXProject "Travellify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F25D67F39A6648D99D3B2D2F /* Debug */,
-				2A75D0F60D534DC6BC22C37B /* Release */,
+				02DF5A6A80994977A6C882CE /* Debug */,
+				6D5F6923670F47878E332828 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = 62710A3C58FE4A9E956301EB /* Project object */;
 }

@@ -40,6 +40,18 @@ struct DocumentListView: View {
         modelContext.model(for: tripID) as? Trip
     }
 
+    private func runImport(_ work: @escaping () async throws -> Void) {
+        isImporting = true
+        Task {
+            defer { isImporting = false }
+            do {
+                try await work()
+            } catch {
+                importErrorMessage = "Couldn't add document. Please try again."
+            }
+        }
+    }
+
     var body: some View {
         Group {
             if documents.isEmpty {
@@ -92,24 +104,39 @@ struct DocumentListView: View {
                 .accessibilityLabel("Add Document")
             }
         }
-        // Scan sheet — Plan 02-03 wires the body
+        // Scan sheet
         .sheet(isPresented: $showScanSheet) {
-            Text("Scan importer — TODO(02-03)")
-                .padding()
-                .presentationDetents([.medium])
-            // TODO(02-03): replace with ScanView(onFinish:onCancel:onError:)
+            ScanView(
+                onFinish: { pages in
+                    showScanSheet = false
+                    guard let trip else { return }
+                    runImport { try await DocumentImporter.importScanResult(pages: pages, trip: trip, modelContext: modelContext) }
+                },
+                onCancel: { showScanSheet = false },
+                onError: { _ in
+                    showScanSheet = false
+                    importErrorMessage = "Couldn't add document. Please try again."
+                }
+            )
+            .ignoresSafeArea()
         }
-        // Files sheet — Plan 02-03 wires the body
+        // Files sheet
         .sheet(isPresented: $showFilesSheet) {
-            Text("Files importer — TODO(02-03)")
-                .padding()
-                .presentationDetents([.medium])
-            // TODO(02-03): replace with FilesImporter(onPicked:onCancel:)
+            FilesImporter(
+                onPicked: { url in
+                    showFilesSheet = false
+                    guard let trip else { return }
+                    runImport { try await DocumentImporter.importFileURL(url, trip: trip, modelContext: modelContext) }
+                },
+                onCancel: { showFilesSheet = false }
+            )
+            .ignoresSafeArea()
         }
-        // PhotosPicker binding — Plan 02-03 wires .onChange(of: photosItem)
-        .onChange(of: photosItem) { _, _ in
-            // TODO(02-03): call importPhotosPickerItem(...)
+        // PhotosPicker binding
+        .onChange(of: photosItem) { _, newValue in
+            guard let item = newValue, let trip else { return }
             photosItem = nil
+            runImport { try await DocumentImporter.importPhotosItem(item, trip: trip, modelContext: modelContext) }
         }
         // Viewer — Plan 02-04 replaces the body
         .fullScreenCover(item: $openedDocument) { doc in
