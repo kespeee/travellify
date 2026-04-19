@@ -25,7 +25,7 @@
 - [ ] **DOC-01**: User can add a document to a trip by scanning it with the camera (VisionKit document scanner, multi-page + perspective correction)
 - [ ] **DOC-02**: User can add a document to a trip by importing from Photos (PHPickerViewController)
 - [ ] **DOC-03**: User can add a document to a trip by importing a PDF or image from the Files app (UIDocumentPickerViewController)
-- [ ] **DOC-04**: User can view a document full-screen with pinch-to-zoom, supporting both images and PDFs
+- [x] **DOC-04**: User can view a document full-screen with pinch-to-zoom, supporting both images and PDFs
 - [ ] **DOC-05**: User can rename a document after import
 - [ ] **DOC-06**: User can delete a document from a trip
 - [x] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
@@ -109,7 +109,7 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-01 | Phase 2 | Pending |
 | DOC-02 | Phase 2 | Pending |
 | DOC-03 | Phase 2 | Pending |
-| DOC-04 | Phase 2 | Pending |
+| DOC-04 | Phase 2 | Complete |
 | DOC-05 | Phase 2 | Pending |
 | DOC-06 | Phase 2 | Pending |
 | DOC-07 | Phase 2 | Complete |
