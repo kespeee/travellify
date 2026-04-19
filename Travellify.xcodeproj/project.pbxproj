@@ -31,6 +31,7 @@
 		A7B8C9DAEBFC41829A0B2101 /* TripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */; };
 		C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */; };
 		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
+		A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		B8C9DAEBFC0D41829A0B2102 /* TripTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTests.swift; sourceTree = "<group>"; };
 		DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
 		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
+		B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +117,19 @@
 				68072AD986CE4CD4A1CC2806 /* Models */,
 				92B685F2294C44158A8F2A84 /* Shared */,
 				5562B32A48F5466CB919BC1F /* Features */,
+				C4D5E6F7A8B941829A0B3003 /* Services */,
 				C45B3032E22843EB8E8CEEEA /* ContentView.swift */,
 				4624762CA03944AD9F343273 /* Assets.xcassets */,
 			);
 			path = Travellify;
+			sourceTree = "<group>";
+		};
+		C4D5E6F7A8B941829A0B3003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		5562B32A48F5466CB919BC1F /* Features */ = {
@@ -296,6 +307,7 @@
 				A1B2C3D4E5F641829A0B1C2E /* TripDetailTab.swift in Sources */,
 				C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */,
 				E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */,
+				A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
