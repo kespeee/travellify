@@ -32,6 +32,9 @@
 		C9DAEBFC0D1E41829A0B2201 /* SchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */; };
 		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
 		A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */; };
+		D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */; };
+		F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */; };
+		B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,9 @@
 		DAEBFC0D1E2F41829A0B2202 /* SchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaTests.swift; sourceTree = "<group>"; };
 		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
 		B3C4D5E6F7A841829A0B3002 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDocumentsView.swift; sourceTree = "<group>"; };
+		A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRow.swift; sourceTree = "<group>"; };
+		CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,8 +142,19 @@
 			isa = PBXGroup;
 			children = (
 				57143E37F16B43CF87DDD422 /* Trips */,
+				DB0E1F2031425341829A0B50 /* Documents */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		DB0E1F2031425341829A0B50 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */,
+				A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */,
+				CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		68072AD986CE4CD4A1CC2806 /* Models */ = {
@@ -308,6 +325,9 @@
 				C3D4E5F6A7B841829A0B1C30 /* TripDetailHeader.swift in Sources */,
 				E5F6A7B8C9DA41829A0B1D32 /* TripPartition.swift in Sources */,
 				A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */,
+				D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */,
+				F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */,
+				B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

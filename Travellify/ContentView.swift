@@ -12,10 +12,7 @@ struct ContentView: View {
                         case .tripDetail(let id):
                             TripDetailView(tripID: id)
                         case .documentList(let id):
-                            // TODO(02-02): replace with DocumentListView(tripID: id)
-                            Text("Documents coming soon").foregroundStyle(.secondary)
-                                .navigationTitle("Documents")
-                                .onAppear { _ = id } // silence unused-let warning until wired
+                            DocumentListView(tripID: id)
                         }
                     }
             }
