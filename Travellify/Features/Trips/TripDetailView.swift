@@ -31,11 +31,7 @@ struct TripDetailView: View {
                 TripDetailHeader(trip: trip)
 
                 HStack(spacing: 12) {
-                    SectionCard(
-                        title: "Documents",
-                        systemImage: "doc.text",
-                        message: "Documents will appear here."
-                    )
+                    documentsCard(for: trip)
                     SectionCard(
                         title: "Packing",
                         systemImage: "checklist",
@@ -66,6 +62,25 @@ struct TripDetailView: View {
             TripEditSheet(mode: .edit(trip))
         }
     }
+
+    @ViewBuilder
+    private func documentsCard(for trip: Trip) -> some View {
+        let docs = trip.documents ?? []
+        let count = docs.count
+        let primary: String = count == 0 ? "No documents yet" : (count == 1 ? "1 document" : "\(count) documents")
+        let latest: String? = count == 0
+            ? nil
+            : docs.max(by: { $0.importedAt < $1.importedAt })?.displayName
+        NavigationLink(value: AppDestination.documentList(trip.persistentModelID)) {
+            SectionCard(
+                title: "Documents",
+                systemImage: "doc.text",
+                message: primary,
+                secondaryMessage: latest
+            )
+        }
+        .buttonStyle(.plain)
+    }
 }
 
 private struct SectionCard: View {
@@ -73,6 +88,7 @@ private struct SectionCard: View {
     let systemImage: String
     let message: String
     var minHeight: CGFloat = 140
+    var secondaryMessage: String? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -86,6 +102,13 @@ private struct SectionCard: View {
             Text(message)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+            if let secondaryMessage {
+                Text(secondaryMessage)
+                    .font(.subheadline)
+                    .foregroundStyle(.primary)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
             Spacer(minLength: 0)
         }
         .padding(16)
