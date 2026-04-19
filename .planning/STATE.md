@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-06-PLAN.md (Swift Testing: 16 tests green; CloudKit-safety grep PASS). Phase 1 complete.
-last_updated: "2026-04-19T03:15:00.000Z"
+status: discussing
+stopped_at: Phase 2 CONTEXT.md written (D10-D18 locked). Ready for /gsd-ui-phase 2 then /gsd-plan-phase 2.
+last_updated: "2026-04-19T09:30:00.000Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 7
@@ -76,6 +76,17 @@ Recent decisions affecting current work:
 - [01-04]: Index-based ForEach binding used in TripEditSheet (ForEach(destinations.indices)) — avoids Swift 6 strict concurrency issues with dollar-sign binding on value-type arrays in Xcode 26.2
 - [01-04]: reconcileDestinations diffs DestinationDraft list against persisted Destination children using PersistentIdentifier — delete removed, update existing, insert new; sortIndex rewritten 0..n-1 on every save
 - [01-04]: Zero destinations is valid (UI-SPEC wins over CONTEXT.md D5 discrepancy) — Save enabled with empty destination list
+- [02-CONTEXT]: D10 — Document model gets displayName, fileRelativePath, kind (pdf|image raw String), importedAt. No @Attribute(.externalStorage); own file lifecycle directly
+- [02-CONTEXT]: D11 — Import "+" button uses SwiftUI Menu with 3 items (Scan/Photos/Files); lazy permissions; PDF + images whitelist
+- [02-CONTEXT]: D12 — VisionKit multi-page scan → one Document, one combined PDF via PDFKit assembly
+- [02-CONTEXT]: D13 — Auto-name on import (Scan YYYY-MM-DD / Photo YYYY-MM-DD / source filename); rename later
+- [02-CONTEXT]: D14 — Viewer: fullScreenCover; PDFKit PDFView for PDFs, ScrollView+Image+MagnificationGesture for images; minimal chrome (X + title)
+- [02-CONTEXT]: D15 — Long-press context menu is the ONLY action surface for rename + delete (no swipe-to-delete, diverges from Trip); rename via .alert + TextField; delete via .confirmationDialog with name + finality copy
+- [02-CONTEXT]: D16 — File cleanup explicit in delete action; trip cascade removes <tripUUID>/ folder post model save; no SwiftData hooks, no orphan sweep
+- [02-CONTEXT]: D17 — TripDetail Documents card shows count + latest; tap pushes AppDestination.documentList(PersistentIdentifier) — enum must be extended
+- [02-CONTEXT]: D18 — Import: file copy on background Task, main-context insert on @MainActor. No @ModelActor in v1
+- [02-CONTEXT]: File storage base = Application Support/Documents/<tripUUID>/<docUUID>.<ext>; fileRelativePath stored relative (not absolute) to survive container UUID changes
+- [02-CONTEXT]: Document field additions land in existing SchemaV1 (no production data yet → no SchemaV2 migration stage needed — researcher to confirm)
 
 ### Accumulated Technical Context
 
