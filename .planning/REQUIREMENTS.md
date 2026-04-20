@@ -37,9 +37,9 @@
 - [x] **PACK-02**: User can add a packing item under a category with a name
 - [ ] **PACK-03**: User can edit a packing item's name or category
 - [x] **PACK-04**: User can delete a packing item
-- [ ] **PACK-05**: User can add, rename, and delete categories
+- [x] **PACK-05**: User can add, rename, and delete categories
 - [x] **PACK-06**: User can check off a packing item by swiping the row (and swipe again to uncheck)
-- [ ] **PACK-07**: Packing list displays a progress indicator showing checked-off items over total (e.g., "12 / 23 packed") at the top of the list
+- [x] **PACK-07**: Packing list displays a progress indicator showing checked-off items over total (e.g., "12 / 23 packed") at the top of the list
 
 ### Activities
 
@@ -118,9 +118,9 @@ Deferred — tracked but out of v1 roadmap.
 | PACK-02 | Phase 3 | Complete |
 | PACK-03 | Phase 3 | Pending |
 | PACK-04 | Phase 3 | Complete |
-| PACK-05 | Phase 3 | Pending |
+| PACK-05 | Phase 3 | Complete |
 | PACK-06 | Phase 3 | Complete |
-| PACK-07 | Phase 3 | Pending |
+| PACK-07 | Phase 3 | Complete |
 | ACT-01 | Phase 4 | Pending |
 | ACT-02 | Phase 7 | Pending |
 | ACT-03 | Phase 4 | Pending |

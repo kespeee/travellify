@@ -75,7 +75,7 @@ Plans:
 **Plans**: 4 plans
 Plans:
 - [x] 03-01-PLAN.md — Packing schema foundation: PackingCategory @Model + PackingItem replacement + Trip.packingCategories + AppDestination.packingList + stub view + repair existing tests
-- [ ] 03-02-PLAN.md — PackingListView scaffold: @Query-driven List with Section-per-category, PackingProgressRow, EmptyPackingListView, CategoryHeader + contextMenu, category add/rename/delete, TripDetail Packing card wire-up
+- [x] 03-02-PLAN.md — PackingListView scaffold: @Query-driven List with Section-per-category, PackingProgressRow, EmptyPackingListView, CategoryHeader + contextMenu, category add/rename/delete, TripDetail Packing card wire-up
 - [ ] 03-03-PLAN.md — Item CRUD + interactions: PackingRow with inline rename, leading/trailing swipeActions, sensoryFeedback, inline add-item row with dual @FocusState, cross-category drag-and-drop
 - [ ] 03-04-PLAN.md — Swift Testing coverage: PackingTests (model invariants + cascade) + PackingProgressTests (progress formula edge cases)
 **UI hint**: yes
@@ -138,7 +138,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
 | 2. Documents | 5/6 | In Progress|  |
-| 3. Packing List | 0/4 | Not started | - |
+| 3. Packing List | 2/4 | In Progress|  |
 | 4. Activities (Core) | 0/? | Not started | - |
 | 5. Notifications | 0/? | Not started | - |
 | 6. Polish + TestFlight | 0/? | Not started | - |
