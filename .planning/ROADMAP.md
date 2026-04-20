@@ -72,7 +72,12 @@ Plans:
   3. User can edit an item's name or move it to a different category, and delete any item
   4. User can add, rename, and delete categories
   5. A progress indicator at the top of the list shows how many items have been checked off (e.g., "12 / 23 packed")
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 03-01-PLAN.md — Packing schema foundation: PackingCategory @Model + PackingItem replacement + Trip.packingCategories + AppDestination.packingList + stub view + repair existing tests
+- [ ] 03-02-PLAN.md — PackingListView scaffold: @Query-driven List with Section-per-category, PackingProgressRow, EmptyPackingListView, CategoryHeader + contextMenu, category add/rename/delete, TripDetail Packing card wire-up
+- [ ] 03-03-PLAN.md — Item CRUD + interactions: PackingRow with inline rename, leading/trailing swipeActions, sensoryFeedback, inline add-item row with dual @FocusState, cross-category drag-and-drop
+- [ ] 03-04-PLAN.md — Swift Testing coverage: PackingTests (model invariants + cascade) + PackingProgressTests (progress formula edge cases)
 **UI hint**: yes
 
 ### Phase 4: Activities (Core)
@@ -133,7 +138,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
 | 2. Documents | 5/6 | In Progress|  |
-| 3. Packing List | 0/? | Not started | - |
+| 3. Packing List | 0/4 | Not started | - |
 | 4. Activities (Core) | 0/? | Not started | - |
 | 5. Notifications | 0/? | Not started | - |
 | 6. Polish + TestFlight | 0/? | Not started | - |
@@ -141,4 +146,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 ---
 *Roadmap created: 2026-04-18*
-*Last updated: 2026-04-20 — Phase 2 plans finalized (6 plans across 4 waves)*
+*Last updated: 2026-04-21 — Phase 3 plans finalized (4 plans across 3 waves)*
