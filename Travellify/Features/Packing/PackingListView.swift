@@ -14,6 +14,14 @@ struct PackingListView: View {
     @State private var renameCategoryDraft: String = ""
     @State private var pendingDeleteCategory: PackingCategory?
 
+    // Dual FocusState — RESEARCH Pattern 2 / Pitfall 1
+    @FocusState private var addItemFocus: PersistentIdentifier?     // keyed by category.persistentModelID
+    @FocusState private var renameItemFocus: PersistentIdentifier?  // keyed by item.persistentModelID
+
+    // Per-category add-item drafts and per-item rename drafts
+    @State private var newItemNames: [PersistentIdentifier: String] = [:]
+    @State private var renameDrafts: [PersistentIdentifier: String] = [:]
+
     // Shared error surface
     @State private var errorMessage: String?
 
@@ -42,6 +50,73 @@ struct PackingListView: View {
         (category.items ?? []).sorted { $0.sortOrder < $1.sortOrder }
     }
 
+    // MARK: - Binding helpers
+
+    private func newItemNameBinding(for category: PackingCategory) -> Binding<String> {
+        Binding(
+            get: { newItemNames[category.persistentModelID] ?? "" },
+            set: { newItemNames[category.persistentModelID] = $0 }
+        )
+    }
+
+    private func renameDraftBinding(for item: PackingItem) -> Binding<String> {
+        Binding(
+            get: { renameDrafts[item.persistentModelID] ?? item.name },
+            set: { renameDrafts[item.persistentModelID] = $0 }
+        )
+    }
+
+    // MARK: - Item CRUD mutations
+
+    private func toggleChecked(_ item: PackingItem) {
+        item.isChecked.toggle()
+        do { try modelContext.save() }
+        catch { errorMessage = "Couldn't update item. Please try again." }
+    }
+
+    private func deleteItem(_ item: PackingItem) {
+        modelContext.delete(item)
+        do { try modelContext.save() }
+        catch { errorMessage = "Couldn't delete item. Please try again." }
+    }
+
+    private func insertItem(name: String, in category: PackingCategory) {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        let nextSort = ((category.items ?? []).map(\.sortOrder).max() ?? -1) + 1
+        let item = PackingItem()
+        item.name = trimmed
+        item.sortOrder = nextSort
+        item.category = category
+        modelContext.insert(item)
+        do { try modelContext.save() }
+        catch { errorMessage = "Couldn't add item. Please try again." }
+    }
+
+    private func commitRename(_ item: PackingItem) {
+        let draft = (renameDrafts[item.persistentModelID] ?? "").trimmingCharacters(in: .whitespaces)
+        if !draft.isEmpty, draft != item.name {
+            item.name = draft
+            do { try modelContext.save() }
+            catch { errorMessage = "Couldn't rename. Please try again." }
+        }
+        renameDrafts[item.persistentModelID] = nil
+        renameItemFocus = nil
+    }
+
+    private func fetchItem(byID uuid: UUID) -> PackingItem? {
+        let desc = FetchDescriptor<PackingItem>(predicate: #Predicate { $0.id == uuid })
+        return try? modelContext.fetch(desc).first
+    }
+
+    private func moveItem(_ item: PackingItem, to destination: PackingCategory) {
+        let nextSort = ((destination.items ?? []).map(\.sortOrder).max() ?? -1) + 1
+        item.category = destination
+        item.sortOrder = nextSort
+        do { try modelContext.save() }
+        catch { errorMessage = "Couldn't move item. Please try again." }
+    }
+
     // MARK: - List content sections
 
     @ViewBuilder
@@ -59,9 +134,69 @@ struct PackingListView: View {
             ForEach(categories) { category in
                 Section {
                     ForEach(sortedItems(category)) { item in
-                        // PLAIN ROW — swipes / inline edit / checked styling land in plan 03
-                        Text(item.name).font(.body)
+                        PackingRow(
+                            item: item,
+                            renameDraft: renameDraftBinding(for: item),
+                            isRenaming: renameItemFocus == item.persistentModelID,
+                            onTapToRename: {
+                                renameDrafts[item.persistentModelID] = item.name
+                                renameItemFocus = item.persistentModelID
+                            },
+                            onCommitRename: { commitRename(item) },
+                            renameItemFocus: $renameItemFocus
+                        )
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                toggleChecked(item)
+                            } label: {
+                                Label(item.isChecked ? "Unpack" : "Pack", systemImage: "checkmark")
+                            }
+                            .tint(.green)
+                            .accessibilityLabel(item.isChecked ? "Mark as unpacked" : "Mark as packed")
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                deleteItem(item)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                            .accessibilityLabel("Delete \(item.name)")
+                        }
+                        .sensoryFeedback(.success, trigger: item.isChecked)
                     }
+                    // Inline "Add item" row — always at bottom of each section (D30 / UI-SPEC)
+                    HStack {
+                        Image(systemName: "plus.circle").foregroundStyle(.tint)
+                        if addItemFocus == category.persistentModelID {
+                            TextField("Item name", text: newItemNameBinding(for: category))
+                                .font(.body)
+                                .focused($addItemFocus, equals: category.persistentModelID)
+                                .submitLabel(.done)
+                                .onSubmit {
+                                    let trimmed = (newItemNames[category.persistentModelID] ?? "")
+                                        .trimmingCharacters(in: .whitespaces)
+                                    if !trimmed.isEmpty {
+                                        insertItem(name: trimmed, in: category)
+                                        newItemNames[category.persistentModelID] = ""
+                                        // Re-focus for rapid multi-add (D30)
+                                        addItemFocus = category.persistentModelID
+                                    } else {
+                                        // Empty submit dismisses (Pitfall 6: nil, not same id)
+                                        addItemFocus = nil
+                                    }
+                                }
+                        } else {
+                            Text("+ Add item")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    addItemFocus = category.persistentModelID
+                                }
+                        }
+                    }
+                    .accessibilityLabel("Add item to \(category.name)")
                 } header: {
                     CategoryHeader(
                         category: category,
@@ -69,7 +204,12 @@ struct PackingListView: View {
                             pendingRenameCategory = category
                             renameCategoryDraft = category.name
                         },
-                        onDelete: { pendingDeleteCategory = category }
+                        onDelete: { pendingDeleteCategory = category },
+                        onDropItem: { uuid in
+                            guard let item = fetchItem(byID: uuid) else { return }
+                            guard item.category?.persistentModelID != category.persistentModelID else { return }
+                            moveItem(item, to: category)
+                        }
                     )
                 }
             }
