@@ -11,7 +11,7 @@ struct TripTests {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         container = try ModelContainer(
             for: Trip.self, Destination.self, Document.self,
-                 PackingItem.self, Activity.self,
+                 PackingItem.self, PackingCategory.self, Activity.self,
             configurations: config
         )
     }
@@ -75,20 +75,25 @@ struct TripTests {
         #expect(destinations.isEmpty, "Cascade delete must remove all destinations")
     }
 
-    @Test func deleteTripCascadesToPlaceholderModels() throws {
+    @Test func deleteTripCascadesToPackingModels() throws {
         let context = container.mainContext
         let trip = Trip()
-        trip.name = "Placeholder Cascade"
+        trip.name = "Cascade Test"
         trip.startDate = Date()
         trip.endDate = Date()
         context.insert(trip)
 
         let doc = Document(); doc.trip = trip; context.insert(doc)
-        let pack = PackingItem(); pack.trip = trip; context.insert(pack)
         let act = Activity(); act.trip = trip; context.insert(act)
+
+        let cat = PackingCategory(); cat.name = "Toiletries"; cat.sortOrder = 0; cat.trip = trip
+        context.insert(cat)
+        let item = PackingItem(); item.name = "Toothbrush"; item.sortOrder = 0; item.category = cat
+        context.insert(item)
         try context.save()
 
         #expect(try context.fetch(FetchDescriptor<Document>()).count == 1)
+        #expect(try context.fetch(FetchDescriptor<PackingCategory>()).count == 1)
         #expect(try context.fetch(FetchDescriptor<PackingItem>()).count == 1)
         #expect(try context.fetch(FetchDescriptor<Activity>()).count == 1)
 
@@ -96,7 +101,10 @@ struct TripTests {
         try context.save()
 
         #expect(try context.fetch(FetchDescriptor<Document>()).isEmpty)
-        #expect(try context.fetch(FetchDescriptor<PackingItem>()).isEmpty)
+        #expect(try context.fetch(FetchDescriptor<PackingCategory>()).isEmpty,
+                "Trip delete must cascade to PackingCategory")
+        #expect(try context.fetch(FetchDescriptor<PackingItem>()).isEmpty,
+                "Trip delete must cascade to PackingItem through PackingCategory")
         #expect(try context.fetch(FetchDescriptor<Activity>()).isEmpty)
     }
 

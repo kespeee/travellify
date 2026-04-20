@@ -12,7 +12,7 @@ struct DocumentTests {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         return try ModelContainer(
             for: Trip.self, Destination.self, Document.self,
-                 PackingItem.self, Activity.self,
+                 PackingItem.self, PackingCategory.self, Activity.self,
             configurations: config
         )
     }

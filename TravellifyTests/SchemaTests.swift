@@ -8,15 +8,15 @@ struct SchemaTests {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(
             for: Trip.self, Destination.self, Document.self,
-                 PackingItem.self, Activity.self,
+                 PackingItem.self, PackingCategory.self, Activity.self,
             migrationPlan: TravellifyMigrationPlan.self,
             configurations: config
         )
         #expect(container.configurations.count >= 1)
     }
 
-    @Test func schemaV1HasFiveModels() {
-        #expect(TravellifySchemaV1.models.count == 5)
+    @Test func schemaV1HasSixModels() {
+        #expect(TravellifySchemaV1.models.count == 6)
     }
 
     @Test func migrationPlanHasNoStages() {
