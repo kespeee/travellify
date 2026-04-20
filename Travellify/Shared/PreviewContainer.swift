@@ -8,7 +8,7 @@ let previewContainer: ModelContainer = {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(
             for: Trip.self, Destination.self, Document.self,
-                 PackingItem.self, Activity.self,
+                 PackingItem.self, PackingCategory.self, Activity.self,
             configurations: config
         )
 
@@ -22,6 +22,17 @@ let previewContainer: ModelContainer = {
         let dest2 = Destination(); dest2.name = "Florence"; dest2.sortIndex = 1; dest2.trip = rome
         container.mainContext.insert(dest1)
         container.mainContext.insert(dest2)
+
+        // Seed packing categories + items for Rome trip
+        let cat1 = PackingCategory(); cat1.name = "Clothes"; cat1.sortOrder = 0; cat1.trip = rome
+        container.mainContext.insert(cat1)
+        let item1 = PackingItem(); item1.name = "T-shirts"; item1.sortOrder = 0; item1.category = cat1
+        let item2 = PackingItem(); item2.name = "Jeans"; item2.sortOrder = 1; item2.isChecked = true; item2.category = cat1
+        container.mainContext.insert(item1); container.mainContext.insert(item2)
+        let cat2 = PackingCategory(); cat2.name = "Toiletries"; cat2.sortOrder = 1; cat2.trip = rome
+        container.mainContext.insert(cat2)
+        let item3 = PackingItem(); item3.name = "Toothbrush"; item3.sortOrder = 0; item3.category = cat2
+        container.mainContext.insert(item3)
 
         // Seed upcoming trip — Tokyo (30 days from today)
         let tokyo = Trip()

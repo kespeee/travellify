@@ -4,12 +4,14 @@ import Foundation
 extension TravellifySchemaV1 {
 
     @Model
-    final class PackingItem {
+    final class PackingCategory {
         var id: UUID = UUID()
         var name: String = ""
-        var isChecked: Bool = false
         var sortOrder: Int = 0
-        var category: PackingCategory?
+        var trip: Trip?
+
+        @Relationship(deleteRule: .cascade, inverse: \PackingItem.category)
+        var items: [PackingItem]? = []
 
         init() {}
     }

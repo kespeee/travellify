@@ -9,6 +9,7 @@ enum TravellifySchemaV1: VersionedSchema {
             TravellifySchemaV1.Destination.self,
             TravellifySchemaV1.Document.self,
             TravellifySchemaV1.PackingItem.self,
+            TravellifySchemaV1.PackingCategory.self,
             TravellifySchemaV1.Activity.self,
         ]
     }
@@ -23,5 +24,6 @@ enum TravellifyMigrationPlan: SchemaMigrationPlan {
 typealias Trip        = TravellifySchemaV1.Trip
 typealias Destination = TravellifySchemaV1.Destination
 typealias Document    = TravellifySchemaV1.Document
-typealias PackingItem = TravellifySchemaV1.PackingItem
-typealias Activity    = TravellifySchemaV1.Activity
+typealias PackingItem     = TravellifySchemaV1.PackingItem
+typealias PackingCategory = TravellifySchemaV1.PackingCategory
+typealias Activity        = TravellifySchemaV1.Activity
