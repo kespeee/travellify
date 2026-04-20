@@ -12,6 +12,7 @@ struct DocumentListView: View {
     // Presentation state
     @State private var showScanSheet = false
     @State private var showFilesSheet = false
+    @State private var showPhotosPicker = false
     @State private var photosItem: PhotosPickerItem?
 
     // Viewer
@@ -22,9 +23,14 @@ struct DocumentListView: View {
     @State private var renameDraft: String = ""
     @State private var docPendingDelete: Document?
 
-    // Import status (Plan 02-03 flips these)
+    // Import status
     @State private var isImporting: Bool = false
     @State private var importErrorMessage: String?
+
+    private let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
+    ]
 
     init(tripID: PersistentIdentifier) {
         self.tripID = tripID
@@ -58,23 +64,26 @@ struct DocumentListView: View {
             if documents.isEmpty {
                 EmptyDocumentsView()
             } else {
-                List {
-                    ForEach(documents) { doc in
-                        DocumentRow(document: doc)
-                            .onTapGesture { openedDocument = doc }
-                            .contextMenu {
-                                Button {
-                                    docPendingRename = doc
-                                    renameDraft = doc.displayName
-                                } label: { Label("Rename", systemImage: "pencil") }
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(documents) { doc in
+                            DocumentRow(document: doc)
+                                .onTapGesture { openedDocument = doc }
+                                .contextMenu {
+                                    Button {
+                                        docPendingRename = doc
+                                        renameDraft = doc.displayName
+                                    } label: { Label("Rename", systemImage: "pencil") }
 
-                                Button(role: .destructive) {
-                                    docPendingDelete = doc
-                                } label: { Label("Delete", systemImage: "trash") }
-                            }
+                                    Button(role: .destructive) {
+                                        docPendingDelete = doc
+                                    } label: { Label("Delete", systemImage: "trash") }
+                                }
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 16)
                 }
-                .listStyle(.insetGrouped)
             }
         }
         .navigationTitle("Documents")
@@ -86,10 +95,9 @@ struct DocumentListView: View {
                         showScanSheet = true
                     } label: { Label("Scan Document", systemImage: "camera") }
 
-                    // PhotosPicker as a Menu item — iOS 16+ API
-                    PhotosPicker(selection: $photosItem, matching: .any(of: [.images])) {
-                        Label("Choose from Photos", systemImage: "photo.on.rectangle")
-                    }
+                    Button {
+                        showPhotosPicker = true
+                    } label: { Label("Choose from Photos", systemImage: "photo.on.rectangle") }
 
                     Button {
                         showFilesSheet = true
@@ -105,6 +113,12 @@ struct DocumentListView: View {
                 .accessibilityLabel("Add Document")
             }
         }
+        // Photos picker — attached at view level so it survives Menu dismissal
+        .photosPicker(
+            isPresented: $showPhotosPicker,
+            selection: $photosItem,
+            matching: .any(of: [.images])
+        )
         // Scan sheet
         .sheet(isPresented: $showScanSheet) {
             ScanView(
@@ -133,7 +147,7 @@ struct DocumentListView: View {
             )
             .ignoresSafeArea()
         }
-        // PhotosPicker binding
+        // PhotosPicker selection binding
         .onChange(of: photosItem) { _, newValue in
             guard let item = newValue, let trip else { return }
             photosItem = nil
@@ -143,7 +157,7 @@ struct DocumentListView: View {
         .fullScreenCover(item: $openedDocument) { doc in
             DocumentViewer(document: doc)
         }
-        // Rename alert — Plan 02-05 wires Save action
+        // Rename alert
         .alert(
             "Rename Document",
             isPresented: Binding(
@@ -176,14 +190,13 @@ struct DocumentListView: View {
                 renameDraft = ""
             }
         }
-        // Delete confirm — Plan 02-05 wires Delete action (FileStorage.remove + context.delete)
-        .confirmationDialog(
-            docPendingDelete.map { "Delete \"\($0.displayName)\"?" } ?? "",
+        // Delete confirm — alert style for consistency with trip delete
+        .alert(
+            docPendingDelete.map { "Delete \"\($0.displayName)\"?" } ?? "Delete document?",
             isPresented: Binding(
                 get: { docPendingDelete != nil },
                 set: { if !$0 { docPendingDelete = nil } }
             ),
-            titleVisibility: .visible,
             presenting: docPendingDelete
         ) { _ in
             Button("Delete", role: .destructive) {

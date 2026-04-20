@@ -4,10 +4,6 @@ import SwiftData
 struct DocumentRow: View {
     let document: Document
 
-    private var icon: String {
-        document.kind == .pdf ? "doc.richtext" : "photo"
-    }
-
     private var kindAccessibilityWord: String {
         document.kind == .pdf ? "PDF" : "Image"
     }
@@ -17,29 +13,17 @@ struct DocumentRow: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.body)
-                .foregroundStyle(.secondary)
-                .frame(width: 24, alignment: .center)
+        VStack(alignment: .leading, spacing: 8) {
+            DocumentThumbnail(document: document)
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(document.displayName)
-                    .font(.body)
-                    .foregroundStyle(.primary)
-                    .lineLimit(1)
-                Text(importedDateText)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer(minLength: 8)
-
-            Image(systemName: "chevron.right")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
+            Text(document.displayName)
+                .font(.subheadline)
+                .foregroundStyle(.primary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.vertical, 4)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(document.displayName), \(kindAccessibilityWord), imported \(importedDateText)")
@@ -48,15 +32,15 @@ struct DocumentRow: View {
 
 #if DEBUG
 #Preview {
-    List {
-        DocumentRow(document: {
-            let d = Document()
-            d.displayName = "Passport Scan"
-            d.kind = .pdf
-            d.importedAt = Date()
-            return d
-        }())
-    }
+    DocumentRow(document: {
+        let d = Document()
+        d.displayName = "Passport Scan"
+        d.kind = .pdf
+        d.importedAt = Date()
+        return d
+    }())
+    .padding()
+    .frame(width: 180)
     .modelContainer(previewContainer)
 }
 #endif

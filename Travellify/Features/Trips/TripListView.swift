@@ -57,16 +57,15 @@ struct TripListView: View {
         .sheet(isPresented: $showNewTrip) {
             TripEditSheet(mode: .create)
         }
-        .confirmationDialog(
-            tripPendingDelete.map { "Delete \"\($0.name)\"?" } ?? "",
+        .alert(
+            tripPendingDelete.map { "Delete \"\($0.name)\"?" } ?? "Delete trip?",
             isPresented: Binding(
                 get: { tripPendingDelete != nil },
                 set: { if !$0 { tripPendingDelete = nil } }
             ),
-            titleVisibility: .visible,
             presenting: tripPendingDelete
         ) { trip in
-            Button("Delete Trip", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 // Capture ID before delete — trip reference may become invalid after save
                 let tripIDString = trip.id.uuidString
                 modelContext.delete(trip)

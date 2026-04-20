@@ -44,6 +44,7 @@
 		F5AFBD3FA12441FA90797834 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DF1084CE24F7898565D30 /* TripDetailView.swift */; };
 		F7A2B3C4D5E641829A0B7007 /* FileStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2B3C4D5E641829A0B7008 /* FileStorageTests.swift */; };
 		F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */; };
+		A1B2C3D4E5F641829A0B8001 /* DocumentThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F641829A0B8002 /* DocumentThumbnail.swift */; };
 		F9A2B3C4D5E641829A0B7009 /* DocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2B3C4D5E641829A0B700A /* DocumentTests.swift */; };
 		FBA2B3C4D5E641829A0B700B /* ImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2B3C4D5E641829A0B700C /* ImportTests.swift */; };
 		FDA2B3C4D5E641829A0B700D /* ViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2B3C4D5E641829A0B700E /* ViewerTests.swift */; };
@@ -73,6 +74,7 @@
 		8B62FF173AE841D5A7C3D845 /* Travellify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travellify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEditSheet.swift; sourceTree = "<group>"; };
 		A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRow.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F641829A0B8002 /* DocumentThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentThumbnail.swift; sourceTree = "<group>"; };
 		AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellifyApp.swift; sourceTree = "<group>"; };
 		B10203A1B1C241829A0B5008 /* DocumentImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImporter.swift; sourceTree = "<group>"; };
 		B20204B2C2D341829A0B6002 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			children = (
 				E6F7A8B9CADB41829A0B4002 /* EmptyDocumentsView.swift */,
 				A8B9CADBECFD41829A0B4004 /* DocumentRow.swift */,
+				A1B2C3D4E5F641829A0B8002 /* DocumentThumbnail.swift */,
 				CADBECFD0E1F41829A0B4006 /* DocumentListView.swift */,
 				B20204B2C2D341829A0B6002 /* PDFKitView.swift */,
 				B30204B2C2D341829A0B6004 /* DocumentViewer.swift */,
@@ -408,6 +411,7 @@
 				A2B3C4D5E6F741829A0B3001 /* FileStorage.swift in Sources */,
 				D5E6F7A8B9CA41829A0B4001 /* EmptyDocumentsView.swift in Sources */,
 				F7A8B9CADBEC41829A0B4003 /* DocumentRow.swift in Sources */,
+				A1B2C3D4E5F641829A0B8001 /* DocumentThumbnail.swift in Sources */,
 				B9CADBECFD0E41829A0B4005 /* DocumentListView.swift in Sources */,
 				AA0203A1B1C241829A0B5001 /* ScanView.swift in Sources */,
 				CC0203A1B1C241829A0B5003 /* ScanPDFAssembler.swift in Sources */,
