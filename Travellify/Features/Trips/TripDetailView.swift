@@ -32,11 +32,7 @@ struct TripDetailView: View {
 
                 HStack(spacing: 12) {
                     documentsCard(for: trip)
-                    SectionCard(
-                        title: "Packing",
-                        systemImage: "checklist",
-                        message: "Your packing list will appear here."
-                    )
+                    packingCard(for: trip)
                 }
 
                 SectionCard(
@@ -77,6 +73,33 @@ struct TripDetailView: View {
                 systemImage: "doc.text",
                 message: primary,
                 secondaryMessage: latest
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func packingMessage(for trip: Trip) -> String {
+        let categories = trip.packingCategories ?? []
+        let totalItems = categories.flatMap { $0.items ?? [] }.count
+        let checkedItems = categories.flatMap { $0.items ?? [] }.filter(\.isChecked).count
+        if categories.isEmpty {
+            return "No packing list yet"
+        } else if checkedItems == totalItems && totalItems > 0 {
+            return "All \(totalItems) item\(totalItems == 1 ? "" : "s") packed"
+        } else if checkedItems == 0 {
+            return "\(totalItems) item\(totalItems == 1 ? "" : "s"), none packed"
+        } else {
+            return "\(checkedItems) / \(totalItems) packed"
+        }
+    }
+
+    @ViewBuilder
+    private func packingCard(for trip: Trip) -> some View {
+        NavigationLink(value: AppDestination.packingList(trip.persistentModelID)) {
+            SectionCard(
+                title: "Packing",
+                systemImage: "checklist",
+                message: packingMessage(for: trip)
             )
         }
         .buttonStyle(.plain)
