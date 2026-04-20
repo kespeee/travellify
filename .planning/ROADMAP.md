@@ -76,7 +76,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md — Packing schema foundation: PackingCategory @Model + PackingItem replacement + Trip.packingCategories + AppDestination.packingList + stub view + repair existing tests
 - [x] 03-02-PLAN.md — PackingListView scaffold: @Query-driven List with Section-per-category, PackingProgressRow, EmptyPackingListView, CategoryHeader + contextMenu, category add/rename/delete, TripDetail Packing card wire-up
-- [ ] 03-03-PLAN.md — Item CRUD + interactions: PackingRow with inline rename, leading/trailing swipeActions, sensoryFeedback, inline add-item row with dual @FocusState, cross-category drag-and-drop
+- [x] 03-03-PLAN.md — Item CRUD + interactions: PackingRow with inline rename, leading/trailing swipeActions, sensoryFeedback, inline add-item row with dual @FocusState, cross-category drag-and-drop
 - [ ] 03-04-PLAN.md — Swift Testing coverage: PackingTests (model invariants + cascade) + PackingProgressTests (progress formula edge cases)
 **UI hint**: yes
 

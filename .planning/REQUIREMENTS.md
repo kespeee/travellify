@@ -35,7 +35,7 @@
 
 - [x] **PACK-01**: User can build a packing list for a trip from scratch, organized by user-created categories (e.g., Toiletries, Electronics, Clothing)
 - [x] **PACK-02**: User can add a packing item under a category with a name
-- [ ] **PACK-03**: User can edit a packing item's name or category
+- [x] **PACK-03**: User can edit a packing item's name or category
 - [x] **PACK-04**: User can delete a packing item
 - [x] **PACK-05**: User can add, rename, and delete categories
 - [x] **PACK-06**: User can check off a packing item by swiping the row (and swipe again to uncheck)
@@ -116,7 +116,7 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-08 | Phase 6 | Pending |
 | PACK-01 | Phase 3 | Complete |
 | PACK-02 | Phase 3 | Complete |
-| PACK-03 | Phase 3 | Pending |
+| PACK-03 | Phase 3 | Complete |
 | PACK-04 | Phase 3 | Complete |
 | PACK-05 | Phase 3 | Complete |
 | PACK-06 | Phase 3 | Complete |
