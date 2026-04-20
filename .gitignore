@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Xcode user-specific state
+xcuserdata/
+*.xcuserstate
+Travellify.xcodeproj/project.xcworkspace/xcuserdata/
+Travellify.xcodeproj/xcuserdata/
+
+# Xcode build output
+build/
+DerivedData/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# Editor noise
+*.swp
+*.swo
