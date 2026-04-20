@@ -56,6 +56,8 @@
 		FBA2B3C4D5E641829A0B700B /* ImportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA2B3C4D5E641829A0B700C /* ImportTests.swift */; };
 		FDA2B3C4D5E641829A0B700D /* ViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2B3C4D5E641829A0B700E /* ViewerTests.swift */; };
 		FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */; };
+		AA0304010203040506070801 /* PackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070802 /* PackingTests.swift */; };
+		AA0304010203040506070803 /* PackingProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070804 /* PackingProgressTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		FCA2B3C4D5E641829A0B700C /* ImportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTests.swift; sourceTree = "<group>"; };
 		FEA2B3C4D5E641829A0B700E /* ViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerTests.swift; sourceTree = "<group>"; };
 		FF0203A1B1C241829A0B5006 /* FilesImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesImporter.swift; sourceTree = "<group>"; };
+		AA0304010203040506070802 /* PackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingTests.swift; sourceTree = "<group>"; };
+		AA0304010203040506070804 /* PackingProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingProgressTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +224,8 @@
 				FAA2B3C4D5E641829A0B700A /* DocumentTests.swift */,
 				FCA2B3C4D5E641829A0B700C /* ImportTests.swift */,
 				FEA2B3C4D5E641829A0B700E /* ViewerTests.swift */,
+				AA0304010203040506070802 /* PackingTests.swift */,
+				AA0304010203040506070804 /* PackingProgressTests.swift */,
 				FFB3C4D5E6F741829A0B8001 /* Resources */,
 			);
 			path = TravellifyTests;
@@ -409,6 +415,8 @@
 				F9A2B3C4D5E641829A0B7009 /* DocumentTests.swift in Sources */,
 				FBA2B3C4D5E641829A0B700B /* ImportTests.swift in Sources */,
 				FDA2B3C4D5E641829A0B700D /* ViewerTests.swift in Sources */,
+				AA0304010203040506070801 /* PackingTests.swift in Sources */,
+				AA0304010203040506070803 /* PackingProgressTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
