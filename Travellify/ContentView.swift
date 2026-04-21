@@ -15,6 +15,8 @@ struct ContentView: View {
                             DocumentListView(tripID: id)
                         case .packingList(let id):
                             PackingListView(tripID: id)
+                        case .activityList(let id):
+                            ActivityListView(tripID: id)
                         }
                     }
             }

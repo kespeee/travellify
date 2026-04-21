@@ -35,12 +35,7 @@ struct TripDetailView: View {
                     packingCard(for: trip)
                 }
 
-                SectionCard(
-                    title: "Activities",
-                    systemImage: "calendar",
-                    message: "Your itinerary will appear here.",
-                    minHeight: 220
-                )
+                activitiesCard(for: trip)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
@@ -100,6 +95,19 @@ struct TripDetailView: View {
                 title: "Packing",
                 systemImage: "checklist",
                 message: packingMessage(for: trip)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private func activitiesCard(for trip: Trip) -> some View {
+        NavigationLink(value: AppDestination.activityList(trip.persistentModelID)) {
+            SectionCard(
+                title: "Activities",
+                systemImage: "calendar",
+                message: ActivityDateLabels.activitiesMessage(for: trip),
+                minHeight: 220
             )
         }
         .buttonStyle(.plain)
