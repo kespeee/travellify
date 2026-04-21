@@ -67,6 +67,7 @@
 		AA0304010203040506070801 /* PackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070802 /* PackingTests.swift */; };
 		AD0402020304050607081001 /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0402020304050607081002 /* ActivityTests.swift */; };
 		AA0304010203040506070803 /* PackingProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070804 /* PackingProgressTests.swift */; };
+		AD0404010203040506070801 /* NextUpcomingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0404010203040506070802 /* NextUpcomingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		AA0304010203040506070802 /* PackingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingTests.swift; sourceTree = "<group>"; };
 		AD0402020304050607081002 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
 		AA0304010203040506070804 /* PackingProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingProgressTests.swift; sourceTree = "<group>"; };
+		AD0404010203040506070802 /* NextUpcomingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextUpcomingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				AD0402020304050607081002 /* ActivityTests.swift */,
 				AD040301020304050607080A /* ActivityGroupingTests.swift */,
 				AD040301020304050607080C /* DayLabelTests.swift */,
+				AD0404010203040506070802 /* NextUpcomingTests.swift */,
 				FFB3C4D5E6F741829A0B8001 /* Resources */,
 			);
 			path = TravellifyTests;
@@ -455,6 +458,7 @@
 				AD0402020304050607081001 /* ActivityTests.swift in Sources */,
 				AD0403010203040506070809 /* ActivityGroupingTests.swift in Sources */,
 				AD040301020304050607080B /* DayLabelTests.swift in Sources */,
+				AD0404010203040506070801 /* NextUpcomingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
