@@ -36,20 +36,30 @@ enum ActivityDateLabels {
     static func dayLabel(for day: Date,
                          now: Date = Date(),
                          calendar: Calendar = .current) -> String {
-        var cal = calendar
-        if calendar.timeZone != Calendar.current.timeZone {
-            cal.timeZone = calendar.timeZone
+        let dayStart = calendar.startOfDay(for: day)
+        let nowStart = calendar.startOfDay(for: now)
+        let diff = calendar.dateComponents([.day], from: nowStart, to: dayStart).day ?? 0
+
+        // Use a date formatter locked to the injected calendar's timezone + locale
+        // so relative labels work deterministically under test injection.
+        let monthDay = localizedString(from: day, template: "MMM d", calendar: calendar)
+
+        switch diff {
+        case 0:  return "Today · \(monthDay)"
+        case 1:  return "Tomorrow · \(monthDay)"
+        case -1: return "Yesterday · \(monthDay)"
+        default: return localizedString(from: day, template: "EEE, MMM d", calendar: calendar)
         }
-        if cal.isDateInToday(day) {
-            return "Today · \(monthDayFormatter.string(from: day))"
-        }
-        if cal.isDateInTomorrow(day) {
-            return "Tomorrow · \(monthDayFormatter.string(from: day))"
-        }
-        if cal.isDateInYesterday(day) {
-            return "Yesterday · \(monthDayFormatter.string(from: day))"
-        }
-        return weekdayAndDateFormatter.string(from: day)
+    }
+
+    private static func localizedString(from date: Date,
+                                        template: String,
+                                        calendar: Calendar) -> String {
+        let f = DateFormatter()
+        f.locale = calendar.locale ?? .current
+        f.timeZone = calendar.timeZone
+        f.setLocalizedDateFormatFromTemplate(template)
+        return f.string(from: date)
     }
 
     /// Row-level time label: "2:00 PM" (locale-aware short).
@@ -63,9 +73,14 @@ enum ActivityDateLabels {
     static func shortRelativeDay(for date: Date,
                                  now: Date = Date(),
                                  calendar: Calendar = .current) -> String {
-        if calendar.isDateInToday(date) { return "Today" }
-        if calendar.isDateInTomorrow(date) { return "Tomorrow" }
-        return monthDayFormatter.string(from: date)
+        let dayStart = calendar.startOfDay(for: date)
+        let nowStart = calendar.startOfDay(for: now)
+        let diff = calendar.dateComponents([.day], from: nowStart, to: dayStart).day ?? 0
+        switch diff {
+        case 0: return "Today"
+        case 1: return "Tomorrow"
+        default: return localizedString(from: date, template: "MMM d", calendar: calendar)
+        }
     }
 
     // MARK: - Default startAt (D44)
