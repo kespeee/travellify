@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
-last_updated: "2026-04-21T23:45:00.000Z"
+last_updated: "2026-04-21T18:58:19.353Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 20
-  completed_plans: 18
-  percent: 90
+  completed_plans: 19
+  percent: 95
 ---
 
 # Project State
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 4 (activities-core) — EXECUTING
-Plan: 2 of 4 complete
-Status: Ready to execute Plan 04-03 (ActivityListView + grouping + swipe-delete)
+Plan: 3 of 4 complete
+Status: Ready to execute
 Last activity: 2026-04-21
 
 Progress: [█████████░] 90%
@@ -64,6 +64,7 @@ Progress: [█████████░] 90%
 | Phase 03-packing-list P04 | 11 | 2 tasks | 3 files |
 | Phase 04-activities-core P01 | ~8min | 2 tasks | 5 files |
 | Phase 04-activities-core P02 | ~6min | 1 task | 2 files |
+| Phase 04-activities-core P03 | 45min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,8 @@ Recent decisions affecting current work:
 - [04-02]: ActivityEditSheet signature locked: `init(activity: Activity?, trip: Trip)` — Wave 3 (plan 04-03) must call this from two sites (toolbar + / row tap)
 - [04-02]: Features/Activities PBXGroup created (UUID AD0402030405060708090A03); Wave 3 will append list-view files to this group
 - [04-02]: Soft-warn out-of-range uses day-level comparison (startOfDay both sides) — prevents false-positive warning when user picks a time on the trip's start/end date
+- [Phase ?]: D42 honored: single multi-key @Query + Dictionary(grouping:) by startOfDay for day sections
+- [Phase ?]: Rule 1 fix: ActivityDateLabels now honors injected calendar/now (was hardcoded via isDateInToday)
 
 ### Accumulated Technical Context
 
@@ -142,6 +145,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-21T23:45:00.000Z
+Last session: 2026-04-21T18:58:09.226Z
 Stopped at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
-Resume file: .planning/phases/04-activities-core/04-03-PLAN.md
+Resume file: None

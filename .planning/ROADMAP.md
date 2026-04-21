@@ -93,7 +93,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — Activity schema extension (D40 fields) + ActivityDateLabels helpers + ActivityTests + SchemaTests CloudKit-safety assertion
 - [x] 04-02-PLAN.md — ActivityEditSheet (create + edit; compact DatePicker; soft-warn out-of-range; title-required Save)
-- [ ] 04-03-PLAN.md — ActivityListView (grouped @Query + swipe-delete + sheets) + ActivityRow/DayHeader/EmptyActivitiesView + Grouping/DayLabel tests
+- [x] 04-03-PLAN.md — ActivityListView (grouped @Query + swipe-delete + sheets) + ActivityRow/DayHeader/EmptyActivitiesView + Grouping/DayLabel tests
 - [ ] 04-04-PLAN.md — Routing (AppDestination.activityList + ContentView branch + TripDetailView Activities card smart-next-up) + NextUpcomingTests
 **UI hint**: yes
 
