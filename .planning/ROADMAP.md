@@ -92,7 +92,7 @@ Plans:
 **Plans**: 4 plans
 Plans:
 - [x] 04-01-PLAN.md — Activity schema extension (D40 fields) + ActivityDateLabels helpers + ActivityTests + SchemaTests CloudKit-safety assertion
-- [ ] 04-02-PLAN.md — ActivityEditSheet (create + edit; compact DatePicker; soft-warn out-of-range; title-required Save)
+- [x] 04-02-PLAN.md — ActivityEditSheet (create + edit; compact DatePicker; soft-warn out-of-range; title-required Save)
 - [ ] 04-03-PLAN.md — ActivityListView (grouped @Query + swipe-delete + sheets) + ActivityRow/DayHeader/EmptyActivitiesView + Grouping/DayLabel tests
 - [ ] 04-04-PLAN.md — Routing (AppDestination.activityList + ContentView branch + TripDetailView Activities card smart-next-up) + NextUpcomingTests
 **UI hint**: yes
@@ -151,4 +151,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 ---
 *Roadmap created: 2026-04-18*
-*Last updated: 2026-04-21 — Phase 4 Plan 01 complete (schema + ActivityDateLabels)*
+*Last updated: 2026-04-21 — Phase 4 Plan 02 complete (ActivityEditSheet)*

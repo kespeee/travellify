@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 04 Plan 01 complete — schema + ActivityDateLabels in place
-last_updated: "2026-04-21T23:30:00.000Z"
+stopped_at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
+last_updated: "2026-04-21T23:45:00.000Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 20
-  completed_plans: 17
-  percent: 85
+  completed_plans: 18
+  percent: 90
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 4 (activities-core) — EXECUTING
-Plan: 1 of 4 complete
-Status: Ready to execute Plan 04-02 (ActivityEditSheet)
+Plan: 2 of 4 complete
+Status: Ready to execute Plan 04-03 (ActivityListView + grouping + swipe-delete)
 Last activity: 2026-04-21
 
-Progress: [████████▌░] 85%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [████████▌░] 85%
 | Phase 03-packing-list P03 | 6min | 3 tasks | 4 files |
 | Phase 03-packing-list P04 | 11 | 2 tasks | 3 files |
 | Phase 04-activities-core P01 | ~8min | 2 tasks | 5 files |
+| Phase 04-activities-core P02 | ~6min | 1 task | 2 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Recent decisions affecting current work:
 - [04-01]: Activity D40 fields landed additive within SchemaV1 (no V2 migration); location + notes are `String?` with no default, matching Document.trip precedent
 - [04-01]: ActivityDateLabels.swift is Shared/ sibling — pure-static enum with three `private static let` cached DateFormatters and injectable `now: Date = Date()` / `calendar: Calendar = .current` defaults on all non-time-only helpers for downstream DayLabel/grouping tests
 - [04-01]: SchemaV1 model count still 6 — Activity was already registered in Phase 1; this plan only expands Activity's field set
+- [04-02]: ActivityEditSheet signature locked: `init(activity: Activity?, trip: Trip)` — Wave 3 (plan 04-03) must call this from two sites (toolbar + / row tap)
+- [04-02]: Features/Activities PBXGroup created (UUID AD0402030405060708090A03); Wave 3 will append list-view files to this group
+- [04-02]: Soft-warn out-of-range uses day-level comparison (startOfDay both sides) — prevents false-positive warning when user picks a time on the trip's start/end date
 
 ### Accumulated Technical Context
 
@@ -138,6 +142,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-21T23:30:00.000Z
-Stopped at: Phase 04 Plan 01 complete — schema + ActivityDateLabels in place
-Resume file: .planning/phases/04-activities-core/04-02-PLAN.md
+Last session: 2026-04-21T23:45:00.000Z
+Stopped at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
+Resume file: .planning/phases/04-activities-core/04-03-PLAN.md
