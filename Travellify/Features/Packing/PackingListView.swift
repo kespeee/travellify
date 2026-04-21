@@ -1,28 +1,42 @@
 import SwiftUI
 import SwiftData
 
+private enum PackingEntry: Identifiable {
+    case progress
+    case header(PackingCategory)
+    case item(PackingItem)
+    case addItem(PackingCategory)
+
+    var id: String {
+        switch self {
+        case .progress: return "progress"
+        case .header(let c): return "h-\(c.id.uuidString)"
+        case .item(let i): return "i-\(i.id.uuidString)"
+        case .addItem(let c): return "a-\(c.id.uuidString)"
+        }
+    }
+
+    var canMove: Bool {
+        if case .item = self { return true }
+        return false
+    }
+}
+
 struct PackingListView: View {
     let tripID: PersistentIdentifier
 
     @Environment(\.modelContext) private var modelContext
     @Query private var categories: [PackingCategory]
 
-    // Category CRUD presentation state
     @State private var isAddingCategory = false
     @State private var newCategoryName: String = ""
     @State private var pendingRenameCategory: PackingCategory?
     @State private var renameCategoryDraft: String = ""
     @State private var pendingDeleteCategory: PackingCategory?
 
-    // Dual FocusState — RESEARCH Pattern 2 / Pitfall 1
-    @FocusState private var addItemFocus: PersistentIdentifier?     // keyed by category.persistentModelID
-    @FocusState private var renameItemFocus: PersistentIdentifier?  // keyed by item.persistentModelID
-
-    // Per-category add-item drafts and per-item rename drafts
+    @FocusState private var addItemFocus: PersistentIdentifier?
     @State private var newItemNames: [PersistentIdentifier: String] = [:]
-    @State private var renameDrafts: [PersistentIdentifier: String] = [:]
 
-    // Shared error surface
     @State private var errorMessage: String?
 
     init(tripID: PersistentIdentifier) {
@@ -36,21 +50,35 @@ struct PackingListView: View {
         )
     }
 
-    // MARK: - Computed progress helpers
-
-    private var tripCheckedCount: Int {
-        categories.flatMap { $0.items ?? [] }.filter(\.isChecked).count
-    }
-
-    private var tripTotalCount: Int {
-        categories.flatMap { $0.items ?? [] }.count
+    private var sortedCategories: [PackingCategory] {
+        categories.sorted { $0.sortOrder < $1.sortOrder }
     }
 
     private func sortedItems(_ category: PackingCategory) -> [PackingItem] {
         (category.items ?? []).sorted { $0.sortOrder < $1.sortOrder }
     }
 
-    // MARK: - Binding helpers
+    private var allItems: [PackingItem] {
+        categories.flatMap { $0.items ?? [] }
+    }
+
+    private var tripCheckedCount: Int { allItems.filter(\.isChecked).count }
+    private var tripTotalCount: Int { allItems.count }
+
+    private var entries: [PackingEntry] {
+        var result: [PackingEntry] = []
+        if !categories.isEmpty {
+            result.append(.progress)
+            for cat in sortedCategories {
+                result.append(.header(cat))
+                for item in sortedItems(cat) {
+                    result.append(.item(item))
+                }
+                result.append(.addItem(cat))
+            }
+        }
+        return result
+    }
 
     private func newItemNameBinding(for category: PackingCategory) -> Binding<String> {
         Binding(
@@ -59,25 +87,16 @@ struct PackingListView: View {
         )
     }
 
-    private func renameDraftBinding(for item: PackingItem) -> Binding<String> {
-        Binding(
-            get: { renameDrafts[item.persistentModelID] ?? item.name },
-            set: { renameDrafts[item.persistentModelID] = $0 }
-        )
-    }
-
-    // MARK: - Item CRUD mutations
+    // MARK: - Mutations
 
     private func toggleChecked(_ item: PackingItem) {
         item.isChecked.toggle()
-        do { try modelContext.save() }
-        catch { errorMessage = "Couldn't update item. Please try again." }
+        save("Couldn't update item. Please try again.")
     }
 
     private func deleteItem(_ item: PackingItem) {
         modelContext.delete(item)
-        do { try modelContext.save() }
-        catch { errorMessage = "Couldn't delete item. Please try again." }
+        save("Couldn't delete item. Please try again.")
     }
 
     private func insertItem(name: String, in category: PackingCategory) {
@@ -89,156 +108,84 @@ struct PackingListView: View {
         item.sortOrder = nextSort
         item.category = category
         modelContext.insert(item)
-        do { try modelContext.save() }
-        catch { errorMessage = "Couldn't add item. Please try again." }
+        save("Couldn't add item. Please try again.")
     }
 
-    private func commitRename(_ item: PackingItem) {
-        let draft = (renameDrafts[item.persistentModelID] ?? "").trimmingCharacters(in: .whitespaces)
-        if !draft.isEmpty, draft != item.name {
-            item.name = draft
-            do { try modelContext.save() }
-            catch { errorMessage = "Couldn't rename. Please try again." }
+    private func renameItem(_ item: PackingItem, to newName: String) {
+        item.name = newName
+        save("Couldn't rename. Please try again.")
+    }
+
+    private func save(_ failureMessage: String) {
+        do { try modelContext.save() }
+        catch { errorMessage = failureMessage }
+    }
+
+    // MARK: - Reorder via .onMove
+
+    private func handleMove(source: IndexSet, destination: Int) {
+        var working = entries
+        working.move(fromOffsets: source, toOffset: destination)
+
+        // Reject moves that would place an item before the first header or as the first entry
+        guard let firstHeaderIdx = working.firstIndex(where: { if case .header = $0 { return true } else { return false } }) else { return }
+        if working[..<firstHeaderIdx].contains(where: { if case .item = $0 { return true } else { return false } }) {
+            return
         }
-        renameDrafts[item.persistentModelID] = nil
-        renameItemFocus = nil
-    }
 
-    private func fetchItem(byID uuid: UUID) -> PackingItem? {
-        let desc = FetchDescriptor<PackingItem>(predicate: #Predicate { $0.id == uuid })
-        return try? modelContext.fetch(desc).first
-    }
-
-    private func moveItem(_ item: PackingItem, to destination: PackingCategory) {
-        let nextSort = ((destination.items ?? []).map(\.sortOrder).max() ?? -1) + 1
-        item.category = destination
-        item.sortOrder = nextSort
-        do { try modelContext.save() }
-        catch { errorMessage = "Couldn't move item. Please try again." }
-    }
-
-    // MARK: - List content sections
-
-    @ViewBuilder
-    private var listContent: some View {
-        if categories.isEmpty {
-            Section {
-                EmptyPackingListView()
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            }
-        } else {
-            Section {
-                PackingProgressRow(checkedCount: tripCheckedCount, totalCount: tripTotalCount)
-            }
-            ForEach(categories) { category in
-                Section {
-                    ForEach(sortedItems(category)) { item in
-                        PackingRow(
-                            item: item,
-                            renameDraft: renameDraftBinding(for: item),
-                            isRenaming: renameItemFocus == item.persistentModelID,
-                            onTapToRename: {
-                                renameDrafts[item.persistentModelID] = item.name
-                                renameItemFocus = item.persistentModelID
-                            },
-                            onCommitRename: { commitRename(item) },
-                            renameItemFocus: $renameItemFocus
-                        )
-                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                            Button {
-                                toggleChecked(item)
-                            } label: {
-                                Label(item.isChecked ? "Unpack" : "Pack", systemImage: "checkmark")
-                            }
-                            .tint(.green)
-                            .accessibilityLabel(item.isChecked ? "Mark as unpacked" : "Mark as packed")
-                        }
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                deleteItem(item)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            .accessibilityLabel("Delete \(item.name)")
-                        }
-                        .sensoryFeedback(.success, trigger: item.isChecked)
-                    }
-                    // Inline "Add item" row — always at bottom of each section (D30 / UI-SPEC)
-                    HStack {
-                        Image(systemName: "plus.circle").foregroundStyle(.tint)
-                        if addItemFocus == category.persistentModelID {
-                            TextField("Item name", text: newItemNameBinding(for: category))
-                                .font(.body)
-                                .focused($addItemFocus, equals: category.persistentModelID)
-                                .submitLabel(.done)
-                                .onSubmit {
-                                    let trimmed = (newItemNames[category.persistentModelID] ?? "")
-                                        .trimmingCharacters(in: .whitespaces)
-                                    if !trimmed.isEmpty {
-                                        insertItem(name: trimmed, in: category)
-                                        newItemNames[category.persistentModelID] = ""
-                                        // Re-focus for rapid multi-add (D30)
-                                        addItemFocus = category.persistentModelID
-                                    } else {
-                                        // Empty submit dismisses (Pitfall 6: nil, not same id)
-                                        addItemFocus = nil
-                                    }
-                                }
-                        } else {
-                            Text("+ Add item")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    addItemFocus = category.persistentModelID
-                                }
-                        }
-                    }
-                    .accessibilityLabel("Add item to \(category.name)")
-                } header: {
-                    CategoryHeader(
-                        category: category,
-                        onRename: {
-                            pendingRenameCategory = category
-                            renameCategoryDraft = category.name
-                        },
-                        onDelete: { pendingDeleteCategory = category },
-                        onDropItem: { uuid in
-                            guard let item = fetchItem(byID: uuid) else { return }
-                            guard item.category?.persistentModelID != category.persistentModelID else { return }
-                            moveItem(item, to: category)
-                        }
-                    )
+        var currentCategory: PackingCategory?
+        var order = 0
+        for entry in working {
+            switch entry {
+            case .header(let cat):
+                currentCategory = cat
+                order = 0
+            case .item(let item):
+                if let cat = currentCategory {
+                    item.category = cat
+                    item.sortOrder = order
+                    order += 1
                 }
+            case .progress, .addItem:
+                break
             }
         }
+        save("Couldn't reorder. Please try again.")
     }
 
     // MARK: - Body
 
     var body: some View {
         List {
-            listContent
-
-            // "Add category" row is ALWAYS visible (per D38 — even in empty state)
-            Section {
+            if categories.isEmpty {
+                Section {
+                    EmptyPackingListView()
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }
+            } else {
+                ForEach(entries) { entry in
+                    row(for: entry)
+                }
+                .onMove(perform: handleMove)
+            }
+        }
+        .listStyle(.insetGrouped)
+        .listRowSpacing(8)
+        .scrollDismissesKeyboard(.immediately)
+        .navigationTitle("Packing")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     newCategoryName = ""
                     isAddingCategory = true
                 } label: {
-                    HStack {
-                        Image(systemName: "plus.circle").foregroundStyle(.tint)
-                        Text("Add category").font(.subheadline).foregroundStyle(.secondary)
-                    }
+                    Image(systemName: "plus")
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Add category")
+                .accessibilityLabel("New Category")
             }
         }
-        .navigationTitle("Packing")
-        .navigationBarTitleDisplayMode(.large)
         .addCategoryAlert(
             isPresented: $isAddingCategory,
             name: $newCategoryName,
@@ -267,7 +214,66 @@ struct PackingListView: View {
         }
     }
 
-    // MARK: - CRUD actions
+    @ViewBuilder
+    private func row(for entry: PackingEntry) -> some View {
+        switch entry {
+        case .progress:
+            PackingProgressRow(checkedCount: tripCheckedCount, totalCount: tripTotalCount)
+                .moveDisabled(true)
+
+        case .header(let category):
+            CategoryHeader(
+                category: category,
+                onRename: {
+                    pendingRenameCategory = category
+                    renameCategoryDraft = category.name
+                },
+                onDelete: { pendingDeleteCategory = category }
+            )
+            .moveDisabled(true)
+
+        case .item(let item):
+            PackingRow(
+                item: item,
+                onToggleCheck: { toggleChecked(item) },
+                onCommitRename: { newName in renameItem(item, to: newName) }
+            )
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                Button { toggleChecked(item) } label: {
+                    Label(item.isChecked ? "Unpack" : "Pack", systemImage: "checkmark")
+                }
+                .tint(.green)
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) { deleteItem(item) } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+            .sensoryFeedback(.success, trigger: item.isChecked)
+
+        case .addItem(let category):
+            HStack {
+                Image(systemName: "plus.circle").foregroundStyle(.tint)
+                TextField("Add item", text: newItemNameBinding(for: category))
+                    .font(.body)
+                    .focused($addItemFocus, equals: category.persistentModelID)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        let trimmed = (newItemNames[category.persistentModelID] ?? "")
+                            .trimmingCharacters(in: .whitespaces)
+                        if !trimmed.isEmpty {
+                            insertItem(name: trimmed, in: category)
+                            newItemNames[category.persistentModelID] = ""
+                        }
+                        addItemFocus = nil
+                    }
+            }
+            .accessibilityLabel("Add item to \(category.name)")
+            .moveDisabled(true)
+        }
+    }
+
+    // MARK: - Category CRUD
 
     private func addCategory() {
         let trimmed = newCategoryName.trimmingCharacters(in: .whitespaces)
@@ -278,11 +284,7 @@ struct PackingListView: View {
         cat.sortOrder = nextSort
         cat.trip = modelContext.model(for: tripID) as? Trip
         modelContext.insert(cat)
-        do {
-            try modelContext.save()
-        } catch {
-            errorMessage = "Couldn't add category. Please try again."
-        }
+        save("Couldn't add category. Please try again.")
         newCategoryName = ""
     }
 
@@ -294,22 +296,14 @@ struct PackingListView: View {
             return
         }
         cat.name = trimmed
-        do {
-            try modelContext.save()
-        } catch {
-            errorMessage = "Couldn't rename category. Please try again."
-        }
+        save("Couldn't rename category. Please try again.")
         pendingRenameCategory = nil
         renameCategoryDraft = ""
     }
 
     private func deleteCategory(_ cat: PackingCategory) {
         modelContext.delete(cat)
-        do {
-            try modelContext.save()
-        } catch {
-            errorMessage = "Couldn't delete category. Please try again."
-        }
+        save("Couldn't delete category. Please try again.")
         pendingDeleteCategory = nil
     }
 }

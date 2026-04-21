@@ -11,7 +11,7 @@ struct EmptyPackingListView: View {
                 .font(.title2.weight(.semibold))
                 .foregroundStyle(.primary)
                 .padding(.bottom, 8)
-            Text("Tap \"Add category\" below to start building your packing list.")
+            Text("Tap + in the top right to add your first category.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -19,7 +19,7 @@ struct EmptyPackingListView: View {
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("No categories yet. Tap Add category below to start building your packing list.")
+        .accessibilityLabel("No categories yet. Tap plus in the top right to add your first category.")
     }
 }
 

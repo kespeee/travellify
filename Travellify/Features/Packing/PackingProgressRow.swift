@@ -14,7 +14,7 @@ struct PackingProgressRow: View {
                 total: Double(max(totalCount, 1))
             )
             .progressViewStyle(.linear)
-            .tint(.accentColor)
+            .tint(Color.accentColor)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(checkedCount) of \(totalCount) items packed")

@@ -5,7 +5,6 @@ struct CategoryHeader: View {
     let category: PackingCategory
     let onRename: () -> Void
     let onDelete: () -> Void
-    let onDropItem: (UUID) -> Void       // cross-category drag-drop (D32)
 
     private var checkedCount: Int { (category.items ?? []).filter(\.isChecked).count }
     private var totalCount: Int { (category.items ?? []).count }
@@ -20,7 +19,7 @@ struct CategoryHeader: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
-        .contentShape(Rectangle())            // REQUIRED — full-width long-press target
+        .contentShape(Rectangle())
         .contextMenu {
             Button { onRename() } label: { Label("Rename", systemImage: "pencil") }
             Button(role: .destructive) { onDelete() } label: { Label("Delete", systemImage: "trash") }
@@ -28,14 +27,6 @@ struct CategoryHeader: View {
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(category.name), \(checkedCount) of \(totalCount) packed")
         .accessibilityHint("Long press for rename and delete options")
-        .dropDestination(for: String.self) { droppedStrings, _ in
-            guard let uuidString = droppedStrings.first,
-                  let uuid = UUID(uuidString: uuidString) else { return false }
-            onDropItem(uuid)
-            return true
-        } isTargeted: { _ in
-            // No visual highlight for v1 — optional polish later
-        }
     }
 }
 
@@ -67,8 +58,7 @@ struct CategoryHeader: View {
             CategoryHeader(
                 category: cat,
                 onRename: {},
-                onDelete: {},
-                onDropItem: { _ in }
+                onDelete: {}
             )
         }
     }

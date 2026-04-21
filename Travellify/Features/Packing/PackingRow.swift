@@ -3,21 +3,37 @@ import SwiftData
 
 struct PackingRow: View {
     let item: PackingItem
-    @Binding var renameDraft: String          // binding into the parent's per-item draft dictionary
-    var isRenaming: Bool                      // true iff renameItemFocus == item.persistentModelID
-    var onTapToRename: () -> Void             // parent sets focus + seeds draft
-    var onCommitRename: () -> Void            // parent trims/saves/clears focus
+    var onToggleCheck: () -> Void
+    var onCommitRename: (String) -> Void
 
-    @FocusState.Binding var renameItemFocus: PersistentIdentifier?
+    @State private var isEditing = false
+    @State private var draft: String = ""
+    @FocusState private var fieldFocused: Bool
 
     var body: some View {
-        Group {
-            if isRenaming {
-                TextField("Item name", text: $renameDraft)
+        HStack(spacing: 12) {
+            Button(action: onToggleCheck) {
+                Image(systemName: item.isChecked ? "checkmark.circle.fill" : "circle")
+                    .font(.title3)
+                    .foregroundStyle(item.isChecked ? Color.green : Color.secondary)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(item.isChecked ? "Mark as unpacked" : "Mark as packed")
+
+            if isEditing {
+                TextField("Item name", text: $draft)
                     .font(.body)
-                    .focused($renameItemFocus, equals: item.persistentModelID)
+                    .focused($fieldFocused)
                     .submitLabel(.done)
-                    .onSubmit { onCommitRename() }
+                    .onAppear {
+                        draft = item.name
+                        fieldFocused = true
+                    }
+                    .onSubmit { commit() }
+                    .onChange(of: fieldFocused) { _, focused in
+                        if !focused { commit() }
+                    }
             } else {
                 Text(item.name)
                     .font(.body)
@@ -25,70 +41,38 @@ struct PackingRow: View {
                     .strikethrough(item.isChecked, color: .secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .contentShape(Rectangle())
-                    .onTapGesture { onTapToRename() }
+                    .onTapGesture { isEditing = true }
             }
         }
-        .accessibilityLabel(item.isChecked
-            ? "\(item.name), packed"
-            : item.name)
-        .draggable(item.id.uuidString)        // Transferable payload: String (RESEARCH Pitfall 2)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(item.isChecked ? "\(item.name), packed" : item.name)
+    }
+
+    private func commit() {
+        let trimmed = draft.trimmingCharacters(in: .whitespaces)
+        if !trimmed.isEmpty, trimmed != item.name {
+            onCommitRename(trimmed)
+        }
+        isEditing = false
+        fieldFocused = false
     }
 }
 
 #if DEBUG
-// All setup (ModelContainer creation + item insertion) lives in a plain function
-// so the #Preview @ViewBuilder body only contains view expressions (no Void calls).
-// @FocusState.Binding has no .constant — the wrapper view owns it.
-@MainActor
-private func makePackingRowPreview() -> some View {
+#Preview("PackingRow") {
     let container = try! ModelContainer(
         for: Trip.self, Destination.self, Document.self,
              PackingItem.self, PackingCategory.self, Activity.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     )
-    let item0 = PackingItem()
-    item0.name = "Passport"
-    item0.isChecked = false
-    let item1 = PackingItem()
-    item1.name = "Toothbrush"
-    item1.isChecked = true
+    let item0 = PackingItem(); item0.name = "Passport"
+    let item1 = PackingItem(); item1.name = "Toothbrush"; item1.isChecked = true
     container.mainContext.insert(item0)
     container.mainContext.insert(item1)
-    return PackingRowPreviewWrapper(item0: item0, item1: item1)
-        .modelContainer(container)
-}
-
-@MainActor
-private struct PackingRowPreviewWrapper: View {
-    @FocusState private var focus: PersistentIdentifier?
-    @State private var draft0 = "Passport"
-    @State private var draft1 = "Toothbrush"
-    let item0: PackingItem
-    let item1: PackingItem
-
-    var body: some View {
-        List {
-            PackingRow(
-                item: item0,
-                renameDraft: $draft0,
-                isRenaming: false,
-                onTapToRename: {},
-                onCommitRename: {},
-                renameItemFocus: $focus
-            )
-            PackingRow(
-                item: item1,
-                renameDraft: $draft1,
-                isRenaming: false,
-                onTapToRename: {},
-                onCommitRename: {},
-                renameItemFocus: $focus
-            )
-        }
+    return List {
+        PackingRow(item: item0, onToggleCheck: {}, onCommitRename: { _ in })
+        PackingRow(item: item1, onToggleCheck: {}, onCommitRename: { _ in })
     }
-}
-
-#Preview("PackingRow states") {
-    makePackingRowPreview()
+    .modelContainer(container)
 }
 #endif
