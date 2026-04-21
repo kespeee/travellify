@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation + Trips** - Data model, schema versioning, navigation shell, and full trip CRUD
 - [ ] **Phase 2: Documents** - Document import (camera/Photos/Files), full-screen viewer, rename, delete
 - [x] **Phase 3: Packing List** - Categorized packing list, swipe check-off, category and item CRUD, progress indicator (completed 2026-04-20)
-- [ ] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete
+- [x] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete (completed 2026-04-22)
 - [ ] **Phase 5: Notifications** - Per-activity notification toggle, full lifecycle management, 64-cap scheduler
 - [ ] **Phase 6: Polish + TestFlight** - Document lock (Face ID), empty states, error handling, accessibility, TestFlight build
 - [ ] **Phase 7: Activity Photos** - Multi-photo import, thumbnails, photo grid in activity detail, file cleanup
@@ -94,7 +94,7 @@ Plans:
 - [x] 04-01-PLAN.md — Activity schema extension (D40 fields) + ActivityDateLabels helpers + ActivityTests + SchemaTests CloudKit-safety assertion
 - [x] 04-02-PLAN.md — ActivityEditSheet (create + edit; compact DatePicker; soft-warn out-of-range; title-required Save)
 - [x] 04-03-PLAN.md — ActivityListView (grouped @Query + swipe-delete + sheets) + ActivityRow/DayHeader/EmptyActivitiesView + Grouping/DayLabel tests
-- [ ] 04-04-PLAN.md — Routing (AppDestination.activityList + ContentView branch + TripDetailView Activities card smart-next-up) + NextUpcomingTests
+- [x] 04-04-PLAN.md — Routing (AppDestination.activityList + ContentView branch + TripDetailView Activities card smart-next-up) + NextUpcomingTests
 **UI hint**: yes
 
 ### Phase 5: Notifications
@@ -144,11 +144,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Foundation + Trips | 6/6 | Complete | 2026-04-19 |
 | 2. Documents | 5/6 | In Progress|  |
 | 3. Packing List | 4/4 | Complete   | 2026-04-20 |
-| 4. Activities (Core) | 1/4 | In Progress | - |
+| 4. Activities (Core) | 4/4 | Complete    | 2026-04-22 |
 | 5. Notifications | 0/? | Not started | - |
 | 6. Polish + TestFlight | 0/? | Not started | - |
 | 7. Activity Photos | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-04-18*
-*Last updated: 2026-04-21 — Phase 4 Plan 02 complete (ActivityEditSheet)*
+*Last updated: 2026-04-22 — Phase 4 complete (all 4 plans shipped; ready for /gsd-verify-phase 4)*

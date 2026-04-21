@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
-last_updated: "2026-04-21T18:58:19.353Z"
-last_activity: 2026-04-21
+stopped_at: Phase 04 complete — Activities (Core) shipped end-to-end
+last_updated: "2026-04-22T12:05:00.000Z"
+last_activity: 2026-04-22
 progress:
   total_phases: 7
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 20
-  completed_plans: 19
-  percent: 95
+  completed_plans: 20
+  percent: 100
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 
 ## Current Position
 
-Phase: 4 (activities-core) — EXECUTING
-Plan: 3 of 4 complete
-Status: Ready to execute
-Last activity: 2026-04-21
+Phase: 4 (activities-core) — COMPLETE
+Plan: 4 of 4 complete
+Status: Phase 4 complete — ready for `/gsd-verify-phase 4`
+Last activity: 2026-04-22
 
-Progress: [█████████░] 90%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Progress: [█████████░] 90%
 | Phase 04-activities-core P01 | ~8min | 2 tasks | 5 files |
 | Phase 04-activities-core P02 | ~6min | 1 task | 2 files |
 | Phase 04-activities-core P03 | 45min | 2 tasks | 6 files |
+| Phase 04-activities-core P04 | ~10min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -119,6 +120,9 @@ Recent decisions affecting current work:
 - [04-02]: Soft-warn out-of-range uses day-level comparison (startOfDay both sides) — prevents false-positive warning when user picks a time on the trip's start/end date
 - [Phase ?]: D42 honored: single multi-key @Query + Dictionary(grouping:) by startOfDay for day sections
 - [Phase ?]: Rule 1 fix: ActivityDateLabels now honors injected calendar/now (was hardcoded via isDateInToday)
+- [04-04]: AppDestination gained `.activityList(PersistentIdentifier)` — 4 cases total; ContentView switch remains exhaustive
+- [04-04]: TripDetailView Activities card is now NavigationLink → ActivityListView; message is view-thin (ActivityDateLabels.activitiesMessage only)
+- [04-04]: Phase 4 complete — ACT-01/03/04/05 all observable; smart next-up card landed per D46
 
 ### Accumulated Technical Context
 
@@ -145,6 +149,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-21T18:58:09.226Z
-Stopped at: Phase 04 Plan 02 complete — ActivityEditSheet shipped
+Last session: 2026-04-22T12:05:00.000Z
+Stopped at: Phase 04 Plan 04 complete — Phase 4 done (ready for /gsd-verify-phase 4)
 Resume file: None
