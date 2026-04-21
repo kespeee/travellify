@@ -43,7 +43,7 @@
 
 ### Activities
 
-- [ ] **ACT-01**: User can create an activity with title, date & time, location (text), and notes
+- [x] **ACT-01**: User can create an activity with title, date & time, location (text), and notes
 - [ ] **ACT-02**: User can attach one or more photos to an activity from Photos (PHPickerViewController)
 - [x] **ACT-03**: User can view all activities in a trip as a chronological day-by-day grouped list (grouped by date, sorted by time within each day)
 - [ ] **ACT-04**: User can edit all fields of an existing activity (title, date/time, location, notes, photos)
@@ -121,10 +121,10 @@ Deferred — tracked but out of v1 roadmap.
 | PACK-05 | Phase 3 | Complete |
 | PACK-06 | Phase 3 | Complete |
 | PACK-07 | Phase 3 | Complete |
-| ACT-01 | Phase 4 | Pending |
+| ACT-01 | Phase 4 | Complete |
 | ACT-02 | Phase 7 | Pending |
 | ACT-03 | Phase 4 | Complete |
-| ACT-04 | Phase 4 | Pending |
+| ACT-04 | Phase 4 + 7 | Partial (non-photo fields done in Phase 4; photos editable after Phase 7) |
 | ACT-05 | Phase 4 | Complete |
 | ACT-06 | Phase 7 | Pending |
 | ACT-07 | Phase 5 | Pending |
