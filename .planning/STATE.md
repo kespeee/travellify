@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 03 complete — awaiting human verification
-last_updated: "2026-04-20T22:20:15.694Z"
-last_activity: 2026-04-20
+stopped_at: Phase 04 Plan 01 complete — schema + ActivityDateLabels in place
+last_updated: "2026-04-21T23:30:00.000Z"
+last_activity: 2026-04-21
 progress:
   total_phases: 7
   completed_phases: 3
-  total_plans: 16
-  completed_plans: 16
-  percent: 100
+  total_plans: 20
+  completed_plans: 17
+  percent: 85
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 
 ## Current Position
 
-Phase: 3 (packing-list) — EXECUTING
-Plan: 4 of 4 complete
-Status: Ready to execute
-Last activity: 2026-04-20
+Phase: 4 (activities-core) — EXECUTING
+Plan: 1 of 4 complete
+Status: Ready to execute Plan 04-02 (ActivityEditSheet)
+Last activity: 2026-04-21
 
-Progress: [█████████░] 88%
+Progress: [████████▌░] 85%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Progress: [█████████░] 88%
 | Phase 03-packing-list P02 | 18min | 2 tasks | 6 files |
 | Phase 03-packing-list P03 | 6min | 3 tasks | 4 files |
 | Phase 03-packing-list P04 | 11 | 2 tasks | 3 files |
+| Phase 04-activities-core P01 | ~8min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -108,6 +109,9 @@ Recent decisions affecting current work:
 - [03-02]: PackingListView body split into @ViewBuilder listContent + ViewModifier extensions — Swift 6 type-checker cannot handle >~150-line ViewBuilder closures with mixed control flow
 - [03-02]: Non-ViewBuilder helper functions required for multi-branch message computation — @ViewBuilder treats `let x; if { x = }` as void view expressions
 - [03-02]: .foregroundStyle(.tint) for accent icons; Color.accentColor for ProgressView.tint — .accentColor/.accent ShapeStyle members unavailable in Xcode 26.2 SDK
+- [04-01]: Activity D40 fields landed additive within SchemaV1 (no V2 migration); location + notes are `String?` with no default, matching Document.trip precedent
+- [04-01]: ActivityDateLabels.swift is Shared/ sibling — pure-static enum with three `private static let` cached DateFormatters and injectable `now: Date = Date()` / `calendar: Calendar = .current` defaults on all non-time-only helpers for downstream DayLabel/grouping tests
+- [04-01]: SchemaV1 model count still 6 — Activity was already registered in Phase 1; this plan only expands Activity's field set
 
 ### Accumulated Technical Context
 
@@ -134,6 +138,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T22:20:15.648Z
-Stopped at: Phase 03 complete — awaiting human verification
-Resume file: .planning/phases/03-packing-list/03-VERIFICATION.md
+Last session: 2026-04-21T23:30:00.000Z
+Stopped at: Phase 04 Plan 01 complete — schema + ActivityDateLabels in place
+Resume file: .planning/phases/04-activities-core/04-02-PLAN.md
