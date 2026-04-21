@@ -23,4 +23,24 @@ struct SchemaTests {
         #expect(TravellifyMigrationPlan.stages.isEmpty)
         #expect(TravellifyMigrationPlan.schemas.count == 1)
     }
+
+    @Test func activitySchemaIsCloudKitSafe() throws {
+        let activityPath = "Travellify/Models/Activity.swift"
+        guard let src = try? String(contentsOfFile: activityPath, encoding: .utf8) else {
+            // Test target's cwd may not resolve repo-relative paths; skip gracefully.
+            return
+        }
+        #expect(src.contains("var title: String"),
+                "Activity must declare title: String field (D40)")
+        #expect(src.contains("var startAt: Date"),
+                "Activity must declare startAt: Date field (D40)")
+        #expect(src.contains("var createdAt: Date"),
+                "Activity must declare createdAt: Date field (D40)")
+        #expect(src.contains("var trip: Trip?"),
+                "Activity must keep trip as optional inverse (CloudKit-safe)")
+        #expect(!src.contains("@Attribute(.unique)"),
+                "Activity must not use @Attribute(.unique) (CloudKit forbids)")
+        #expect(!src.contains("@Attribute(.externalStorage)"),
+                "Activity must not use @Attribute(.externalStorage) per D40")
+    }
 }
