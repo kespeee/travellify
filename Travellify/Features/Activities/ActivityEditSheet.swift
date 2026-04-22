@@ -20,7 +20,6 @@ struct ActivityEditSheet: View {
     @State private var isReminderEnabled: Bool = false
     @State private var leadMinutes: Int = ReminderLeadTime.default.rawValue  // D51: default 60
     @State private var authStatus: UNAuthorizationStatus = .notDetermined
-    @State private var isPrimingShown: Bool = false
 
     // Dirty-tracking snapshot (Pitfall 6)
     @State private var initialIsReminderEnabled: Bool = false
@@ -110,19 +109,6 @@ struct ActivityEditSheet: View {
                 }
             }
             .onAppear(perform: loadInitialValuesIfNeeded)
-            .sheet(isPresented: $isPrimingShown) {
-                ReminderPrimingSheet(
-                    onEnable: {
-                        UserDefaults.standard.set(true, forKey: "hasSeenReminderPriming")
-                        isPrimingShown = false
-                        Task { await requestAuthAndEnable() }
-                    },
-                    onCancel: {
-                        UserDefaults.standard.set(true, forKey: "hasSeenReminderPriming")
-                        isPrimingShown = false
-                    }
-                )
-            }
             .task { await refreshAuthStatus() }
             .onChange(of: scenePhase) { _, new in
                 if new == .active { Task { await refreshAuthStatus() } }
@@ -176,18 +162,9 @@ struct ActivityEditSheet: View {
 
     private func handleToggleChange(_ newValue: Bool) {
         if newValue {
-            // Going ON
             switch authStatus {
             case .notDetermined:
-                let hasSeenPriming = UserDefaults.standard.bool(forKey: "hasSeenReminderPriming")
-                if ReminderPermissionState.shouldShowPrimingOnToggleOn(
-                    authStatus: .notDetermined,
-                    hasSeenPriming: hasSeenPriming
-                ) {
-                    isPrimingShown = true
-                } else {
-                    Task { await requestAuthAndEnable() }
-                }
+                Task { await requestAuthAndEnable() }
             case .authorized, .provisional, .ephemeral:
                 isReminderEnabled = true
             case .denied:
