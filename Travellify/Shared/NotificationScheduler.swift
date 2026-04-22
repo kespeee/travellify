@@ -44,11 +44,29 @@ final class NotificationScheduler {
         // 2) Fetch system truth
         let pending = await center.pendingNotificationRequests()
         let existingIDs = Set(pending.map(\.identifier))
+        let pendingByID = Dictionary(uniqueKeysWithValues: pending.map { ($0.identifier, $0) })
 
-        // 3) Diff
-        let toCancel = existingIDs.subtracting(desiredIDs)
-        let toSchedule = candidates.filter { !existingIDs.contains($0.0.id.uuidString) }
+        // 3) Diff. ACT-08 requires reschedule-on-edit: if a request already exists
+        // under the same identifier but its trigger's fireDate no longer matches
+        // our desired fireDate (e.g. user edited startAt or leadMinutes), cancel
+        // and re-add it.
+        let toCancelMissing = existingIDs.subtracting(desiredIDs)
+        var toCancelStale: Set<String> = []
+        var toSchedule: [(Activity, Date)] = []
 
+        for (activity, desiredFireDate) in candidates {
+            let id = activity.id.uuidString
+            if let existing = pendingByID[id] {
+                if Self.triggerFireDate(existing.trigger) != Self.normalizedComponents(from: desiredFireDate) {
+                    toCancelStale.insert(id)
+                    toSchedule.append((activity, desiredFireDate))
+                }
+            } else {
+                toSchedule.append((activity, desiredFireDate))
+            }
+        }
+
+        let toCancel = toCancelMissing.union(toCancelStale)
         if !toCancel.isEmpty {
             center.removePendingNotificationRequests(withIdentifiers: Array(toCancel))
         }
@@ -56,6 +74,36 @@ final class NotificationScheduler {
         for (activity, fireDate) in toSchedule {
             await schedule(activity: activity, fireDate: fireDate)
         }
+    }
+
+    /// Normalized components for equality comparison across reconcile() calls.
+    private static func normalizedComponents(from date: Date) -> DateComponents {
+        var calendar = Calendar.current
+        calendar.timeZone = .current
+        var components = calendar.dateComponents(
+            [.year, .month, .day, .hour, .minute],
+            from: date
+        )
+        components.timeZone = .current
+        // Strip calendar/timezone identity for pure component comparison.
+        var plain = DateComponents()
+        plain.year = components.year
+        plain.month = components.month
+        plain.day = components.day
+        plain.hour = components.hour
+        plain.minute = components.minute
+        return plain
+    }
+
+    private static func triggerFireDate(_ trigger: UNNotificationTrigger?) -> DateComponents? {
+        guard let cal = trigger as? UNCalendarNotificationTrigger else { return nil }
+        var plain = DateComponents()
+        plain.year = cal.dateComponents.year
+        plain.month = cal.dateComponents.month
+        plain.day = cal.dateComponents.day
+        plain.hour = cal.dateComponents.hour
+        plain.minute = cal.dateComponents.minute
+        return plain
     }
 
     private func schedule(activity: Activity, fireDate: Date) async {
