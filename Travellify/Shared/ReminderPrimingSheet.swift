@@ -54,8 +54,7 @@ struct ReminderPrimingSheet: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
             }
-
-            Spacer()
+            .padding(.bottom, 8)
 
             VStack(spacing: 12) {
                 Button(action: onEnable) {
@@ -64,10 +63,12 @@ struct ReminderPrimingSheet: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .controlSize(.large)
 
                 Button("Not now", action: onCancel)
                     .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
+                    .controlSize(.large)
             }
             .padding(.horizontal)
             .padding(.bottom, 24)
