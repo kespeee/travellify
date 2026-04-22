@@ -49,7 +49,7 @@
 - [ ] **ACT-04**: User can edit all fields of an existing activity (title, date/time, location, notes, photos)
 - [x] **ACT-05**: User can delete an activity
 - [ ] **ACT-06**: Activity photos are stored as file paths in the filesystem (not inline in SwiftData), with thumbnails generated at import time
-- [ ] **ACT-07**: User can opt in to a local notification reminder for an individual activity; when enabled, a `UNNotificationRequest` is scheduled to fire before the activity's start time
+- [x] **ACT-07**: User can opt in to a local notification reminder for an individual activity; when enabled, a `UNNotificationRequest` is scheduled to fire before the activity's start time
 - [ ] **ACT-08**: When an activity's date/time changes, its pending notification is rescheduled; when deleted, pending notification is cancelled
 - [ ] **ACT-09**: A `NotificationScheduler` respects iOS's 64-pending-notifications system cap by scheduling the soonest 64 and re-evaluating when the app foregrounds
 
@@ -127,7 +127,7 @@ Deferred — tracked but out of v1 roadmap.
 | ACT-04 | Phase 4 + 7 | Partial (non-photo fields done in Phase 4; photos editable after Phase 7) |
 | ACT-05 | Phase 4 | Complete |
 | ACT-06 | Phase 7 | Pending |
-| ACT-07 | Phase 5 | Pending |
+| ACT-07 | Phase 5 | Complete |
 | ACT-08 | Phase 5 | Pending |
 | ACT-09 | Phase 5 | Pending |
 

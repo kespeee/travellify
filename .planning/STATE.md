@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 04 verified + pushed — next up Phase 05 (Notifications)
-last_updated: "2026-04-22T13:00:00.000Z"
+status: verifying
+stopped_at: Phase 04 verified + pushed to origin/main — next up `/gsd-plan-phase 5`
+last_updated: "2026-04-22T20:36:20.874Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 20
-  completed_plans: 20
-  percent: 100
+  total_plans: 24
+  completed_plans: 21
+  percent: 88
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 
 Phase: 4 (activities-core) — COMPLETE + VERIFIED + PUSHED
 Plan: 4 of 4 complete
-Status: Phase 4 verified (26/26 tests green, manual sim checks passed); next `/gsd-plan-phase 5`
+Status: Phase complete — ready for verification
 Last activity: 2026-04-22
 
 Progress: [██████████] 100%
@@ -66,6 +66,7 @@ Progress: [██████████] 100%
 | Phase 04-activities-core P02 | ~6min | 1 task | 2 files |
 | Phase 04-activities-core P03 | 45min | 2 tasks | 6 files |
 | Phase 04-activities-core P04 | ~10min | 2 tasks | 4 files |
+| Phase 05-notifications P01 | 12min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -123,6 +124,9 @@ Recent decisions affecting current work:
 - [04-04]: AppDestination gained `.activityList(PersistentIdentifier)` — 4 cases total; ContentView switch remains exhaustive
 - [04-04]: TripDetailView Activities card is now NavigationLink → ActivityListView; message is view-thin (ActivityDateLabels.activitiesMessage only)
 - [04-04]: Phase 4 complete — ACT-01/03/04/05 all observable; smart next-up card landed per D46
+- [Phase ?]: [05-01] D52 reminder fields landed additive within SchemaV1 (no V2 migration) — isReminderEnabled: Bool = false, reminderLeadMinutes: Int? = nil
+- [Phase ?]: [05-01] ReminderLeadTime enum: raw Int minutes (15/60/180/1440), default .oneHour per D51; Activity stores Int? so future custom values don't need schema changes
+- [Phase ?]: [05-01] ReminderFireDate.fireDate uses absolute-time math; DST handled downstream by UNCalendarNotificationTrigger in Wave 2
 
 ### Accumulated Technical Context
 
@@ -149,6 +153,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-22T13:00:00.000Z
+Last session: 2026-04-22T20:35:49.724Z
 Stopped at: Phase 04 verified + pushed to origin/main — next up `/gsd-plan-phase 5`
 Resume file: None
