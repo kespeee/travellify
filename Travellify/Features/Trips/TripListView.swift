@@ -71,6 +71,10 @@ struct TripListView: View {
                 modelContext.delete(trip)
                 do {
                     try modelContext.save()
+                    // Phase 5 (ACT-08): reconcile notifications AFTER save — cascade
+                    // has already removed activity rows; reconcile cancels their pending requests.
+                    let ctx = modelContext
+                    Task { await NotificationScheduler.shared.reconcile(modelContext: ctx) }
                     // Phase 2 (D16): remove the trip's file subtree AFTER save succeeds.
                     // Silent on failure — orphan files are tolerable; model delete already succeeded.
                     try? FileStorage.removeTripFolder(tripIDString: tripIDString)

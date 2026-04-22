@@ -123,8 +123,13 @@ struct ActivityListView: View {
     }
 
     private func save(_ failureMessage: String) {
-        do { try modelContext.save() }
-        catch { errorMessage = failureMessage }
+        do {
+            try modelContext.save()
+            let ctx = modelContext
+            Task { await NotificationScheduler.shared.reconcile(modelContext: ctx) }
+        } catch {
+            errorMessage = failureMessage
+        }
     }
 }
 
