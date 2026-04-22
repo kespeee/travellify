@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 04 complete — Activities (Core) shipped end-to-end
-last_updated: "2026-04-22T12:05:00.000Z"
+stopped_at: Phase 04 verified + pushed — next up Phase 05 (Notifications)
+last_updated: "2026-04-22T13:00:00.000Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 7
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-18)
 
 **Core value:** Fast, reliable on-trip access to documents, packing list, and today's activities — a traveler on the ground must be able to pull up their passport scan, check off packing items, and see what's next without friction.
-**Current focus:** Phase 2 — documents
+**Current focus:** Phase 5 — notifications (ACT-07/08/09)
 
 ## Current Position
 
-Phase: 4 (activities-core) — COMPLETE
+Phase: 4 (activities-core) — COMPLETE + VERIFIED + PUSHED
 Plan: 4 of 4 complete
-Status: Phase 4 complete — ready for `/gsd-verify-phase 4`
+Status: Phase 4 verified (26/26 tests green, manual sim checks passed); next `/gsd-plan-phase 5`
 Last activity: 2026-04-22
 
 Progress: [██████████] 100%
@@ -149,6 +149,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-22T12:05:00.000Z
-Stopped at: Phase 04 Plan 04 complete — Phase 4 done (ready for /gsd-verify-phase 4)
+Last session: 2026-04-22T13:00:00.000Z
+Stopped at: Phase 04 verified + pushed to origin/main — next up `/gsd-plan-phase 5`
 Resume file: None
