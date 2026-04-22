@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: verifying
 stopped_at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
-last_updated: "2026-04-22T21:24:15.250Z"
+last_updated: "2026-04-22T21:55:03.138Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 7
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 24
-  completed_plans: 23
-  percent: 96
+  completed_plans: 24
+  percent: 100
 ---
 
 # Project State
@@ -68,6 +68,7 @@ Progress: [██████████] 100%
 | Phase 04-activities-core P04 | ~10min | 2 tasks | 4 files |
 | Phase 05-notifications P01 | 12min | 2 tasks | 6 files |
 | Phase 05 P03 | ~16min | 2 tasks | 4 files |
+| Phase 05-notifications P04 | 18min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -132,6 +133,9 @@ Recent decisions affecting current work:
 - [Phase 05]: [05-03] Priming sheet presented at NavigationStack level via .sheet(isPresented:); paired with .task and .onChange(of: scenePhase) for Settings round-trip auth refresh
 - [Phase 05]: [05-03] UserDefaults key 'hasSeenReminderPriming' is a literal public contract (D55) — read/write sites in ActivityEditSheet + PermissionStateTests reference it via ReminderPermissionState helper
 - [Phase 05]: [05-03] Dirty-tracking trio (initialIsReminderEnabled/initialLeadMinutes/initialStartAt) snapshotted in loadInitialValuesIfNeeded; reconcile fires only when any of the three changed or activity is new (Pitfall 6)
+- [Phase ?]: [05-04]: AppDelegate uses @preconcurrency UNUserNotificationCenterDelegate (Swift 6.0); migrate to Swift 6.2 isolated conformance when Xcode upgrades (tech debt)
+- [Phase ?]: [05-04]: Deep-link routes via AppState.pendingDeepLink = .activity(UUID); ContentView resolves UUID -> Activity -> trip.persistentModelID and pushes AppDestination.activityList, then clears intent
+- [Phase ?]: [05-04]: Scheduler Rule 1 fix — reconcile detects fireDate drift on existing identifiers (ACT-08 reschedule-on-edit)
 
 ### Accumulated Technical Context
 
@@ -158,6 +162,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-22T21:24:15.244Z
+Last session: 2026-04-22T21:54:58.501Z
 Stopped at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
 Resume file: None
