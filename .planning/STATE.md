@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: Phase 04 verified + pushed to origin/main — next up `/gsd-plan-phase 5`
-last_updated: "2026-04-22T20:36:20.874Z"
+stopped_at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
+last_updated: "2026-04-22T21:24:15.250Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 24
-  completed_plans: 21
-  percent: 88
+  completed_plans: 23
+  percent: 96
 ---
 
 # Project State
@@ -67,6 +67,7 @@ Progress: [██████████] 100%
 | Phase 04-activities-core P03 | 45min | 2 tasks | 6 files |
 | Phase 04-activities-core P04 | ~10min | 2 tasks | 4 files |
 | Phase 05-notifications P01 | 12min | 2 tasks | 6 files |
+| Phase 05 P03 | ~16min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -127,6 +128,10 @@ Recent decisions affecting current work:
 - [Phase ?]: [05-01] D52 reminder fields landed additive within SchemaV1 (no V2 migration) — isReminderEnabled: Bool = false, reminderLeadMinutes: Int? = nil
 - [Phase ?]: [05-01] ReminderLeadTime enum: raw Int minutes (15/60/180/1440), default .oneHour per D51; Activity stores Int? so future custom values don't need schema changes
 - [Phase ?]: [05-01] ReminderFireDate.fireDate uses absolute-time math; DST handled downstream by UNCalendarNotificationTrigger in Wave 2
+- [Phase 05]: [05-03] reminderSection() extracted as @ViewBuilder helper — enlarged Form body tripped Swift 6 type-check; plan explicitly authorized this fallback
+- [Phase 05]: [05-03] Priming sheet presented at NavigationStack level via .sheet(isPresented:); paired with .task and .onChange(of: scenePhase) for Settings round-trip auth refresh
+- [Phase 05]: [05-03] UserDefaults key 'hasSeenReminderPriming' is a literal public contract (D55) — read/write sites in ActivityEditSheet + PermissionStateTests reference it via ReminderPermissionState helper
+- [Phase 05]: [05-03] Dirty-tracking trio (initialIsReminderEnabled/initialLeadMinutes/initialStartAt) snapshotted in loadInitialValuesIfNeeded; reconcile fires only when any of the three changed or activity is new (Pitfall 6)
 
 ### Accumulated Technical Context
 
@@ -153,6 +158,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-22T20:35:49.724Z
-Stopped at: Phase 04 verified + pushed to origin/main — next up `/gsd-plan-phase 5`
+Last session: 2026-04-22T21:24:15.244Z
+Stopped at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
 Resume file: None

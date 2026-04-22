@@ -109,8 +109,8 @@ Plans:
 **Plans**: 4 plans
 Plans:
 - [x] 05-01-PLAN.md — Activity schema additions (D52) + ReminderLeadTime enum + ReminderFireDate helper + schema/fireDate tests
-- [ ] 05-02-PLAN.md — NotificationCenterProtocol + NotificationScheduler (@MainActor soonest-64 reconcile) + MockNotificationCenter + NotificationSchedulerTests
-- [ ] 05-03-PLAN.md — ActivityEditSheet Reminder Section (D64) + ReminderPrimingSheet (D53) + denied-state UI (D54) + reconcile hook on save + PermissionStateTests
+- [x] 05-02-PLAN.md — NotificationCenterProtocol + NotificationScheduler (@MainActor soonest-64 reconcile) + MockNotificationCenter + NotificationSchedulerTests
+- [x] 05-03-PLAN.md — ActivityEditSheet Reminder Section (D64) + ReminderPrimingSheet (D53) + denied-state UI (D54) + reconcile hook on save + PermissionStateTests
 - [ ] 05-04-PLAN.md — AppDelegate (@preconcurrency UNUserNotificationCenterDelegate) + AppState deep-link + ScenePhase reconcile + trip/activity delete reconcile + ReminderLifecycleTests
 **UI hint**: yes
 
