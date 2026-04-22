@@ -50,6 +50,9 @@
 		AD0403010203040506070809 /* ActivityGroupingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD040301020304050607080A /* ActivityGroupingTests.swift */; };
 		AD040301020304050607080B /* DayLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD040301020304050607080C /* DayLabelTests.swift */; };
 		AD0501010203040506070801 /* ReminderSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0501010203040506070802 /* ReminderSchemaTests.swift */; };
+		AD050102030405060708090A /* ReminderLeadTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090B /* ReminderLeadTime.swift */; };
+		AD050102030405060708090C /* ReminderFireDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090D /* ReminderFireDate.swift */; };
+		AD050102030405060708090E /* ReminderFireDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090F /* ReminderFireDateTests.swift */; };
 		E79341E6B2E64A93B936E0EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B3032E22843EB8E8CEEEA /* ContentView.swift */; };
 		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
 		EC08EB1AE6974849AD6524CA /* AppDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B181D57824CCEA1807469 /* AppDestination.swift */; };
@@ -92,6 +95,9 @@
 		AD040301020304050607080A /* ActivityGroupingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityGroupingTests.swift; sourceTree = "<group>"; };
 		AD040301020304050607080C /* DayLabelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabelTests.swift; sourceTree = "<group>"; };
 		AD0501010203040506070802 /* ReminderSchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSchemaTests.swift; sourceTree = "<group>"; };
+		AD050102030405060708090B /* ReminderLeadTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLeadTime.swift; sourceTree = "<group>"; };
+		AD050102030405060708090D /* ReminderFireDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFireDate.swift; sourceTree = "<group>"; };
+		AD050102030405060708090F /* ReminderFireDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFireDateTests.swift; sourceTree = "<group>"; };
 		0A0B181D57824CCEA1807469 /* AppDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDestination.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
 		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -265,6 +271,7 @@
 				AD040301020304050607080A /* ActivityGroupingTests.swift */,
 				AD040301020304050607080C /* DayLabelTests.swift */,
 				AD0501010203040506070802 /* ReminderSchemaTests.swift */,
+				AD050102030405060708090F /* ReminderFireDateTests.swift */,
 				AD0404010203040506070802 /* NextUpcomingTests.swift */,
 				FFB3C4D5E6F741829A0B8001 /* Resources */,
 			);
@@ -276,6 +283,8 @@
 			children = (
 				00393B58B34D4064ACE82273 /* PreviewContainer.swift */,
 				AD0401020304050607080902 /* ActivityDateLabels.swift */,
+				AD050102030405060708090B /* ReminderLeadTime.swift */,
+				AD050102030405060708090D /* ReminderFireDate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -462,6 +471,7 @@
 				AD0403010203040506070809 /* ActivityGroupingTests.swift in Sources */,
 				AD040301020304050607080B /* DayLabelTests.swift in Sources */,
 				AD0501010203040506070801 /* ReminderSchemaTests.swift in Sources */,
+				AD050102030405060708090E /* ReminderFireDateTests.swift in Sources */,
 				AD0404010203040506070801 /* NextUpcomingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +496,8 @@
 				164B93BCE9B64DA28F017D27 /* Activity.swift in Sources */,
 				82E05B42C9FA4F7FB0742F3C /* PreviewContainer.swift in Sources */,
 				AD0401020304050607080901 /* ActivityDateLabels.swift in Sources */,
+				AD050102030405060708090A /* ReminderLeadTime.swift in Sources */,
+				AD050102030405060708090C /* ReminderFireDate.swift in Sources */,
 				AD0402030405060708090A01 /* ActivityEditSheet.swift in Sources */,
 				AD0403010203040506070801 /* ActivityRow.swift in Sources */,
 				AD0403010203040506070803 /* ActivityDayHeader.swift in Sources */,
