@@ -106,7 +106,12 @@ Plans:
   2. When an activity's date or time is edited, its pending reminder is automatically rescheduled to the new time
   3. When an activity is deleted, its pending reminder is cancelled
   4. The app schedules only the soonest 64 reminders when the user has more than 64 enabled across all trips
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 05-01-PLAN.md — Activity schema additions (D52) + ReminderLeadTime enum + ReminderFireDate helper + schema/fireDate tests
+- [ ] 05-02-PLAN.md — NotificationCenterProtocol + NotificationScheduler (@MainActor soonest-64 reconcile) + MockNotificationCenter + NotificationSchedulerTests
+- [ ] 05-03-PLAN.md — ActivityEditSheet Reminder Section (D64) + ReminderPrimingSheet (D53) + denied-state UI (D54) + reconcile hook on save + PermissionStateTests
+- [ ] 05-04-PLAN.md — AppDelegate (@preconcurrency UNUserNotificationCenterDelegate) + AppState deep-link + ScenePhase reconcile + trip/activity delete reconcile + ReminderLifecycleTests
 **UI hint**: yes
 
 ### Phase 6: Polish + TestFlight
@@ -145,10 +150,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Documents | 5/6 | In Progress|  |
 | 3. Packing List | 4/4 | Complete   | 2026-04-20 |
 | 4. Activities (Core) | 4/4 | Complete    | 2026-04-22 |
-| 5. Notifications | 0/? | Not started | - |
+| 5. Notifications | 0/4 | Not started | - |
 | 6. Polish + TestFlight | 0/? | Not started | - |
 | 7. Activity Photos | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-04-18*
-*Last updated: 2026-04-22 — Phase 4 complete (all 4 plans shipped; ready for /gsd-verify-phase 4)*
+*Last updated: 2026-04-22 — Phase 5 planned (4 plans across 4 sequential waves)*
