@@ -15,6 +15,11 @@ extension TravellifySchemaV1 {
         var notes: String?
         var createdAt: Date = Date()
 
+        // Phase 5 additions (D52) — additive, defaults ensure SwiftData lightweight
+        // migration stays inside SchemaV1. CloudKit-safe (no @Attribute, no .unique).
+        var isReminderEnabled: Bool = false
+        var reminderLeadMinutes: Int? = nil
+
         init() {}
     }
 }
