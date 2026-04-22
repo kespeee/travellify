@@ -20,6 +20,7 @@ struct ActivityEditSheet: View {
     @State private var isReminderEnabled: Bool = false
     @State private var leadMinutes: Int = ReminderLeadTime.default.rawValue  // D51: default 60
     @State private var authStatus: UNAuthorizationStatus = .notDetermined
+    @State private var showDeniedAlert: Bool = false
 
     // Dirty-tracking snapshot (Pitfall 6)
     @State private var initialIsReminderEnabled: Bool = false
@@ -113,6 +114,16 @@ struct ActivityEditSheet: View {
             .onChange(of: scenePhase) { _, new in
                 if new == .active { Task { await refreshAuthStatus() } }
             }
+            .alert("Notifications are off", isPresented: $showDeniedAlert) {
+                Button("Open Settings") {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Enable them in Settings to get activity reminders.")
+            }
         }
     }
 
@@ -125,7 +136,6 @@ struct ActivityEditSheet: View {
                 get: { isReminderEnabled },
                 set: { newValue in handleToggleChange(newValue) }
             ))
-            .disabled(ReminderPermissionState.isToggleDisabled(authStatus: authStatus))
 
             if isReminderEnabled && authStatus != .denied {
                 Picker("Notify", selection: $leadMinutes) {
@@ -133,27 +143,6 @@ struct ActivityEditSheet: View {
                         Text(preset.label).tag(preset.rawValue)
                     }
                 }
-            }
-
-            if ReminderPermissionState.shouldShowOpenSettingsRow(authStatus: authStatus) {
-                HStack(spacing: 6) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundStyle(.orange)
-                        .imageScale(.small)
-                    Text("Notifications disabled.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel("Notifications are disabled for Travellify")
-
-                Button("Open Settings") {
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        UIApplication.shared.open(url)
-                    }
-                }
-                .buttonStyle(.plain)
-                .foregroundStyle(.tint)
             }
         }
     }
@@ -168,7 +157,7 @@ struct ActivityEditSheet: View {
             case .authorized, .provisional, .ephemeral:
                 isReminderEnabled = true
             case .denied:
-                break  // UI disables toggle; shouldn't fire
+                showDeniedAlert = true
             @unknown default:
                 break
             }
