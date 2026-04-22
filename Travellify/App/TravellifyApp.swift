@@ -3,6 +3,9 @@ import SwiftData
 
 @main
 struct TravellifyApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @Environment(\.scenePhase) private var scenePhase
+
     let container: ModelContainer
 
     init() {
@@ -22,6 +25,14 @@ struct TravellifyApp: App {
             ContentView()
                 .modelContainer(container)
                 .preferredColorScheme(.dark)
+        }
+        .onChange(of: scenePhase) { _, new in
+            if new == .active {
+                let ctx = container.mainContext
+                Task { @MainActor in
+                    await NotificationScheduler.shared.reconcile(modelContext: ctx)
+                }
+            }
         }
     }
 }

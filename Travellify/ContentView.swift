@@ -1,7 +1,10 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var path: [AppDestination] = []
+    private let appState = AppState.shared
 
     var body: some View {
         TabView {
@@ -19,6 +22,17 @@ struct ContentView: View {
                             ActivityListView(tripID: id)
                         }
                     }
+            }
+            .onChange(of: appState.pendingDeepLink) { _, deepLink in
+                guard case .activity(let uuid) = deepLink else { return }
+                let descriptor = FetchDescriptor<Activity>(
+                    predicate: #Predicate { $0.id == uuid }
+                )
+                if let activity = (try? modelContext.fetch(descriptor))?.first,
+                   let trip = activity.trip {
+                    path.append(AppDestination.activityList(trip.persistentModelID))
+                }
+                appState.pendingDeepLink = nil   // consume
             }
             .tabItem {
                 Label("Trips", systemImage: "airplane")

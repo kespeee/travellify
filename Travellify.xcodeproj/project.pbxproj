@@ -62,6 +62,9 @@
 		E79341E6B2E64A93B936E0EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B3032E22843EB8E8CEEEA /* ContentView.swift */; };
 		EBFC0D1E2F3041829A0B2301 /* PartitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0D1E2F304141829A0B2302 /* PartitionTests.swift */; };
 		EC08EB1AE6974849AD6524CA /* AppDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B181D57824CCEA1807469 /* AppDestination.swift */; };
+		AD0504010203040506070801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0504010203040506070802 /* AppDelegate.swift */; };
+		AD0504010203040506070803 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0504010203040506070804 /* AppState.swift */; };
+		AD0504010203040506070805 /* ReminderLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0504010203040506070806 /* ReminderLifecycleTests.swift */; };
 		EE0203A1B1C241829A0B5005 /* FilesImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0203A1B1C241829A0B5006 /* FilesImporter.swift */; };
 		F1A2B3C4D5E641829A0B7001 /* tiny-jpeg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F2A2B3C4D5E641829A0B7002 /* tiny-jpeg.jpg */; };
 		F3A2B3C4D5E641829A0B7003 /* tiny-heic.heic in Resources */ = {isa = PBXBuildFile; fileRef = F4A2B3C4D5E641829A0B7004 /* tiny-heic.heic */; };
@@ -111,6 +114,9 @@
 		AD0503010203040506070802 /* ReminderPrimingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPrimingSheet.swift; sourceTree = "<group>"; };
 		AD0503010203040506070804 /* PermissionStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionStateTests.swift; sourceTree = "<group>"; };
 		0A0B181D57824CCEA1807469 /* AppDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDestination.swift; sourceTree = "<group>"; };
+		AD0504010203040506070802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AD0504010203040506070804 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		AD0504010203040506070806 /* ReminderLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLifecycleTests.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
 		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 				AD0404010203040506070802 /* NextUpcomingTests.swift */,
 				AD0502010203040506070808 /* NotificationSchedulerTests.swift */,
 				AD0503010203040506070804 /* PermissionStateTests.swift */,
+				AD0504010203040506070806 /* ReminderLifecycleTests.swift */,
 				AD05020102030405060708FF /* Support */,
 				FFB3C4D5E6F741829A0B8001 /* Resources */,
 			);
@@ -326,6 +333,8 @@
 			children = (
 				AECF7BF1958445ABAE8DBB1C /* TravellifyApp.swift */,
 				0A0B181D57824CCEA1807469 /* AppDestination.swift */,
+				AD0504010203040506070802 /* AppDelegate.swift */,
+				AD0504010203040506070804 /* AppState.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -502,6 +511,7 @@
 				AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */,
 				AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */,
 				AD0503010203040506070803 /* PermissionStateTests.swift in Sources */,
+				AD0504010203040506070805 /* ReminderLifecycleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +520,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C7289744ED44C78185F341 /* TravellifyApp.swift in Sources */,
+				AD0504010203040506070801 /* AppDelegate.swift in Sources */,
+				AD0504010203040506070803 /* AppState.swift in Sources */,
 				E79341E6B2E64A93B936E0EF /* ContentView.swift in Sources */,
 				DAB9EE09C3DE4941957B13A3 /* SchemaV1.swift in Sources */,
 				9606D2561BA244CE80053A3C /* Trip.swift in Sources */,
