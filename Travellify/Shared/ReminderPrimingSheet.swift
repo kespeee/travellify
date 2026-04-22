@@ -38,11 +38,11 @@ struct ReminderPrimingSheet: View {
     let onCancel: () -> Void
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 20) {
             Image(systemName: "bell.badge.fill")
-                .font(.system(size: 56))
+                .font(.system(size: 48))
                 .foregroundStyle(.tint)
-                .padding(.top, 40)
+                .padding(.top, 24)
 
             VStack(spacing: 8) {
                 Text("Travellify wants to send reminders")
@@ -73,7 +73,8 @@ struct ReminderPrimingSheet: View {
             .padding(.horizontal)
             .padding(.bottom, 24)
         }
-        .presentationDetents([.medium])
+        .presentationDetents([.height(380)])
+        .presentationDragIndicator(.visible)
     }
 }
 
