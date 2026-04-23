@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Packing List** - Categorized packing list, swipe check-off, category and item CRUD, progress indicator (completed 2026-04-20)
 - [x] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete (completed 2026-04-22)
 - [ ] **Phase 5: Notifications** - Per-activity notification toggle, full lifecycle management, 64-cap scheduler
-- [ ] **Phase 6: Polish + TestFlight Prep** - UI polish pass, trip-level reminders (TRIP-07/08/09), placeholder icon, PrivacyInfo manifest, version metadata (Face ID lock deferred to v1.x POLISH-05)
+- [x] **Phase 6: Polish + TestFlight Prep** - UI polish pass, trip-level reminders (TRIP-07/08/09), placeholder icon, PrivacyInfo manifest, version metadata (Face ID lock deferred to v1.x POLISH-05) (completed 2026-04-24)
 - [ ] **Phase 7: Activity Photos** - Multi-photo import, thumbnails, photo grid in activity detail, file cleanup
 
 ## Phase Details
@@ -131,7 +131,7 @@ Plans:
 - [x] 06-01-PLAN.md — UI polish bundle (D70–D75: doc thumbnail 3:4, centered name, doc-N default naming, packing empty-state centering, TripEditSheet date self-consistency, ActivityEditSheet DatePicker clamp)
 - [x] 06-02-PLAN.md — Trip schema additive fields (D76) + TripReminderLeadTime enum (D77) + ReminderFireDate Trip overload (D78) + tests [TRIP-07 foundation]
 - [x] 06-03-PLAN.md — NotificationScheduler union pipeline (D79) + TripEditSheet Reminder Section (D82) + deep-link .trip(UUID) (D81) + ReminderLifecycleTests trip variants [TRIP-07/08/09]
-- [ ] 06-04-PLAN.md — TestFlight minimums: placeholder icon (D85) + PrivacyInfo.xcprivacy (D86) + version/build/bundle-ID verification (D87) + D88 no-op
+- [x] 06-04-PLAN.md — TestFlight minimums: placeholder icon (D85) + PrivacyInfo.xcprivacy (D86) + version/build/bundle-ID verification (D87) + D88 no-op
 **UI hint**: yes
 
 ### Phase 7: Activity Photos

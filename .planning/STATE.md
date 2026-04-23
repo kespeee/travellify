@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
-last_updated: "2026-04-23T21:47:40.146Z"
-last_activity: 2026-04-23
+stopped_at: Completed 06-04-PLAN.md — TestFlight submission minimums (app icon, PrivacyInfo.xcprivacy, version/build/bundle-ID verified)
+last_updated: "2026-04-24T00:00:00.000Z"
+last_activity: 2026-04-24
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 28
-  completed_plans: 27
-  percent: 96
+  completed_plans: 28
+  percent: 100
 ---
 
 # Project State
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 
 ## Current Position
 
-Phase: 06 (polish-testflight) — EXECUTING
+Phase: 06 (polish-testflight) — COMPLETE
 Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-04-23
+Status: Phase complete — ready for TestFlight (user-run archive + upload)
+Last activity: 2026-04-24
 
 Progress: [██████████] 100%
 
@@ -72,6 +72,7 @@ Progress: [██████████] 100%
 | Phase 06 P01 | 18min | 2 tasks | 8 files |
 | Phase 06 P02 | 10min | 2 tasks | 6 files |
 | Phase 06 P03 | ~12min | 3 tasks | 7 files |
+| Phase 06 P04 | ~6min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -146,6 +147,10 @@ Recent decisions affecting current work:
 - [Phase ?]: [06-03] Scheduler unions Trip+Activity via ScheduledReminder w/ single prefix(64)
 - [Phase ?]: [06-03] PendingDeepLink.trip(UUID); AppDestination.tripDetail reused (no new case)
 - [Phase ?]: [06-03] TripEditSheet Reminder Section mirrors ActivityEditSheet; dirty triplet on startDate
+- [06-04] Placeholder 1024x1024 opaque RGB PNG generated via Python stdlib zlib (Pillow unavailable); solid #FFDD2D
+- [06-04] PrivacyInfo.xcprivacy at Travellify/ root (sibling of ContentView.swift) — 4 pbxproj Resources-phase entries; lands at app-bundle root
+- [06-04] D87 verification-only: MARKETING_VERSION=1.0 / CURRENT_PROJECT_VERSION=1 / PRODUCT_BUNDLE_IDENTIFIER=com.kespeee.travellify all pre-set — zero corrective writes
+- [06-04] D88 no-op: NSUserNotificationsUsageDescription is macOS-only (not needed on iOS); INFOPLIST_KEY_NSCameraUsageDescription preserved from Phase 2
 
 ### Accumulated Technical Context
 
@@ -172,6 +177,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-23T21:47:24.760Z
-Stopped at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
+Last session: 2026-04-24T00:00:00.000Z
+Stopped at: Completed 06-04-PLAN.md — TestFlight submission minimums (app icon + PrivacyInfo.xcprivacy + D87/D88 verification)
 Resume file: None
