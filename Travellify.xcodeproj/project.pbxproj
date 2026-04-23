@@ -54,6 +54,7 @@
 		AD0602010203040506070801 /* TripReminderLeadTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0602010203040506070802 /* TripReminderLeadTime.swift */; };
 		AD050102030405060708090C /* ReminderFireDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090D /* ReminderFireDate.swift */; };
 		AD050102030405060708090E /* ReminderFireDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090F /* ReminderFireDateTests.swift */; };
+		AD0602010203040506070803 /* TripReminderFireDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0602010203040506070804 /* TripReminderFireDateTests.swift */; };
 		AD0502010203040506070801 /* NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070802 /* NotificationCenterProtocol.swift */; };
 		AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070804 /* MockNotificationCenter.swift */; };
 		AD0502010203040506070805 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070806 /* NotificationScheduler.swift */; };
@@ -109,6 +110,7 @@
 		AD0602010203040506070802 /* TripReminderLeadTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReminderLeadTime.swift; sourceTree = "<group>"; };
 		AD050102030405060708090D /* ReminderFireDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFireDate.swift; sourceTree = "<group>"; };
 		AD050102030405060708090F /* ReminderFireDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderFireDateTests.swift; sourceTree = "<group>"; };
+		AD0602010203040506070804 /* TripReminderFireDateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripReminderFireDateTests.swift; sourceTree = "<group>"; };
 		AD0502010203040506070802 /* NotificationCenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterProtocol.swift; sourceTree = "<group>"; };
 		AD0502010203040506070804 /* MockNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationCenter.swift; sourceTree = "<group>"; };
 		AD0502010203040506070806 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				AD040301020304050607080C /* DayLabelTests.swift */,
 				AD0501010203040506070802 /* ReminderSchemaTests.swift */,
 				AD050102030405060708090F /* ReminderFireDateTests.swift */,
+				AD0602010203040506070804 /* TripReminderFireDateTests.swift */,
 				AD0404010203040506070802 /* NextUpcomingTests.swift */,
 				AD0502010203040506070808 /* NotificationSchedulerTests.swift */,
 				AD0503010203040506070804 /* PermissionStateTests.swift */,
@@ -510,6 +513,7 @@
 				AD040301020304050607080B /* DayLabelTests.swift in Sources */,
 				AD0501010203040506070801 /* ReminderSchemaTests.swift in Sources */,
 				AD050102030405060708090E /* ReminderFireDateTests.swift in Sources */,
+				AD0602010203040506070803 /* TripReminderFireDateTests.swift in Sources */,
 				AD0404010203040506070801 /* NextUpcomingTests.swift in Sources */,
 				AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */,
 				AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */,
