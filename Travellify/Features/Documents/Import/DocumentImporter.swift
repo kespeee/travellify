@@ -108,6 +108,12 @@ enum DocumentImporter {
         Date().formatted(.dateTime.year().month().day())
     }
 
+    // Stub — real implementation in GREEN commit.
+    @MainActor
+    static func nextDefaultName(in trip: Trip) -> String {
+        "doc-stub"
+    }
+
     private static func fileExtension(for types: [UTType]) -> String? {
         if types.contains(where: { $0.conforms(to: .heic) }) { return "heic" }
         if types.contains(where: { $0.conforms(to: .jpeg) }) { return "jpg" }

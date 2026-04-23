@@ -120,6 +120,26 @@ struct ActivityTests {
         #expect(try context.fetch(FetchDescriptor<Activity>()).isEmpty)
     }
 
+    // MARK: - D75 legacy: day-level outside-range semantics
+
+    @Test func outsideRangeDayLevel() {
+        // Locks existing day-level compare semantics (Phase 4 soft-warn) —
+        // ensures D75 `in:` clamp did not accidentally invalidate the isOutsideTripRange helper.
+        // Mirror startOfDay comparison used in ActivityEditSheet.isOutsideTripRange.
+        let cal = Calendar.current
+        let tripStart = cal.startOfDay(for: Date(timeIntervalSince1970: 1_700_000_000))
+        let tripEnd = cal.startOfDay(for: tripStart.addingTimeInterval(86_400 * 3))
+
+        // Same day as tripEnd, +1 second → NOT outside
+        let sameDayLate = tripEnd.addingTimeInterval(1)
+        let sameDayStart = cal.startOfDay(for: sameDayLate)
+        #expect(sameDayStart >= tripStart && sameDayStart <= tripEnd)
+
+        // Next day → outside
+        let nextDayStart = cal.startOfDay(for: tripEnd.addingTimeInterval(86_400))
+        #expect(nextDayStart > tripEnd)
+    }
+
     // MARK: - Optional fields can be cleared to nil
 
     @Test func optionalFieldsCanBeClearedToNil() throws {

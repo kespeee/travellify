@@ -156,6 +156,47 @@ struct ImportTests {
         #expect(writtenBytes == originalBytes, "Copied bytes must match source file bytes exactly")
     }
 
+    // MARK: - D72: nextDefaultName(in:) per-trip sequential
+
+    @Test func defaultNameStartsAtOne() throws {
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+        let trip = makeTrip(in: ctx)
+        #expect(DocumentImporter.nextDefaultName(in: trip) == "doc-1")
+    }
+
+    @Test func defaultNameIncrementsPastMax() throws {
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+        let trip = makeTrip(in: ctx)
+        let d1 = Document()
+        d1.displayName = "doc-1"
+        d1.trip = trip
+        ctx.insert(d1)
+        let d3 = Document()
+        d3.displayName = "doc-3"
+        d3.trip = trip
+        ctx.insert(d3)
+        try ctx.save()
+        #expect(DocumentImporter.nextDefaultName(in: trip) == "doc-4")
+    }
+
+    @Test func defaultNameIgnoresNonMatching() throws {
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+        let trip = makeTrip(in: ctx)
+        let d1 = Document()
+        d1.displayName = "Passport.pdf"
+        d1.trip = trip
+        ctx.insert(d1)
+        let d2 = Document()
+        d2.displayName = "doc-2"
+        d2.trip = trip
+        ctx.insert(d2)
+        try ctx.save()
+        #expect(DocumentImporter.nextDefaultName(in: trip) == "doc-3")
+    }
+
     // MARK: - Concurrency: import writes off-main, inserts on-main
 
     @Test func importRunsOffMainThenHopsToMain() async throws {
