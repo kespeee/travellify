@@ -26,7 +26,7 @@ enum DocumentImporter {
 
         let doc = Document()
         doc.id = docID
-        doc.displayName = "Scan " + Self.localizedDateString()
+        doc.displayName = Self.nextDefaultName(in: trip)
         doc.fileRelativePath = relativePath
         doc.kind = .pdf
         doc.importedAt = Date()
@@ -60,7 +60,7 @@ enum DocumentImporter {
 
         let doc = Document()
         doc.id = docID
-        doc.displayName = "Photo " + Self.localizedDateString()
+        doc.displayName = Self.nextDefaultName(in: trip)
         doc.fileRelativePath = relativePath
         doc.kind = .image
         doc.importedAt = Date()
@@ -77,7 +77,6 @@ enum DocumentImporter {
         trip: Trip,
         modelContext: ModelContext
     ) async throws {
-        let sourceName = url.deletingPathExtension().lastPathComponent
         let rawExt = url.pathExtension
         let ext = rawExt.isEmpty ? "bin" : rawExt
         let kind: DocumentKind = (ext.lowercased() == "pdf") ? .pdf : .image
@@ -93,7 +92,7 @@ enum DocumentImporter {
 
         let doc = Document()
         doc.id = docID
-        doc.displayName = sourceName.isEmpty ? "Document" : sourceName
+        doc.displayName = Self.nextDefaultName(in: trip)
         doc.fileRelativePath = relativePath
         doc.kind = kind
         doc.importedAt = Date()
@@ -104,14 +103,17 @@ enum DocumentImporter {
 
     // MARK: - Helpers
 
-    private static func localizedDateString() -> String {
-        Date().formatted(.dateTime.year().month().day())
-    }
-
-    // Stub — real implementation in GREEN commit.
     @MainActor
     static func nextDefaultName(in trip: Trip) -> String {
-        "doc-stub"
+        let regex = /^doc-(\d+)$/
+        let maxN = (trip.documents ?? [])
+            .compactMap { doc -> Int? in
+                guard let match = try? regex.wholeMatch(in: doc.displayName),
+                      let n = Int(match.output.1) else { return nil }
+                return n
+            }
+            .max() ?? 0
+        return "doc-\(maxN + 1)"
     }
 
     private static func fileExtension(for types: [UTType]) -> String? {
