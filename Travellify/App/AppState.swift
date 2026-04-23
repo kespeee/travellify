@@ -16,5 +16,6 @@ final class AppState {
 
     enum PendingDeepLink: Equatable {
         case activity(UUID)
+        case trip(UUID)
     }
 }

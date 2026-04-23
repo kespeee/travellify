@@ -24,13 +24,24 @@ struct ContentView: View {
                     }
             }
             .onChange(of: appState.pendingDeepLink) { _, deepLink in
-                guard case .activity(let uuid) = deepLink else { return }
-                let descriptor = FetchDescriptor<Activity>(
-                    predicate: #Predicate { $0.id == uuid }
-                )
-                if let activity = (try? modelContext.fetch(descriptor))?.first,
-                   let trip = activity.trip {
-                    path.append(AppDestination.activityList(trip.persistentModelID))
+                switch deepLink {
+                case .activity(let uuid):
+                    let d = FetchDescriptor<Activity>(
+                        predicate: #Predicate { $0.id == uuid }
+                    )
+                    if let activity = (try? modelContext.fetch(d))?.first,
+                       let trip = activity.trip {
+                        path.append(AppDestination.activityList(trip.persistentModelID))
+                    }
+                case .trip(let uuid):
+                    let d = FetchDescriptor<Trip>(
+                        predicate: #Predicate { $0.id == uuid }
+                    )
+                    if let trip = (try? modelContext.fetch(d))?.first {
+                        path.append(AppDestination.tripDetail(trip.persistentModelID))
+                    }
+                case .none:
+                    break
                 }
                 appState.pendingDeepLink = nil   // consume
             }

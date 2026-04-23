@@ -32,8 +32,12 @@ extension AppDelegate: @preconcurrency UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse
     ) async {
         let info = response.notification.request.content.userInfo
-        guard let uuidString = info["activityID"] as? String,
-              let uuid = UUID(uuidString: uuidString) else { return }
-        AppState.shared.pendingDeepLink = .activity(uuid)
+        if let s = info["activityID"] as? String, let uuid = UUID(uuidString: s) {
+            AppState.shared.pendingDeepLink = .activity(uuid)
+            return
+        }
+        if let s = info["tripID"] as? String, let uuid = UUID(uuidString: s) {
+            AppState.shared.pendingDeepLink = .trip(uuid)
+        }
     }
 }
