@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Packing List** - Categorized packing list, swipe check-off, category and item CRUD, progress indicator (completed 2026-04-20)
 - [x] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete (completed 2026-04-22)
 - [ ] **Phase 5: Notifications** - Per-activity notification toggle, full lifecycle management, 64-cap scheduler
-- [ ] **Phase 6: Polish + TestFlight** - Document lock (Face ID), empty states, error handling, accessibility, TestFlight build
+- [ ] **Phase 6: Polish + TestFlight Prep** - UI polish pass, trip-level reminders (TRIP-07/08/09), placeholder icon, PrivacyInfo manifest, version metadata (Face ID lock deferred to v1.x POLISH-05)
 - [ ] **Phase 7: Activity Photos** - Multi-photo import, thumbnails, photo grid in activity detail, file cleanup
 
 ## Phase Details
@@ -114,16 +114,24 @@ Plans:
 - [x] 05-04-PLAN.md — AppDelegate (@preconcurrency UNUserNotificationCenterDelegate) + AppState deep-link + ScenePhase reconcile + trip/activity delete reconcile + ReminderLifecycleTests
 **UI hint**: yes
 
-### Phase 6: Polish + TestFlight
-**Goal**: The app is secure, handles edge cases gracefully, and is ready for TestFlight distribution
+### Phase 6: Polish + TestFlight Prep
+**Goal**: Ship a polished TestFlight-submittable build: targeted UI fixes, trip-level reminders, placeholder icon, privacy manifest, version metadata.
 **Depends on**: Phase 5
-**Requirements**: DOC-08
+**Requirements**: TRIP-07, TRIP-08, TRIP-09 *(DOC-08 deferred to v1.x POLISH-05 per 2026-04-23 scope revision)*
 **Success Criteria** (what must be TRUE):
-  1. User can enable a Face ID / passcode lock on the Documents section in Settings; the lock is enforced on every entry
-  2. All list views show a clear empty state when no content exists yet (trips, documents, packing items, activities)
-  3. Destructive actions (trip delete) show a confirmation alert before proceeding
-  4. A TestFlight build installs and runs without crashes on a physical iPhone with iOS 17 or later
-**Plans**: TBD
+  1. Document thumbnails render at 3:4 aspect ratio; document names are horizontally centered in list rows; newly imported documents get sequential `doc-<N>` default names (per-trip)
+  2. Packing empty state is vertically centered, not top-aligned
+  3. TripEditSheet auto-aligns `endDate = startDate` when start > end; end-date picker is bounded by `startDate`
+  4. ActivityEditSheet DatePicker is clamped to `trip.startDate...trip.endDate` in both create and edit modes
+  5. User can opt in to a trip-level reminder with 1 day / 3 days / 1 week / 2 weeks lead time; fires before trip start; lifecycle (reschedule on date change, cancel on delete) matches activity reminders; shares the 64-cap soonest-N pool (identifier prefix `trip-`)
+  6. Placeholder app icon present in Assets.xcassets; `PrivacyInfo.xcprivacy` committed declaring UserDefaults + FileTimestamp API reasons; MARKETING_VERSION=1.0, CURRENT_PROJECT_VERSION=1, bundle ID `com.kespeee.travellify` verified in pbxproj
+**Out of scope**: Face ID lock (POLISH-05, v1.x); accessibility pass; error-handling audit; extra confirmation dialogs; archive/upload to App Store Connect (user-run manual step)
+**Plans**: 4 plans (4 waves)
+Plans:
+- [ ] 06-01-PLAN.md — UI polish bundle (D70–D75: doc thumbnail 3:4, centered name, doc-N default naming, packing empty-state centering, TripEditSheet date self-consistency, ActivityEditSheet DatePicker clamp)
+- [ ] 06-02-PLAN.md — Trip schema additive fields (D76) + TripReminderLeadTime enum (D77) + ReminderFireDate Trip overload (D78) + tests [TRIP-07 foundation]
+- [ ] 06-03-PLAN.md — NotificationScheduler union pipeline (D79) + TripEditSheet Reminder Section (D82) + deep-link .trip(UUID) (D81) + ReminderLifecycleTests trip variants [TRIP-07/08/09]
+- [ ] 06-04-PLAN.md — TestFlight minimums: placeholder icon (D85) + PrivacyInfo.xcprivacy (D86) + version/build/bundle-ID verification (D87) + D88 no-op
 **UI hint**: yes
 
 ### Phase 7: Activity Photos

@@ -29,7 +29,7 @@
 - [x] **DOC-05**: User can rename a document after import
 - [x] **DOC-06**: User can delete a document from a trip
 - [x] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
-- [ ] **DOC-08**: User can opt in, via Settings, to require Face ID / passcode authentication before accessing the Documents section of any trip (LocalAuthentication framework)
+- [ ] ~~**DOC-08**~~: *(moved to v1.x POLISH-05 — Face ID lock deferred past first TestFlight; see Polish section below)*
 
 ### Packing
 
@@ -53,6 +53,12 @@
 - [x] **ACT-08**: When an activity's date/time changes, its pending notification is rescheduled; when deleted, pending notification is cancelled
 - [x] **ACT-09**: A `NotificationScheduler` respects iOS's 64-pending-notifications system cap by scheduling the soonest 64 and re-evaluating when the app foregrounds
 
+### Trip Reminders (added Phase 6)
+
+- [ ] **TRIP-07**: User can opt in to a local notification reminder for a trip; when enabled, a `UNNotificationRequest` is scheduled to fire before the trip's `startDate` by a user-selected lead time (1 day / 3 days / 1 week / 2 weeks)
+- [ ] **TRIP-08**: When a trip's `startDate` changes, its pending reminder is rescheduled; when the trip is deleted, its pending reminder is cancelled
+- [ ] **TRIP-09**: Trip reminders share the 64-pending-notifications soonest-N pool with activity reminders via identifier prefix `trip-<uuid>` vs. `<activity-uuid>`
+
 ## v2 Requirements
 
 Deferred — tracked but out of v1 roadmap.
@@ -74,6 +80,7 @@ Deferred — tracked but out of v1 roadmap.
 - **POLISH-02**: "Uncheck all" action to reset a packing list for reuse
 - **POLISH-03**: Tappable activity location opens in Apple Maps (deep link)
 - **POLISH-04**: Calendar export per-activity via EventKit (one-way)
+- **POLISH-05** *(was DOC-08)*: User can opt in, via Settings, to require Face ID / passcode authentication before accessing the Documents section of any trip (LocalAuthentication framework) — deferred past first TestFlight
 
 ## Out of Scope
 
@@ -113,7 +120,10 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-05 | Phase 2 | Complete |
 | DOC-06 | Phase 2 | Complete |
 | DOC-07 | Phase 2 | Complete |
-| DOC-08 | Phase 6 | Pending |
+| DOC-08 | *v1.x (POLISH-05)* | *Deferred past first TestFlight* |
+| TRIP-07 | Phase 6 | Pending |
+| TRIP-08 | Phase 6 | Pending |
+| TRIP-09 | Phase 6 | Pending |
 | PACK-01 | Phase 3 | Complete |
 | PACK-02 | Phase 3 | Complete |
 | PACK-03 | Phase 3 | Complete |
@@ -132,10 +142,10 @@ Deferred — tracked but out of v1 roadmap.
 | ACT-09 | Phase 5 | Complete |
 
 **Coverage:**
-- v1 requirements: 33 total
-- Mapped to phases: 33
+- v1 requirements: 35 total (DOC-08 demoted to v1.x POLISH-05; TRIP-07/08/09 added)
+- Mapped to phases: 35
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-18*
-*Last updated: 2026-04-18 — DOC-08 moved to Phase 6; ACT-02, ACT-06 moved to Phase 7*
+*Last updated: 2026-04-23 — DOC-08 demoted to v1.x POLISH-05 (deferred past first TestFlight); TRIP-07/08/09 added for trip-level reminders in Phase 6*
