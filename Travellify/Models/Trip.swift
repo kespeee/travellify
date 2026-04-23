@@ -11,6 +11,10 @@ extension TravellifySchemaV1 {
         var endDate: Date = Date()
         var createdAt: Date = Date()
 
+        // Phase 6 (D76) — additive reminder fields, CloudKit-safe defaults
+        var isReminderEnabled: Bool = false
+        var reminderLeadMinutes: Int? = nil
+
         // CASCADE — child records deleted when trip is deleted
         @Relationship(deleteRule: .cascade, inverse: \Destination.trip)
         var destinations: [Destination]? = []
