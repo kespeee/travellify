@@ -3,9 +3,9 @@ import SwiftData
 import UserNotifications
 
 /// Single mutation entry for the notification subsystem. Reconciles user
-/// intent (SwiftData `Activity.isReminderEnabled` + `reminderLeadMinutes`)
+/// intent (SwiftData `Activity.isReminderEnabled` / `Trip.isReminderEnabled`)
 /// against system truth (`UNUserNotificationCenter.pendingNotificationRequests`),
-/// capped at the soonest 64 globally by `fireDate`.
+/// capped at the soonest 64 globally by `fireDate` ACROSS the union of both.
 ///
 /// All construction of `UNMutableNotificationContent` / `UNNotificationRequest`
 /// happens on `@MainActor`; these types are NOT Sendable under Swift 6, so they
@@ -20,49 +20,92 @@ final class NotificationScheduler {
         self.center = center
     }
 
+    /// Union element for Trip + Activity reminder scheduling.
+    /// All @Model access happens once during gather; pipeline then operates on pure values.
+    private struct ScheduledReminder {
+        enum Kind { case activity, trip }
+        let kind: Kind
+        let identifier: String         // "trip-<uuid>" or "<activity-uuid>"
+        let fireDate: Date
+        let title: String
+        let body: String
+        let userInfoKey: String        // "tripID" or "activityID"
+        let userInfoValue: String      // BARE uuid string (never prefixed)
+    }
+
     /// Idempotent. Brings iOS's pending requests into alignment with SwiftData
-    /// user intent, capped at the soonest-64 globally by fireDate.
+    /// user intent, capped at the soonest-64 globally by fireDate across the
+    /// Trip+Activity union (D79 / TRIP-09).
     func reconcile(modelContext: ModelContext) async {
-        // 1) Gather user-intent
-        let descriptor = FetchDescriptor<Activity>(
+        // 1) Gather user-intent across BOTH models
+        let activityDescriptor = FetchDescriptor<Activity>(
             predicate: #Predicate { $0.isReminderEnabled == true }
         )
-        guard let allEnabled = try? modelContext.fetch(descriptor) else { return }
-
+        let tripDescriptor = FetchDescriptor<Trip>(
+            predicate: #Predicate { $0.isReminderEnabled == true }
+        )
+        let activities = (try? modelContext.fetch(activityDescriptor)) ?? []
+        let trips = (try? modelContext.fetch(tripDescriptor)) ?? []
         let now = Date()
-        let candidates = allEnabled
-            .compactMap { activity -> (Activity, Date)? in
-                guard let fireDate = ReminderFireDate.fireDate(for: activity),
-                      fireDate > now else { return nil }
-                return (activity, fireDate)
-            }
-            .sorted { $0.1 < $1.1 }
-            .prefix(64)
 
-        let desiredIDs = Set(candidates.map { $0.0.id.uuidString })
+        let activityReminders: [ScheduledReminder] = activities.compactMap { a in
+            guard let fire = ReminderFireDate.fireDate(for: a), fire > now,
+                  let trip = a.trip else { return nil }
+            return ScheduledReminder(
+                kind: .activity,
+                identifier: a.id.uuidString,
+                fireDate: fire,
+                title: a.title,
+                body: Self.activityBody(activity: a, trip: trip),
+                userInfoKey: "activityID",
+                userInfoValue: a.id.uuidString
+            )
+        }
+
+        let tripReminders: [ScheduledReminder] = trips.compactMap { t in
+            guard let fire = ReminderFireDate.fireDate(for: t), fire > now,
+                  let minutes = t.reminderLeadMinutes,
+                  let preset = TripReminderLeadTime(rawValue: minutes) else { return nil }
+            return ScheduledReminder(
+                kind: .trip,
+                identifier: "trip-\(t.id.uuidString)",
+                fireDate: fire,
+                title: "Trip starting soon",
+                body: "\(t.name) · \(preset.bodyPhrase)",
+                userInfoKey: "tripID",
+                userInfoValue: t.id.uuidString
+            )
+        }
+
+        // SINGLE sort + cap across the union (research landmine #1 — never bucket-then-cap)
+        let candidates = Array(
+            (activityReminders + tripReminders)
+                .sorted { $0.fireDate < $1.fireDate }
+                .prefix(64)
+        )
+
+        let desiredIDs = Set(candidates.map { $0.identifier })
 
         // 2) Fetch system truth
         let pending = await center.pendingNotificationRequests()
         let existingIDs = Set(pending.map(\.identifier))
         let pendingByID = Dictionary(uniqueKeysWithValues: pending.map { ($0.identifier, $0) })
 
-        // 3) Diff. ACT-08 requires reschedule-on-edit: if a request already exists
-        // under the same identifier but its trigger's fireDate no longer matches
-        // our desired fireDate (e.g. user edited startAt or leadMinutes), cancel
-        // and re-add it.
+        // 3) Diff. Preserves Phase 5 Rule 1 fire-date drift detection — identifier
+        // already distinguishes `trip-<uuid>` vs bare `<activity-uuid>`.
         let toCancelMissing = existingIDs.subtracting(desiredIDs)
         var toCancelStale: Set<String> = []
-        var toSchedule: [(Activity, Date)] = []
+        var toSchedule: [ScheduledReminder] = []
 
-        for (activity, desiredFireDate) in candidates {
-            let id = activity.id.uuidString
+        for reminder in candidates {
+            let id = reminder.identifier
             if let existing = pendingByID[id] {
-                if Self.triggerFireDate(existing.trigger) != Self.normalizedComponents(from: desiredFireDate) {
+                if Self.triggerFireDate(existing.trigger) != Self.normalizedComponents(from: reminder.fireDate) {
                     toCancelStale.insert(id)
-                    toSchedule.append((activity, desiredFireDate))
+                    toSchedule.append(reminder)
                 }
             } else {
-                toSchedule.append((activity, desiredFireDate))
+                toSchedule.append(reminder)
             }
         }
 
@@ -71,8 +114,8 @@ final class NotificationScheduler {
             center.removePendingNotificationRequests(withIdentifiers: Array(toCancel))
         }
 
-        for (activity, fireDate) in toSchedule {
-            await schedule(activity: activity, fireDate: fireDate)
+        for reminder in toSchedule {
+            await schedule(reminder: reminder)
         }
     }
 
@@ -80,11 +123,10 @@ final class NotificationScheduler {
     private static func normalizedComponents(from date: Date) -> DateComponents {
         var calendar = Calendar.current
         calendar.timeZone = .current
-        var components = calendar.dateComponents(
+        let components = calendar.dateComponents(
             [.year, .month, .day, .hour, .minute],
             from: date
         )
-        components.timeZone = .current
         // Strip calendar/timezone identity for pure component comparison.
         var plain = DateComponents()
         plain.year = components.year
@@ -106,26 +148,24 @@ final class NotificationScheduler {
         return plain
     }
 
-    private func schedule(activity: Activity, fireDate: Date) async {
-        guard let trip = activity.trip else { return }
-
+    private func schedule(reminder: ScheduledReminder) async {
         let content = UNMutableNotificationContent()
-        content.title = activity.title
-        content.body = Self.body(for: activity, in: trip, fireDate: fireDate)
+        content.title = reminder.title
+        content.body = reminder.body
         content.sound = .default
-        content.userInfo = ["activityID": activity.id.uuidString]
+        content.userInfo = [reminder.userInfoKey: reminder.userInfoValue]
 
         var calendar = Calendar.current
         calendar.timeZone = .current
         var components = calendar.dateComponents(
             [.year, .month, .day, .hour, .minute],
-            from: fireDate
+            from: reminder.fireDate
         )
         components.timeZone = .current    // CRITICAL — else GMT interpretation (RESEARCH §4)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 
         let request = UNNotificationRequest(
-            identifier: activity.id.uuidString,
+            identifier: reminder.identifier,
             content: content,
             trigger: trigger
         )
@@ -134,12 +174,12 @@ final class NotificationScheduler {
             try await center.add(request)
         } catch {
             #if DEBUG
-            print("NotificationScheduler: failed to add \(activity.id): \(error)")
+            print("NotificationScheduler: failed to add \(reminder.identifier): \(error)")
             #endif
         }
     }
 
-    private static func body(for activity: Activity, in trip: Trip, fireDate: Date) -> String {
+    private static func activityBody(activity: Activity, trip: Trip) -> String {
         var parts: [String] = [trip.name, ActivityDateLabels.timeLabel(for: activity.startAt)]
         if let location = activity.location, !location.isEmpty {
             parts.append(location)
