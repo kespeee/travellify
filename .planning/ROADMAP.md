@@ -128,7 +128,7 @@ Plans:
 **Out of scope**: Face ID lock (POLISH-05, v1.x); accessibility pass; error-handling audit; extra confirmation dialogs; archive/upload to App Store Connect (user-run manual step)
 **Plans**: 4 plans (4 waves)
 Plans:
-- [ ] 06-01-PLAN.md — UI polish bundle (D70–D75: doc thumbnail 3:4, centered name, doc-N default naming, packing empty-state centering, TripEditSheet date self-consistency, ActivityEditSheet DatePicker clamp)
+- [x] 06-01-PLAN.md — UI polish bundle (D70–D75: doc thumbnail 3:4, centered name, doc-N default naming, packing empty-state centering, TripEditSheet date self-consistency, ActivityEditSheet DatePicker clamp)
 - [ ] 06-02-PLAN.md — Trip schema additive fields (D76) + TripReminderLeadTime enum (D77) + ReminderFireDate Trip overload (D78) + tests [TRIP-07 foundation]
 - [ ] 06-03-PLAN.md — NotificationScheduler union pipeline (D79) + TripEditSheet Reminder Section (D82) + deep-link .trip(UUID) (D81) + ReminderLifecycleTests trip variants [TRIP-07/08/09]
 - [ ] 06-04-PLAN.md — TestFlight minimums: placeholder icon (D85) + PrivacyInfo.xcprivacy (D86) + version/build/bundle-ID verification (D87) + D88 no-op
@@ -159,7 +159,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 3. Packing List | 4/4 | Complete   | 2026-04-20 |
 | 4. Activities (Core) | 4/4 | Complete    | 2026-04-22 |
 | 5. Notifications | 0/4 | Not started | - |
-| 6. Polish + TestFlight | 0/? | Not started | - |
+| 6. Polish + TestFlight | 1/4 | In Progress|  |
 | 7. Activity Photos | 0/? | Not started | - |
 
 ---

@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
-last_updated: "2026-04-23T20:46:57.722Z"
-last_activity: 2026-04-23 -- Phase 6 planning complete
+last_updated: "2026-04-23T21:19:20.586Z"
+last_activity: 2026-04-23
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 28
-  completed_plans: 24
-  percent: 86
+  completed_plans: 25
+  percent: 89
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-18)
 
 **Core value:** Fast, reliable on-trip access to documents, packing list, and today's activities — a traveler on the ground must be able to pull up their passport scan, check off packing items, and see what's next without friction.
-**Current focus:** Phase 5 — notifications (ACT-07/08/09)
+**Current focus:** Phase 06 — polish-testflight
 
 ## Current Position
 
-Phase: 4 (activities-core) — COMPLETE + VERIFIED + PUSHED
-Plan: 4 of 4 complete
+Phase: 06 (polish-testflight) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-04-23 -- Phase 6 planning complete
+Last activity: 2026-04-23
 
 Progress: [██████████] 100%
 
@@ -69,6 +69,7 @@ Progress: [██████████] 100%
 | Phase 05-notifications P01 | 12min | 2 tasks | 6 files |
 | Phase 05 P03 | ~16min | 2 tasks | 4 files |
 | Phase 05-notifications P04 | 18min | 2 tasks | 8 files |
+| Phase 06 P01 | 18min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -136,6 +137,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [05-04]: AppDelegate uses @preconcurrency UNUserNotificationCenterDelegate (Swift 6.0); migrate to Swift 6.2 isolated conformance when Xcode upgrades (tech debt)
 - [Phase ?]: [05-04]: Deep-link routes via AppState.pendingDeepLink = .activity(UUID); ContentView resolves UUID -> Activity -> trip.persistentModelID and pushes AppDestination.activityList, then clears intent
 - [Phase ?]: [05-04]: Scheduler Rule 1 fix — reconcile detects fireDate drift on existing identifiers (ACT-08 reschedule-on-edit)
+- [Phase ?]: [06-01]: D72 nextDefaultName uses Swift regex literal wholeMatch; no gap reuse
+- [Phase ?]: [06-01]: localizedDateString() deleted post-D72 wiring (no callers remained)
 
 ### Accumulated Technical Context
 
@@ -162,6 +165,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-22T21:54:58.501Z
+Last session: 2026-04-23T21:19:17.428Z
 Stopped at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
 Resume file: None
