@@ -47,6 +47,21 @@ struct NotificationSchedulerTests {
         return a
     }
 
+    @discardableResult
+    private func insertTripReminder(name: String,
+                                    startDate: Date,
+                                    leadMinutes: Int = 4320,
+                                    in context: ModelContext) -> Trip {
+        let t = Trip()
+        t.name = name
+        t.startDate = startDate
+        t.endDate = startDate.addingTimeInterval(86_400 * 7)
+        t.isReminderEnabled = true
+        t.reminderLeadMinutes = leadMinutes
+        context.insert(t)
+        return t
+    }
+
     // MARK: - Tests
 
     @Test func soonestSixtyFour() async throws {
@@ -227,5 +242,62 @@ struct NotificationSchedulerTests {
         await Task.yield()
 
         #expect(!mock.pending.contains { $0.identifier == a.id.uuidString })
+    }
+
+    @Test func unionSoonest64() async throws {
+        let container = try makeContainer()
+        let ctx = container.mainContext
+        let mock = MockNotificationCenter()
+        let scheduler = NotificationScheduler(center: mock)
+        let base = Date().addingTimeInterval(60 * 60 * 24)   // 1d in future, avoids now-filter
+
+        // 40 activities scheduled 1..40 days out
+        for i in 0..<40 {
+            let trip = makeTrip(name: "ActTrip\(i)", in: ctx)
+            _ = insertActivity(
+                title: "Act \(i)",
+                startAt: base.addingTimeInterval(TimeInterval(i) * 86_400),
+                leadMinutes: 60, enabled: true, trip: trip, in: ctx
+            )
+        }
+        // 40 trips scheduled at offsets that interleave with activities
+        for i in 0..<40 {
+            _ = insertTripReminder(
+                name: "Trip \(i)",
+                startDate: base.addingTimeInterval(TimeInterval(i) * 86_400 + 43_200),
+                leadMinutes: 1440, in: ctx
+            )
+        }
+        try ctx.save()
+        await scheduler.reconcile(modelContext: ctx)
+        await Task.yield()
+
+        #expect(mock.pending.count == 64)
+        let hasTrip = mock.pending.contains { $0.identifier.hasPrefix("trip-") }
+        let hasActivity = mock.pending.contains { !$0.identifier.hasPrefix("trip-") }
+        #expect(hasTrip && hasActivity)
+    }
+
+    @Test func tripIdentifierPrefix() async throws {
+        let container = try makeContainer()
+        let ctx = container.mainContext
+        let mock = MockNotificationCenter()
+        let scheduler = NotificationScheduler(center: mock)
+        let trip = insertTripReminder(
+            name: "Paris",
+            startDate: Date().addingTimeInterval(86_400 * 10),
+            leadMinutes: 1440, in: ctx
+        )
+        try ctx.save()
+        await scheduler.reconcile(modelContext: ctx)
+        await Task.yield()
+
+        #expect(mock.pending.count == 1)
+        let req = try #require(mock.pending.first)
+        #expect(req.identifier.hasPrefix("trip-"))
+        #expect(UUID(uuidString: String(req.identifier.dropFirst(5))) != nil)
+        #expect(req.content.userInfo["tripID"] as? String == trip.id.uuidString)
+        // BARE uuid — not prefixed (research landmine, Pitfall 8)
+        #expect((req.content.userInfo["tripID"] as? String)?.hasPrefix("trip-") == false)
     }
 }
