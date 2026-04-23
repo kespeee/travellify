@@ -3,6 +3,7 @@ import SwiftUI
 struct EmptyPackingListView: View {
     var body: some View {
         VStack(spacing: 0) {
+            Spacer(minLength: 0)
             Image(systemName: "checklist")
                 .font(.system(size: 56))
                 .foregroundStyle(.secondary)
@@ -15,6 +16,7 @@ struct EmptyPackingListView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+            Spacer(minLength: 0)
         }
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -64,6 +64,7 @@ struct ActivityEditSheet: View {
                     DatePicker(
                         "Starts",
                         selection: $startAt,
+                        in: trip.startDate...trip.endDate,
                         displayedComponents: [.date, .hourAndMinute]
                     )
                     .datePickerStyle(.compact)

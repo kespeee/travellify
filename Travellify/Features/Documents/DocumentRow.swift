@@ -21,8 +21,8 @@ struct DocumentRow: View {
                 .font(.subheadline)
                 .foregroundStyle(.primary)
                 .lineLimit(2)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .center)
         }
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)

@@ -23,11 +23,7 @@ struct TripEditSheet: View {
     }
 
     private var isValid: Bool {
-        endDate >= startDate
-    }
-
-    private var showEndDateError: Bool {
-        endDate < startDate
+        true
     }
 
     private var navigationTitle: String {
@@ -54,12 +50,10 @@ struct TripEditSheet: View {
 
                 Section("Dates") {
                     DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-                    DatePicker("End Date", selection: $endDate, displayedComponents: .date)
-                    if showEndDateError {
-                        Text("End date must be on or after the start date.")
-                            .font(.caption)
-                            .foregroundStyle(.red)
-                    }
+                        .onChange(of: startDate) { _, newStart in
+                            if newStart > endDate { endDate = newStart }
+                        }
+                    DatePicker("End Date", selection: $endDate, in: startDate..., displayedComponents: .date)
                 }
 
                 Section("Destinations") {

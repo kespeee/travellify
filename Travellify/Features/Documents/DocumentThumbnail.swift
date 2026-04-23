@@ -20,7 +20,7 @@ struct DocumentThumbnail: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .aspectRatio(1, contentMode: .fit)
+        .aspectRatio(3.0/4.0, contentMode: .fit)
         .clipped()
         .task(id: document.fileRelativePath) {
             image = await Self.render(for: document)
