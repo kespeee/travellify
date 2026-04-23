@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
-last_updated: "2026-04-23T21:19:20.586Z"
+last_updated: "2026-04-23T21:29:31.836Z"
 last_activity: 2026-04-23
 progress:
   total_phases: 7
   completed_phases: 5
   total_plans: 28
-  completed_plans: 25
-  percent: 89
+  completed_plans: 26
+  percent: 93
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 06 (polish-testflight) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-23
 
@@ -70,6 +70,7 @@ Progress: [██████████] 100%
 | Phase 05 P03 | ~16min | 2 tasks | 4 files |
 | Phase 05-notifications P04 | 18min | 2 tasks | 8 files |
 | Phase 06 P01 | 18min | 2 tasks | 8 files |
+| Phase 06 P02 | 10min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -139,6 +140,8 @@ Recent decisions affecting current work:
 - [Phase ?]: [05-04]: Scheduler Rule 1 fix — reconcile detects fireDate drift on existing identifiers (ACT-08 reschedule-on-edit)
 - [Phase ?]: [06-01]: D72 nextDefaultName uses Swift regex literal wholeMatch; no gap reuse
 - [Phase ?]: [06-01]: localizedDateString() deleted post-D72 wiring (no callers remained)
+- [Phase ?]: [06-02] D76 Trip reminder fields additive in SchemaV1 — CloudKit-safe defaults, no V2 migration
+- [Phase ?]: [06-02] ReminderFireDate exposes primitive fireDate(start:leadMinutes:); Activity overload delegates; Trip overload added
 
 ### Accumulated Technical Context
 
@@ -165,6 +168,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-23T21:19:17.428Z
+Last session: 2026-04-23T21:29:26.634Z
 Stopped at: Completed 05-03-PLAN.md — Reminder Section wired in ActivityEditSheet with priming + reconcile hook
 Resume file: None

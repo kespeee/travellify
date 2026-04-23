@@ -55,7 +55,7 @@
 
 ### Trip Reminders (added Phase 6)
 
-- [ ] **TRIP-07**: User can opt in to a local notification reminder for a trip; when enabled, a `UNNotificationRequest` is scheduled to fire before the trip's `startDate` by a user-selected lead time (1 day / 3 days / 1 week / 2 weeks)
+- [x] **TRIP-07**: User can opt in to a local notification reminder for a trip; when enabled, a `UNNotificationRequest` is scheduled to fire before the trip's `startDate` by a user-selected lead time (1 day / 3 days / 1 week / 2 weeks)
 - [ ] **TRIP-08**: When a trip's `startDate` changes, its pending reminder is rescheduled; when the trip is deleted, its pending reminder is cancelled
 - [ ] **TRIP-09**: Trip reminders share the 64-pending-notifications soonest-N pool with activity reminders via identifier prefix `trip-<uuid>` vs. `<activity-uuid>`
 
@@ -121,7 +121,7 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-06 | Phase 2 | Complete |
 | DOC-07 | Phase 2 | Complete |
 | DOC-08 | *v1.x (POLISH-05)* | *Deferred past first TestFlight* |
-| TRIP-07 | Phase 6 | Pending |
+| TRIP-07 | Phase 6 | Complete |
 | TRIP-08 | Phase 6 | Pending |
 | TRIP-09 | Phase 6 | Pending |
 | PACK-01 | Phase 3 | Complete |

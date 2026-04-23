@@ -129,7 +129,7 @@ Plans:
 **Plans**: 4 plans (4 waves)
 Plans:
 - [x] 06-01-PLAN.md — UI polish bundle (D70–D75: doc thumbnail 3:4, centered name, doc-N default naming, packing empty-state centering, TripEditSheet date self-consistency, ActivityEditSheet DatePicker clamp)
-- [ ] 06-02-PLAN.md — Trip schema additive fields (D76) + TripReminderLeadTime enum (D77) + ReminderFireDate Trip overload (D78) + tests [TRIP-07 foundation]
+- [x] 06-02-PLAN.md — Trip schema additive fields (D76) + TripReminderLeadTime enum (D77) + ReminderFireDate Trip overload (D78) + tests [TRIP-07 foundation]
 - [ ] 06-03-PLAN.md — NotificationScheduler union pipeline (D79) + TripEditSheet Reminder Section (D82) + deep-link .trip(UUID) (D81) + ReminderLifecycleTests trip variants [TRIP-07/08/09]
 - [ ] 06-04-PLAN.md — TestFlight minimums: placeholder icon (D85) + PrivacyInfo.xcprivacy (D86) + version/build/bundle-ID verification (D87) + D88 no-op
 **UI hint**: yes
