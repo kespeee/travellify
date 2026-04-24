@@ -22,15 +22,15 @@ struct LiquidGlassButton: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: 17, weight: .medium))
-                .foregroundStyle(DSColor.Label.vibrantPrimary)
                 .padding(.vertical, 6)
                 .padding(.horizontal, DSSpacing.s20)
                 .frame(height: 40)
         }
         .buttonStyle(.plain)
+        .foregroundStyle(DSColor.Label.vibrantPrimary)
+        .tint(DSColor.Label.vibrantPrimary)
         .background {
-            Capsule()
-                .fill(tint)
+            Capsule().fill(tint)
         }
         .background {
             Color.clear.liquidGlass(in: Capsule(), tint: nil)
