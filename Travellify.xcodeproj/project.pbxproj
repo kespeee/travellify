@@ -66,6 +66,7 @@
 		AD0701020203040506070804 /* LiquidGlassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701020203040506070803 /* LiquidGlassButton.swift */; };
 		AD0701030203040506070802 /* TabBarRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701030203040506070801 /* TabBarRoot.swift */; };
 		AD0701030203040506070804 /* SettingsPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701030203040506070803 /* SettingsPlaceholderView.swift */; };
+		AD0701040203040506070802 /* DesignSystemTokensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701040203040506070801 /* DesignSystemTokensTests.swift */; };
 		AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070804 /* MockNotificationCenter.swift */; };
 		AD0502010203040506070805 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070806 /* NotificationScheduler.swift */; };
 		AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070808 /* NotificationSchedulerTests.swift */; };
@@ -140,6 +141,7 @@
 		AD0701020203040506070803 /* LiquidGlassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassButton.swift; sourceTree = "<group>"; };
 		AD0701030203040506070801 /* TabBarRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRoot.swift; sourceTree = "<group>"; };
 		AD0701030203040506070803 /* SettingsPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPlaceholderView.swift; sourceTree = "<group>"; };
+		AD0701040203040506070801 /* DesignSystemTokensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemTokensTests.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
 		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				AD0502010203040506070808 /* NotificationSchedulerTests.swift */,
 				AD0503010203040506070804 /* PermissionStateTests.swift */,
 				AD0504010203040506070806 /* ReminderLifecycleTests.swift */,
+				AD0701040203040506070801 /* DesignSystemTokensTests.swift */,
 				AD05020102030405060708FF /* Support */,
 				FFB3C4D5E6F741829A0B8001 /* Resources */,
 			);
@@ -590,6 +593,7 @@
 				AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */,
 				AD0503010203040506070803 /* PermissionStateTests.swift in Sources */,
 				AD0504010203040506070805 /* ReminderLifecycleTests.swift in Sources */,
+				AD0701040203040506070802 /* DesignSystemTokensTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
