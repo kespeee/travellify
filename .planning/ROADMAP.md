@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete (completed 2026-04-22)
 - [x] **Phase 5: Notifications** - Per-activity notification toggle, full lifecycle management, 64-cap scheduler (completed 2026-04-23)
 - [x] **Phase 6: Polish + TestFlight Prep** - UI polish pass, trip-level reminders (TRIP-07/08/09), placeholder icon, PrivacyInfo manifest, version metadata (completed 2026-04-24)
-- [ ] **Phase 7: UI Overhaul** - Full UI redesign against designer-provided mocks (Figma) — typography, color, spacing, iconography, component system; awaiting designs before planning
+- [ ] **Phase 7: UI Overhaul** - Full UI redesign against designer-provided mocks (Figma). Organized as sequential plan waves within one phase directory: 07-01 Design Foundation (tokens + tab bar + liquid-glass primitives), 07-02 Trips, 07-03 Documents, 07-04 Packing, 07-05 Activities, 07-06 Notifications UI + shared sheets
 - [ ] **Phase 8: UI Fixes** - Targeted bug-bash and UI-fix pass: defects surfaced during Phase 7 overhaul and accumulated polish items found along the way
 - [ ] **Phase 9: Testing + Release Readiness** - Manual UAT against all requirements, expanded automated coverage (integration + UI tests), external TestFlight beta with real users, bug-fix window; exits with App Store–submittable build
 
