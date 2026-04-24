@@ -28,8 +28,13 @@ struct LiquidGlassButton: View {
                 .frame(height: 40)
         }
         .buttonStyle(.plain)
-        .background(tint, in: Capsule())
-        .liquidGlass(in: Capsule(), tint: nil)
+        .background {
+            Capsule()
+                .fill(tint)
+        }
+        .background {
+            Color.clear.liquidGlass(in: Capsule(), tint: nil)
+        }
         .dsShadow(DSShadow.glass)
     }
 }
