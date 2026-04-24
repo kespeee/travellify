@@ -57,6 +57,11 @@
 		AD050102030405060708090E /* ReminderFireDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD050102030405060708090F /* ReminderFireDateTests.swift */; };
 		AD0602010203040506070803 /* TripReminderFireDateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0602010203040506070804 /* TripReminderFireDateTests.swift */; };
 		AD0502010203040506070801 /* NotificationCenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070802 /* NotificationCenterProtocol.swift */; };
+		AD0701010203040506070802 /* DSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070801 /* DSColor.swift */; };
+		AD0701010203040506070804 /* DSTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070803 /* DSTypography.swift */; };
+		AD0701010203040506070806 /* DSSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070805 /* DSSpacing.swift */; };
+		AD0701010203040506070808 /* DSRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070807 /* DSRadius.swift */; };
+		AD070101020304050607080A /* DSShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070809 /* DSShadow.swift */; };
 		AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070804 /* MockNotificationCenter.swift */; };
 		AD0502010203040506070805 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070806 /* NotificationScheduler.swift */; };
 		AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070808 /* NotificationSchedulerTests.swift */; };
@@ -122,6 +127,11 @@
 		AD0504010203040506070802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD0504010203040506070804 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		AD0504010203040506070806 /* ReminderLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLifecycleTests.swift; sourceTree = "<group>"; };
+		AD0701010203040506070801 /* DSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSColor.swift; sourceTree = "<group>"; };
+		AD0701010203040506070803 /* DSTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSTypography.swift; sourceTree = "<group>"; };
+		AD0701010203040506070805 /* DSSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSSpacing.swift; sourceTree = "<group>"; };
+		AD0701010203040506070807 /* DSRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSRadius.swift; sourceTree = "<group>"; };
+		AD0701010203040506070809 /* DSShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSShadow.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
 		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
@@ -328,6 +338,7 @@
 				BEB48BD077214DF394306B90 /* App */,
 				68072AD986CE4CD4A1CC2806 /* Models */,
 				92B685F2294C44158A8F2A84 /* Shared */,
+				AD0701FF0203040506070800 /* DesignSystem */,
 				5562B32A48F5466CB919BC1F /* Features */,
 				C4D5E6F7A8B941829A0B3003 /* Services */,
 				C45B3032E22843EB8E8CEEEA /* ContentView.swift */,
@@ -335,6 +346,42 @@
 				AD0604010203040506070802 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Travellify;
+			sourceTree = "<group>";
+		};
+		AD0701FF0203040506070800 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				AD0701FF0203040506070801 /* Tokens */,
+				AD0701FF0203040506070802 /* Modifiers */,
+				AD0701FF0203040506070803 /* Components */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		AD0701FF0203040506070801 /* Tokens */ = {
+			isa = PBXGroup;
+			children = (
+				AD0701010203040506070801 /* DSColor.swift */,
+				AD0701010203040506070803 /* DSTypography.swift */,
+				AD0701010203040506070805 /* DSSpacing.swift */,
+				AD0701010203040506070807 /* DSRadius.swift */,
+				AD0701010203040506070809 /* DSShadow.swift */,
+			);
+			path = Tokens;
+			sourceTree = "<group>";
+		};
+		AD0701FF0203040506070802 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		AD0701FF0203040506070803 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BEB48BD077214DF394306B90 /* App */ = {
@@ -580,6 +627,11 @@
 				A10203A1B1C241829A0B5007 /* DocumentImporter.swift in Sources */,
 				A20204B2C2D341829A0B6001 /* PDFKitView.swift in Sources */,
 				A30204B2C2D341829A0B6003 /* DocumentViewer.swift in Sources */,
+				AD0701010203040506070802 /* DSColor.swift in Sources */,
+				AD0701010203040506070804 /* DSTypography.swift in Sources */,
+				AD0701010203040506070806 /* DSSpacing.swift in Sources */,
+				AD0701010203040506070808 /* DSRadius.swift in Sources */,
+				AD070101020304050607080A /* DSShadow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
