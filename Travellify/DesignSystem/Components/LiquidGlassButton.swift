@@ -19,23 +19,24 @@ struct LiquidGlassButton: View {
     }
 
     var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.system(size: 17, weight: .medium))
-                .padding(.vertical, 6)
-                .padding(.horizontal, DSSpacing.s20)
-                .frame(height: 40)
-        }
-        .buttonStyle(.plain)
-        .foregroundStyle(DSColor.Label.vibrantPrimary)
-        .tint(DSColor.Label.vibrantPrimary)
-        .background {
-            Capsule().fill(tint)
-        }
-        .background {
-            Color.clear.liquidGlass(in: Capsule(), tint: nil)
-        }
-        .dsShadow(DSShadow.glass)
+        Text(title)
+            .font(.system(size: 17, weight: .medium))
+            .foregroundStyle(DSColor.Label.vibrantPrimary)
+            .padding(.vertical, 6)
+            .padding(.horizontal, DSSpacing.s20)
+            .frame(height: 40)
+            .background {
+                Capsule().fill(tint)
+            }
+            .background {
+                Color.clear.liquidGlass(in: Capsule(), tint: nil)
+            }
+            .dsShadow(DSShadow.glass)
+            .contentShape(Capsule())
+            .onTapGesture(perform: action)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(title)
     }
 }
 
