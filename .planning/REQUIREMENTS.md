@@ -29,7 +29,7 @@
 - [x] **DOC-05**: User can rename a document after import
 - [x] **DOC-06**: User can delete a document from a trip
 - [x] **DOC-07**: Document binaries are stored in the filesystem (not as SwiftData `Data` blobs) with file paths referenced from the model
-- [ ] ~~**DOC-08**~~: *(moved to v1.x POLISH-05 — Face ID lock deferred past first TestFlight; see Polish section below)*
+- ~~**DOC-08**~~: *Removed from roadmap (2026-04-24 scope revision) — Face ID document lock is not a near-term requirement. Reinstate only if reintroduced to a future milestone.*
 
 ### Packing
 
@@ -44,11 +44,9 @@
 ### Activities
 
 - [x] **ACT-01**: User can create an activity with title, date & time, location (text), and notes
-- [ ] **ACT-02**: User can attach one or more photos to an activity from Photos (PHPickerViewController)
 - [x] **ACT-03**: User can view all activities in a trip as a chronological day-by-day grouped list (grouped by date, sorted by time within each day)
-- [ ] **ACT-04**: User can edit all fields of an existing activity (title, date/time, location, notes, photos)
+- [x] **ACT-04**: User can edit all fields of an existing activity (title, date/time, location, notes) *(photo editing deferred with ACT-02 to v1.x)*
 - [x] **ACT-05**: User can delete an activity
-- [ ] **ACT-06**: Activity photos are stored as file paths in the filesystem (not inline in SwiftData), with thumbnails generated at import time
 - [x] **ACT-07**: User can opt in to a local notification reminder for an individual activity; when enabled, a `UNNotificationRequest` is scheduled to fire before the activity's start time
 - [x] **ACT-08**: When an activity's date/time changes, its pending notification is rescheduled; when deleted, pending notification is cancelled
 - [x] **ACT-09**: A `NotificationScheduler` respects iOS's 64-pending-notifications system cap by scheduling the soonest 64 and re-evaluating when the app foregrounds
@@ -63,24 +61,44 @@
 
 Deferred — tracked but out of v1 roadmap.
 
-### Sync
+### Sync (CloudKit)
 
 - **SYNC-01**: User's trip data syncs across their devices via CloudKit
 - **SYNC-02**: App handles offline edits with last-write-wins conflict resolution
 - **SYNC-03**: Schema migration from v1 local-only store to CloudKit-synced store is lossless
+
+### Accounts + Onboarding
+
+- **ACCOUNT-01**: User can register an account (auth mechanism TBD — e.g. Sign in with Apple) as a prerequisite for CloudKit sync
+- **ACCOUNT-02**: User can sign in on a second device and recover their synced data
+- **ONBOARD-01**: First-launch onboarding flow explains the app, requests necessary permissions, and offers sign-in / skip paths
 
 ### Sharing
 
 - **SHARE-01**: User can invite another user to view or edit a trip
 - **SHARE-02**: Shared trip permissions (view-only vs editor) are enforceable
 
-### Polish (v1.x)
+### v1.x Milestone (post-v1.0 release)
+
+Execution order within v1.x: **Settings first, then Activity Photos.**
+
+#### Settings (v1.x — Phase A)
+
+- **SETTINGS-01**: App has a dedicated Settings screen reachable from the root (entry point TBD during Phase 7 UI overhaul)
+- **SETTINGS-02**: Settings scope for v1.x is TBD — will be defined when milestone is opened; candidate items include: default reminder lead times, notification master toggle, data export/reset, app-version + build display, feedback/contact link
+
+#### Activity Photos (v1.x — Phase B, was v1.0 Phase 7)
+
+- **ACT-02**: User can attach one or more photos to an activity from Photos (PHPickerViewController)
+- **ACT-06**: Activity photos are stored as file paths in the filesystem (not inline in SwiftData), with thumbnails generated at import time
+- **ACT-04 (extension)**: ACT-04 is already satisfied for non-photo fields in v1.0 Phase 4; photo-editing sub-scope lands with ACT-02/ACT-06 in this v1.x phase
+
+#### Other polish items (unscheduled — revisit when scoping v1.x)
 
 - **POLISH-01**: "Today" view filter showing only activities for the current date
 - **POLISH-02**: "Uncheck all" action to reset a packing list for reuse
 - **POLISH-03**: Tappable activity location opens in Apple Maps (deep link)
 - **POLISH-04**: Calendar export per-activity via EventKit (one-way)
-- **POLISH-05** *(was DOC-08)*: User can opt in, via Settings, to require Face ID / passcode authentication before accessing the Documents section of any trip (LocalAuthentication framework) — deferred past first TestFlight
 
 ## Out of Scope
 
@@ -120,7 +138,7 @@ Deferred — tracked but out of v1 roadmap.
 | DOC-05 | Phase 2 | Complete |
 | DOC-06 | Phase 2 | Complete |
 | DOC-07 | Phase 2 | Complete |
-| DOC-08 | *v1.x (POLISH-05)* | *Deferred past first TestFlight* |
+| DOC-08 | *Removed* | *Removed from roadmap (2026-04-24 scope revision)* |
 | TRIP-07 | Phase 6 | Complete |
 | TRIP-08 | Phase 6 | Complete |
 | TRIP-09 | Phase 6 | Complete |
@@ -132,20 +150,28 @@ Deferred — tracked but out of v1 roadmap.
 | PACK-06 | Phase 3 | Complete |
 | PACK-07 | Phase 3 | Complete |
 | ACT-01 | Phase 4 | Complete |
-| ACT-02 | Phase 7 | Pending |
+| ACT-02 | *v1.x (Activity Photos)* | *Deferred to v1.x* |
 | ACT-03 | Phase 4 | Complete |
-| ACT-04 | Phase 4 + 7 | Partial (non-photo fields done in Phase 4; photos editable after Phase 7) |
+| ACT-04 | Phase 4 | Complete (non-photo fields; photo editing rides with ACT-02 to v1.x) |
 | ACT-05 | Phase 4 | Complete |
-| ACT-06 | Phase 7 | Pending |
+| ACT-06 | *v1.x (Activity Photos)* | *Deferred to v1.x* |
 | ACT-07 | Phase 5 | Complete |
 | ACT-08 | Phase 5 | Complete |
 | ACT-09 | Phase 5 | Complete |
 
+**v1.0 phases remaining (no new requirements, functional validation only):**
+
+| Phase | Role |
+|-------|------|
+| Phase 7 UI Overhaul | Visual redesign to designer mocks — existing requirements must continue to pass |
+| Phase 8 UI Fixes | Defect pass against UI-FIXES.md scratchpad |
+| Phase 9 Testing + Release | UAT + expanded automated coverage + external TestFlight beta + bug-fix window |
+
 **Coverage:**
-- v1 requirements: 35 total (DOC-08 demoted to v1.x POLISH-05; TRIP-07/08/09 added)
-- Mapped to phases: 35
+- v1.0 requirements: 32 total (DOC-08 removed entirely; ACT-02 + ACT-06 moved to v1.x; TRIP-07/08/09 retained)
+- v1.0 mapped to phases: 32 (all Complete as of 2026-04-24 — Phases 7/8/9 add no new requirements)
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-18*
-*Last updated: 2026-04-23 — DOC-08 demoted to v1.x POLISH-05 (deferred past first TestFlight); TRIP-07/08/09 added for trip-level reminders in Phase 6*
+*Last updated: 2026-04-24 — v1.0 re-scope: DOC-08 removed entirely, POLISH-05 removed entirely; ACT-02 + ACT-06 (and ACT-04 photo sub-scope) moved to v1.x Activity Photos; v1.x now carries Settings (first) and Activity Photos (second); v2.0 gains Accounts + Onboarding alongside CloudKit*
