@@ -13,7 +13,7 @@ Seven phases deliver a complete local-first iOS travel companion. Phase 1 lays t
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation + Trips** - Data model, schema versioning, navigation shell, and full trip CRUD
-- [ ] **Phase 2: Documents** - Document import (camera/Photos/Files), full-screen viewer, rename, delete
+- [x] **Phase 2: Documents** - Document import (camera/Photos/Files), full-screen viewer, rename, delete (completed 2026-04-20)
 - [x] **Phase 3: Packing List** - Categorized packing list, swipe check-off, category and item CRUD, progress indicator (completed 2026-04-20)
 - [x] **Phase 4: Activities (Core)** - Activity CRUD, day-by-day grouped list, edit and delete (completed 2026-04-22)
 - [x] **Phase 5: Notifications** - Per-activity notification toggle, full lifecycle management, 64-cap scheduler (completed 2026-04-23)
