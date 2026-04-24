@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 7 context gathered
-last_updated: "2026-04-24T21:48:10.511Z"
-last_activity: 2026-04-24
+status: executing
+stopped_at: 07-01 Design Foundation complete
+last_updated: "2026-04-25T03:10:00.000Z"
+last_activity: 2026-04-25 -- Phase 07 plan 01 complete
 progress:
   total_phases: 9
   completed_phases: 6
-  total_plans: 28
+  total_plans: 29
   completed_plans: 28
-  percent: 100
+  percent: 97
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-18)
 
 **Core value:** Fast, reliable on-trip access to documents, packing list, and today's activities — a traveler on the ground must be able to pull up their passport scan, check off packing items, and see what's next without friction.
-**Current focus:** Phase 06 — polish-testflight
+**Current focus:** Phase 07 — ui-overhaul
 
 ## Current Position
 
-Phase: 06 (polish-testflight) — COMPLETE
-Plan: 4 of 4
-Status: Phase complete — ready for TestFlight (user-run archive + upload)
-Last activity: 2026-04-24
+Phase: 07 (ui-overhaul) — EXECUTING
+Plan: 1 of 1 (07-01 complete; awaiting 07-02 plan)
+Status: Executing Phase 07
+Last activity: 2026-04-25 -- Phase 07 plan 01 (Design Foundation) complete
 
 Progress: [██████████] 100%
 
@@ -73,6 +73,7 @@ Progress: [██████████] 100%
 | Phase 06 P02 | 10min | 2 tasks | 6 files |
 | Phase 06 P03 | ~12min | 3 tasks | 7 files |
 | Phase 06 P04 | ~6min | 3 tasks | 4 files |
+| Phase 07 P01 | ~25min | 4 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -151,6 +152,10 @@ Recent decisions affecting current work:
 - [06-04] PrivacyInfo.xcprivacy at Travellify/ root (sibling of ContentView.swift) — 4 pbxproj Resources-phase entries; lands at app-bundle root
 - [06-04] D87 verification-only: MARKETING_VERSION=1.0 / CURRENT_PROJECT_VERSION=1 / PRODUCT_BUNDLE_IDENTIFIER=com.kespeee.travellify all pre-set — zero corrective writes
 - [06-04] D88 no-op: NSUserNotificationsUsageDescription is macOS-only (not needed on iOS); INFOPLIST_KEY_NSCameraUsageDescription preserved from Phase 2
+- [07-01] iOS 26 SDK confirms `.glassEffect(_:in:)` + `Glass.regular.tint(_:)` — plan's hypothetical API is the actual surface; no deviation
+- [07-01] ContentView TabView shell relocated to new TabBarRoot; ContentView is now NavigationStack-only (Trips-tab body) — preserves AppDestination switch + pendingDeepLink onChange verbatim
+- [07-01] DesignSystemTokensTests uses UIColor round-trip (not Color.resolve(in:)) for accent-RGB assertion — direct, sRGB-lossless, no environment plumbing
+- [07-01] Token namespaces locked: DSColor / DSTypography / DSSpacing / DSRadius / DSShadow — downstream waves (07-02..07-06) consume these directly
 
 ### Accumulated Technical Context
 
@@ -177,6 +182,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-24T21:48:10.502Z
-Stopped at: Phase 7 context gathered
-Resume file: .planning/phases/07-ui-overhaul/07-CONTEXT.md
+Last session: 2026-04-25T03:10:00.000Z
+Stopped at: 07-01 Design Foundation complete
+Resume file: .planning/phases/07-ui-overhaul/07-01-SUMMARY.md

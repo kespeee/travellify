@@ -191,7 +191,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Activities (Core) | 4/4 | Complete | 2026-04-22 |
 | 5. Notifications | 4/4 | Complete | 2026-04-23 |
 | 6. Polish + TestFlight Prep | 4/4 | Complete | 2026-04-24 |
-| 7. UI Overhaul | 0/? | Blocked on designs | - |
+| 7. UI Overhaul | 1/? | In Progress (07-01 Design Foundation complete) | - |
 | 8. UI Fixes | 0/? | Not started | - |
 | 9. Testing + Release Readiness | 0/? | Not started | - |
 
