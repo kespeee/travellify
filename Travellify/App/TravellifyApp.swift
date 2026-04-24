@@ -22,7 +22,7 @@ struct TravellifyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarRoot()
                 .modelContainer(container)
                 .preferredColorScheme(.dark)
         }
