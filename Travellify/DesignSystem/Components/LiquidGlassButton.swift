@@ -1,8 +1,8 @@
 import SwiftUI
 
 /// Pill-shaped CTA matching the Figma "Button - Liquid Glass - Text" component
-/// (node 93:132 / I96:1726): 40pt height, 6pt vertical / 20pt horizontal padding,
-/// fully rounded, 17pt SF Pro Medium label, default tint #0091FF, glass shadow.
+/// (node 93:132 / I96:1726). Uses SwiftUI default Button + .borderedProminent +
+/// .tint — Apple handles label color and press state.
 struct LiquidGlassButton: View {
     let title: String
     let tint: Color
@@ -19,24 +19,10 @@ struct LiquidGlassButton: View {
     }
 
     var body: some View {
-        Text(title)
-            .font(.system(size: 17, weight: .medium))
-            .foregroundStyle(DSColor.Label.vibrantPrimary)
-            .padding(.vertical, 6)
-            .padding(.horizontal, DSSpacing.s20)
-            .frame(height: 40)
-            .background {
-                Capsule().fill(tint)
-            }
-            .background {
-                Color.clear.liquidGlass(in: Capsule(), tint: nil)
-            }
-            .dsShadow(DSShadow.glass)
-            .contentShape(Capsule())
-            .onTapGesture(perform: action)
-            .accessibilityElement(children: .combine)
-            .accessibilityAddTraits(.isButton)
-            .accessibilityLabel(title)
+        Button(title, action: action)
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(tint)
     }
 }
 
