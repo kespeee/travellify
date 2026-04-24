@@ -62,6 +62,8 @@
 		AD0701010203040506070806 /* DSSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070805 /* DSSpacing.swift */; };
 		AD0701010203040506070808 /* DSRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070807 /* DSRadius.swift */; };
 		AD070101020304050607080A /* DSShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701010203040506070809 /* DSShadow.swift */; };
+		AD0701020203040506070802 /* LiquidGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701020203040506070801 /* LiquidGlassModifier.swift */; };
+		AD0701020203040506070804 /* LiquidGlassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0701020203040506070803 /* LiquidGlassButton.swift */; };
 		AD0502010203040506070803 /* MockNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070804 /* MockNotificationCenter.swift */; };
 		AD0502010203040506070805 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070806 /* NotificationScheduler.swift */; };
 		AD0502010203040506070807 /* NotificationSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0502010203040506070808 /* NotificationSchedulerTests.swift */; };
@@ -132,6 +134,8 @@
 		AD0701010203040506070805 /* DSSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSSpacing.swift; sourceTree = "<group>"; };
 		AD0701010203040506070807 /* DSRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSRadius.swift; sourceTree = "<group>"; };
 		AD0701010203040506070809 /* DSShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSShadow.swift; sourceTree = "<group>"; };
+		AD0701020203040506070801 /* LiquidGlassModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassModifier.swift; sourceTree = "<group>"; };
+		AD0701020203040506070803 /* LiquidGlassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassButton.swift; sourceTree = "<group>"; };
 		0E87B7FBF20644EBB0EEF22C /* TripEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEmptyState.swift; sourceTree = "<group>"; };
 		2548A0F099E74ECAA4F4BDAC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
@@ -373,6 +377,7 @@
 		AD0701FF0203040506070802 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				AD0701020203040506070801 /* LiquidGlassModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 		AD0701FF0203040506070803 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AD0701020203040506070803 /* LiquidGlassButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -632,6 +638,8 @@
 				AD0701010203040506070806 /* DSSpacing.swift in Sources */,
 				AD0701010203040506070808 /* DSRadius.swift in Sources */,
 				AD070101020304050607080A /* DSShadow.swift in Sources */,
+				AD0701020203040506070802 /* LiquidGlassModifier.swift in Sources */,
+				AD0701020203040506070804 /* LiquidGlassButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
