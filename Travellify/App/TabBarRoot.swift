@@ -25,7 +25,6 @@ struct TabBarRoot: View {
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(Tab.settings)
         }
-        .tint(DSColor.Accent.primary)
         .onChange(of: appState.pendingDeepLink) { _, newValue in
             if newValue != nil {
                 selectedTab = .trips
