@@ -24,6 +24,13 @@ struct NextUpcomingTests {
         return trip
     }
 
+    /// Anchors `now` to 09:00 of today so calendar-day-relative offsets
+    /// (`+3h`, `+25h`, `+5d`) stay within the asserted bucket regardless of
+    /// when the suite runs. Avoids a midnight-rollover flake.
+    private func stableNow() -> Date {
+        Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date()) ?? Date()
+    }
+
     private func insertActivity(title: String,
                                 startAt: Date,
                                 createdAt: Date? = nil,
@@ -52,7 +59,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         let later = now.addingTimeInterval(3 * 3600)
         insertActivity(title: "Louvre tour", startAt: later, trip: trip, in: ctx)
         try ctx.save()
@@ -68,7 +75,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         let tomorrow = now.addingTimeInterval(86_400 + 3600)
         insertActivity(title: "Seine cruise", startAt: tomorrow, trip: trip, in: ctx)
         try ctx.save()
@@ -83,7 +90,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         let future = now.addingTimeInterval(5 * 86_400)
         insertActivity(title: "Colosseum", startAt: future, trip: trip, in: ctx)
         try ctx.save()
@@ -101,7 +108,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         insertActivity(title: "Arrival", startAt: now.addingTimeInterval(-3 * 3600), trip: trip, in: ctx)
         try ctx.save()
 
@@ -121,7 +128,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         let shared = now.addingTimeInterval(2 * 3600)
 
         insertActivity(title: "Later created",
@@ -146,7 +153,7 @@ struct NextUpcomingTests {
         let ctx = container.mainContext
         let trip = makeTrip(in: ctx)
 
-        let now = Date()
+        let now = stableNow()
         insertActivity(title: "Past item",   startAt: now.addingTimeInterval(-3600), trip: trip, in: ctx)
         insertActivity(title: "Future item", startAt: now.addingTimeInterval( 3600), trip: trip, in: ctx)
         try ctx.save()
