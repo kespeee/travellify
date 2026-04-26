@@ -7,8 +7,8 @@ Hard-earned gotchas and non-obvious rules discovered during Phases 1–4. Read t
 ## Build environment
 
 - **Xcode path:** always prefix `xcodebuild` with `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. Default CLT path (`xcode-select -p` → `/Library/Developer/CommandLineTools`) fails with "xcodebuild: error: SDK … cannot be located."
-- **Canonical simulator:** `iPhone 16e` (iOS 17+). iPhone 16 is NOT installed on this host. All GSD plans and CI invocations must use this exact name.
-- **Xcode / Swift:** 26.2 (Build 17C52), Swift 6.0 strict concurrency, iOS 17.0 deployment target.
+- **Canonical simulator:** `iPhone 16e` (iOS 26+). iPhone 16 is NOT installed on this host. All GSD plans and CI invocations must use this exact name.
+- **Xcode / Swift:** 26.2 (Build 17C52), Swift 6.0 strict concurrency, **iOS 26.0 deployment target** (raised 2026-04-27 from iOS 17 to use Liquid Glass natively).
 
 ## project.pbxproj — hand-written, 4 entries per file
 

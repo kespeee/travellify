@@ -165,7 +165,7 @@ Recent decisions affecting current work:
 
 - ios_simulator: "iPhone 16e"
 - xcode_version: "26.2 (Build 17C52)"
-- deployment_target: "iOS 17.0"
+- deployment_target: "iOS 26.0"
 - swift_version: "6.0"
 
 ### Pending Todos

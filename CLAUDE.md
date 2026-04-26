@@ -9,7 +9,7 @@ An iOS app that serves as a traveler's on-trip companion. For each trip, users s
 
 ### Constraints
 
-- **Tech stack**: SwiftUI + SwiftData — Local-first; matches user's platform choice and minimum iOS 17 is acceptable
+- **Tech stack**: SwiftUI + SwiftData — Local-first; **minimum iOS 26** (raised 2026-04-27 from iOS 17 to use Liquid Glass and `.glassProminent` natively, no fallback branches)
 - **Platform**: iOS native, iPhone only — Swift/SwiftUI, no cross-platform framework
 - **Storage**: SwiftData local persistence in v1 — No backend, no auth, no network layer needed yet
 - **Design**: Clean & native — Use SF Symbols, system colors, stock iOS components; minimal custom styling in v1

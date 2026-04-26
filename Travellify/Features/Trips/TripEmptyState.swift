@@ -23,24 +23,13 @@ struct TripEmptyState: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 24)
-            createTripButton
+            Button("Create a trip", action: onCreateTrip)
+                .buttonStyle(.glassProminent)
+                .controlSize(.large)
         }
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityElement(children: .contain)
-    }
-
-    @ViewBuilder
-    private var createTripButton: some View {
-        if #available(iOS 26.0, *) {
-            Button("Create a trip", action: onCreateTrip)
-                .buttonStyle(.glassProminent)
-                .controlSize(.large)
-        } else {
-            Button("Create a trip", action: onCreateTrip)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-        }
     }
 }
 
