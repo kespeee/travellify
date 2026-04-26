@@ -4,7 +4,15 @@ Every Figma delivery that introduces a raster illustration follows this pipeline
 
 ## Location
 
-`Travellify/Assets.xcassets/EmptyStates.xcassets/<screen>/`
+`Travellify/Assets.xcassets/EmptyStates/<screen>/`
+
+> **IMPORTANT:** `EmptyStates` is a **plain folder** (asset-catalog group), NOT a
+> nested `.xcassets`. A nested `.xcassets` is treated by `actool` as a separate
+> catalog that requires its own pbxproj registration — without that, the
+> imagesets inside are silently dropped from the bundle and `Image(...)` lookups
+> return nothing. The fix that surfaced this on 2026-04-27: rename
+> `EmptyStates.xcassets` → `EmptyStates`. Don't reintroduce the nested
+> extension.
 
 ## Naming
 
@@ -19,7 +27,7 @@ Every Figma delivery that introduces a raster illustration follows this pipeline
    or `get_screenshot(...)` to receive the rendered illustration.
 3. If the response returns a bundled PNG URL under `localhost`, download it at
    1x, 2x, and 3x resolutions.
-4. Save into `Travellify/Assets.xcassets/EmptyStates.xcassets/<screen>/` with the
+4. Save into `Travellify/Assets.xcassets/EmptyStates/<screen>/` with the
    naming above. Generate a `Contents.json` mapping each `idiom: "universal"`
    plus scale variant.
 5. Reference in code as `Image("empty-state-<screen>")`.
