@@ -1,30 +1,40 @@
 import SwiftUI
 
+/// TripListView empty state — Figma node 93:132 (illustration node 96:870).
+/// Centered illustration + title + subtitle + primary CTA. The CTA fires the
+/// same NewTrip sheet entrypoint as the (populated-state) toolbar + button
+/// via the onCreateTrip closure (D7-07).
 struct TripEmptyState: View {
+    let onCreateTrip: () -> Void
+
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: "airplane.departure")
-                .font(.system(size: 56))
-                .foregroundStyle(.secondary)
-                .padding(.bottom, 32)
-            Text("No Trips Yet")
-                .font(.title2.weight(.semibold))
+            Image("empty-state-trips")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 144, height: 144)
+                .padding(.bottom, 16)
+            Text("No trips yet")
+                .font(.title2.weight(.bold))
                 .foregroundStyle(.primary)
                 .padding(.bottom, 8)
-            Text("Create your first trip to get started.")
+            Text("Create your first trip to get started")
                 .font(.body)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 24)
+            Button("Create a trip", action: onCreateTrip)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
         }
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("No trips yet. Create your first trip to get started.")
+        .accessibilityElement(children: .contain)
     }
 }
 
 #if DEBUG
 #Preview {
-    TripEmptyState()
+    TripEmptyState(onCreateTrip: {})
 }
 #endif

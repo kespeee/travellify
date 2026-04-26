@@ -21,7 +21,7 @@ struct TripListView: View {
     var body: some View {
         Group {
             if allTrips.isEmpty {
-                TripEmptyState()
+                TripEmptyState(onCreateTrip: { showNewTrip = true })
             } else {
                 List {
                     if !upcomingTrips.isEmpty {
@@ -45,13 +45,15 @@ struct TripListView: View {
         .navigationTitle("Trips")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showNewTrip = true
-                } label: {
-                    Image(systemName: "plus")
+            if !allTrips.isEmpty {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showNewTrip = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel("New Trip")
                 }
-                .accessibilityLabel("New Trip")
             }
         }
         .sheet(isPresented: $showNewTrip) {
