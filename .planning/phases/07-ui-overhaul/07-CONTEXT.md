@@ -69,6 +69,14 @@ Phase 7 delivers a full visual redesign of every shipped screen in v1.0 (Trips, 
 - Animation/transition choices between tabs, pushes, and sheets — default to iOS-native unless Figma specifies otherwise.
 - Stub Settings placeholder content (icon choice, exact copy) — keep tone consistent with the rest of the app.
 
+## Revision 2026-04-26 — DesignSystem layer deleted
+
+- **D7-02 (revised):** Phase 7 wave 1 originally planned a Design Foundation layer (tokens + modifier + button wrapper) under `Travellify/DesignSystem/`. After execution + iOS 26 Liquid Glass exploration, the layer was deleted as unused dead code (~10 source files + 5 dead tests). Future sub-phases use plain iOS 26 SwiftUI primitives directly — `.title2` / `.body` / `.primary` / `.secondary` / `.borderedProminent` / system spacing. If a one-off custom value is needed (exact Figma color, etc.), pass it inline at the call site or graduate into an `Assets.xcassets` entry (e.g. AccentColor).
+- **D7-05 (revised):** No custom `.liquidGlass()` modifier. Apple's native `.borderedProminent` + system materials handle glass rendering on iOS 26 without abstraction. The iOS 17–25 fallback path is no longer relevant — minimum target stays whatever the project already enforces, and native APIs cover it.
+- **D7-06 (unchanged):** Illustration assets still flow into `Assets.xcassets` via Figma MCP per ASSET-PIPELINE.md. The asset-catalog folder structure (e.g. `EmptyStates.xcassets`) is preserved.
+
+When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` formula at the call site or graduate the exact `#0091FF` into an AccentColor asset (Assets.xcassets, no code).
+
 </decisions>
 
 <canonical_refs>
