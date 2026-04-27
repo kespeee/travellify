@@ -25,6 +25,11 @@ extension TravellifySchemaV1 {
         @Relationship(deleteRule: .cascade, inverse: \PackingCategory.trip)
         var packingCategories: [PackingCategory]? = []
 
+        // Phase 7 (07-04, D7-22) — additive direct relationship to packing items so
+        // uncategorized items can live without a category. CloudKit-safe (optional).
+        @Relationship(deleteRule: .cascade, inverse: \PackingItem.trip)
+        var packingItems: [PackingItem]? = []
+
         @Relationship(deleteRule: .cascade, inverse: \Activity.trip)
         var activities: [Activity]? = []
 
