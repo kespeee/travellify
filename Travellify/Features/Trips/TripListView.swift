@@ -24,51 +24,53 @@ struct TripListView: View {
             if allTrips.isEmpty {
                 TripEmptyState(onCreateTrip: { showNewTrip = true })
             } else {
-                ScrollView {
-                    GlassEffectContainer(spacing: 16) {
-                        LazyVStack(spacing: 16) {
-                        if let hero = upcomingTrips.first {
-                            NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
-                                UpcomingTripCard(trip: hero)
-                            }
-                            .buttonStyle(.plain)
-                            .contextMenu { tripContextMenu(for: hero) }
-                            .padding(.horizontal, 16)
-                            .padding(.top, 16)
+                List {
+                    if let hero = upcomingTrips.first {
+                        NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
+                            UpcomingTripCard(trip: hero)
                         }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
+                        .contextMenu { tripContextMenu(for: hero) }
+                    }
 
-                        let following = Array(upcomingTrips.dropFirst())
-                        if !following.isEmpty {
-                            sectionHeader("FOLLOWING")
-                                .padding(.horizontal, 16)
-                                .padding(.top, 24)
-                            ForEach(following, id: \.id) { trip in
-                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    FollowingTripRow(trip: trip)
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu { tripContextMenu(for: trip) }
-                                .padding(.horizontal, 16)
+                    let following = Array(upcomingTrips.dropFirst())
+                    if !following.isEmpty {
+                        sectionHeader("FOLLOWING")
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 0, trailing: 16))
+                        ForEach(following, id: \.id) { trip in
+                            NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                FollowingTripRow(trip: trip)
                             }
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .contextMenu { tripContextMenu(for: trip) }
                         }
+                    }
 
-                        if !pastTrips.isEmpty {
-                            sectionHeader("PAST")
-                                .padding(.horizontal, 16)
-                                .padding(.top, 24)
-                            ForEach(pastTrips, id: \.id) { trip in
-                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    FollowingTripRow(trip: trip)
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu { tripContextMenu(for: trip) }
-                                .padding(.horizontal, 16)
+                    if !pastTrips.isEmpty {
+                        sectionHeader("PAST")
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 0, trailing: 16))
+                        ForEach(pastTrips, id: \.id) { trip in
+                            NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                FollowingTripRow(trip: trip)
                             }
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            .contextMenu { tripContextMenu(for: trip) }
                         }
-                        }
-                        .padding(.bottom, 32)
                     }
                 }
+                .listStyle(.plain)
+                .listRowSpacing(16)
+                .scrollContentBackground(.hidden)
                 .background(Color(.systemBackground).ignoresSafeArea())
             }
         }
