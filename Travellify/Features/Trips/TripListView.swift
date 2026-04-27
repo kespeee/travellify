@@ -25,7 +25,8 @@ struct TripListView: View {
                 TripEmptyState(onCreateTrip: { showNewTrip = true })
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 16) {
+                    GlassEffectContainer(spacing: 16) {
+                        LazyVStack(spacing: 16) {
                         if let hero = upcomingTrips.first {
                             NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
                                 UpcomingTripCard(
@@ -73,8 +74,9 @@ struct TripListView: View {
                                 .padding(.horizontal, 16)
                             }
                         }
+                        }
+                        .padding(.bottom, 32)
                     }
-                    .padding(.bottom, 32)
                 }
                 .background(Color(.systemGroupedBackground).ignoresSafeArea())
             }
