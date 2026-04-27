@@ -78,7 +78,7 @@ struct TripListView: View {
                         .padding(.bottom, 32)
                     }
                 }
-                .background(Color(.secondarySystemBackground).ignoresSafeArea())
+                .background(Color(.systemBackground).ignoresSafeArea())
             }
         }
         .navigationTitle("Trips")
