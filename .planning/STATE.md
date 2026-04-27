@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: verifying
 stopped_at: 07-01 Design Foundation complete
-last_updated: "2026-04-26T19:51:23.943Z"
-last_activity: 2026-04-26
+last_updated: "2026-04-27T09:34:02.114Z"
+last_activity: 2026-04-27
 progress:
   total_phases: 9
   completed_phases: 7
-  total_plans: 30
-  completed_plans: 30
+  total_plans: 31
+  completed_plans: 31
   percent: 100
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 Phase: 07 (ui-overhaul) — EXECUTING
 Plan: 1 of 1 (07-01 complete; awaiting 07-02 plan)
 Status: Phase complete — ready for verification
-Last activity: 2026-04-26
+Last activity: 2026-04-27
 
 Progress: [██████████] 100%
 
@@ -75,6 +75,7 @@ Progress: [██████████] 100%
 | Phase 06 P04 | ~6min | 3 tasks | 4 files |
 | Phase 07 P01 | ~25min | 4 tasks | 13 files |
 | Phase 07 P02 | 10min | 3 tasks | 9 files |
+| Phase 07 P03 | 30min | 5 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -160,6 +161,11 @@ Recent decisions affecting current work:
 - [Phase ?]: [07-02] AccentColor=#0091FF (sRGB 0/0.569/1) light+dark; cascades via Color.accentColor and .borderedProminent
 - [Phase ?]: [07-02] TripEmptyState API uses onCreateTrip closure; toolbar wraps + button in 'if !allTrips.isEmpty' (D7-07)
 - [Phase ?]: [07-02] empty-state-trips imageset shipped as placeholder PNGs (Figma MCP unavailable); ASSET-SOURCEMAP flagged placeholder:true for user swap before merge
+- [Phase ?]: [07-03] AppDestination.tripDetail uses PersistentIdentifier
+- [Phase ?]: [07-03] @MainActor TripMapSnapshotProvider singleton — in-memory cache + inflight Task coalescing keyed by Trip.id (UUID); Swift 6 strict-concurrency clean
+- [Phase ?]: [07-03] CLGeocoder + geocodeAddressString retained per plan despite iOS 26 deprecation; migration to MKGeocodingRequest deferred
+- [Phase ?]: [07-03] ScrollView+LazyVStack replaces List(.insetGrouped) for populated branch; per-row NavigationLink with .buttonStyle(.plain); .sheet(item: $tripToEdit) added for context-menu Edit
+- [Phase ?]: [07-03] TripRow.swift left as orphan in pbxproj — unused after refactor but compiles harmlessly; cleanup deferred
 
 ### Accumulated Technical Context
 
@@ -186,6 +192,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-26T19:51:11.382Z
+Last session: 2026-04-27T09:34:02.108Z
 Stopped at: 07-01 Design Foundation complete
 Resume file: None
