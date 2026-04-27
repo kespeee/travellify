@@ -3,8 +3,6 @@ import SwiftUI
 /// Hero card for the soonest upcoming trip on TripListView (Figma node 122:2783).
 struct UpcomingTripCard: View {
     let trip: Trip
-    let onEdit: () -> Void
-    let onDelete: () -> Void
 
     @State private var mapImage: UIImage?
 
@@ -16,10 +14,6 @@ struct UpcomingTripCard: View {
         .padding(16)
         .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .frame(height: 271)
-        .contextMenu {
-            Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
-            Button(role: .destructive) { onDelete() } label: { Label("Delete", systemImage: "trash") }
-        }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(Text("\(trip.name), upcoming trip, starts \(formattedFullDate(trip.startDate))"))
     }
@@ -226,7 +220,7 @@ struct UpcomingTripCard: View {
 
 #if DEBUG
 #Preview {
-    UpcomingTripCard(trip: Trip(), onEdit: {}, onDelete: {})
+    UpcomingTripCard(trip: Trip())
         .padding()
         .background(Color.black)
 }

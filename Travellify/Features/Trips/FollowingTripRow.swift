@@ -4,8 +4,6 @@ import SwiftUI
 /// (Figma node 115:1744 — `Multiplier Info` card).
 struct FollowingTripRow: View {
     let trip: Trip
-    let onEdit: () -> Void
-    let onDelete: () -> Void
 
     var body: some View {
         HStack(spacing: 16) {
@@ -27,10 +25,6 @@ struct FollowingTripRow: View {
         }
         .padding(16)
         .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .contextMenu {
-            Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
-            Button(role: .destructive) { onDelete() } label: { Label("Delete", systemImage: "trash") }
-        }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(Text("\(trip.name), \(subtitle)"))
     }
@@ -75,7 +69,7 @@ struct FollowingTripRow: View {
 
 #if DEBUG
 #Preview {
-    FollowingTripRow(trip: Trip(), onEdit: {}, onDelete: {})
+    FollowingTripRow(trip: Trip())
         .padding()
         .background(Color.black)
 }

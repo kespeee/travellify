@@ -29,13 +29,10 @@ struct TripListView: View {
                         LazyVStack(spacing: 16) {
                         if let hero = upcomingTrips.first {
                             NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
-                                UpcomingTripCard(
-                                    trip: hero,
-                                    onEdit: { tripToEdit = hero },
-                                    onDelete: { tripPendingDelete = hero }
-                                )
+                                UpcomingTripCard(trip: hero)
                             }
                             .buttonStyle(.plain)
+                            .contextMenu { tripContextMenu(for: hero) }
                             .padding(.horizontal, 16)
                             .padding(.top, 16)
                         }
@@ -47,13 +44,10 @@ struct TripListView: View {
                                 .padding(.top, 24)
                             ForEach(following, id: \.id) { trip in
                                 NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    FollowingTripRow(
-                                        trip: trip,
-                                        onEdit: { tripToEdit = trip },
-                                        onDelete: { tripPendingDelete = trip }
-                                    )
+                                    FollowingTripRow(trip: trip)
                                 }
                                 .buttonStyle(.plain)
+                                .contextMenu { tripContextMenu(for: trip) }
                                 .padding(.horizontal, 16)
                             }
                         }
@@ -64,13 +58,10 @@ struct TripListView: View {
                                 .padding(.top, 24)
                             ForEach(pastTrips, id: \.id) { trip in
                                 NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-                                    FollowingTripRow(
-                                        trip: trip,
-                                        onEdit: { tripToEdit = trip },
-                                        onDelete: { tripPendingDelete = trip }
-                                    )
+                                    FollowingTripRow(trip: trip)
                                 }
                                 .buttonStyle(.plain)
+                                .contextMenu { tripContextMenu(for: trip) }
                                 .padding(.horizontal, 16)
                             }
                         }
@@ -142,6 +133,16 @@ struct TripListView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.white.opacity(0.7))
             Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private func tripContextMenu(for trip: Trip) -> some View {
+        Button { tripToEdit = trip } label: {
+            Label("Edit", systemImage: "pencil")
+        }
+        Button(role: .destructive) { tripPendingDelete = trip } label: {
+            Label("Delete", systemImage: "trash")
         }
     }
 }
