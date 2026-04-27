@@ -26,8 +26,12 @@ struct TripListView: View {
             } else {
                 List {
                     if let hero = upcomingTrips.first {
-                        NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
+                        ZStack {
                             UpcomingTripCard(trip: hero)
+                            NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
+                                EmptyView()
+                            }
+                            .opacity(0)
                         }
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -42,8 +46,12 @@ struct TripListView: View {
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 0, trailing: 16))
                         ForEach(following, id: \.id) { trip in
-                            NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                            ZStack {
                                 FollowingTripRow(trip: trip)
+                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
                             }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
@@ -58,8 +66,12 @@ struct TripListView: View {
                             .listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 0, trailing: 16))
                         ForEach(pastTrips, id: \.id) { trip in
-                            NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                            ZStack {
                                 FollowingTripRow(trip: trip)
+                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                    EmptyView()
+                                }
+                                .opacity(0)
                             }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
