@@ -97,14 +97,30 @@ When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` form
 
 - **D7-15:** Section headers = "FOLLOWING" / "PAST" (uppercase string literals). Style: `.font(.caption.weight(.semibold))`, `.foregroundStyle(.white.opacity(0.7))`, leading-aligned via `HStack { Text … Spacer() }`. Padded with `.padding(.horizontal, 16)` and `.padding(.top, 24)` for breathing room before the first row of each section.
 
-## UI Spec — Liquid Glass on cards (added 2026-04-27 evening)
+## UI Spec — Native iOS only (added 2026-04-27 evening, ratified 2026-04-27 night)
 
-- **D7-16 (mandatory for all card-like surfaces in Phase 7+):** Every card or container that visually "lifts" off the screen background uses iOS 26 native `.glassEffect(.clear, in: shape)` — never `.background(Color…)` solids, never `.regular` glass, never custom `.ultraThinMaterial` overlays. Specifically:
-  - **Outer card wrappers** (`UpcomingTripCard`, `FollowingTripRow`, future TripDetailView cards, document cards, packing rows-as-cards, activity cards, edit-sheet groupings, etc.): `.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))`. No stroke. No drop shadow. Glass material does the entire visual job.
+The Phase 7 UI Overhaul is a **strict native-iOS-26 implementation** — no custom view code, no design tokens, no abstractions, no fallbacks. Every visual decision below is a hard rule for every Phase 7+ surface, including future Documents / Packing / Activities / Notifications UI / TripDetailView / TripEditSheet redesigns.
+
+- **D7-16 (mandatory glass on all card-like surfaces):** Every card or container that visually "lifts" off the screen background uses iOS 26 native `.glassEffect(.clear, in: shape)` — never `.background(Color…)` solids on the outer container, never `.regular` glass, never custom `.ultraThinMaterial` overlays. Specifically:
+  - **Outer card wrappers** (`UpcomingTripCard`, `FollowingTripRow`, future TripDetailView / document / packing / activity / edit-sheet cards, etc.): `.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))`. No stroke. No drop shadow. Glass material does the entire visual job.
   - **Inner sub-cards** (date block, packing block, badges, info pills): same modifier with the appropriate shape (`Capsule()` for badges, `RoundedRectangle` for blocks). Nesting `.clear` glass inside `.clear` glass is permitted and idiomatic — produces layered transparency.
-  - **`.clear` over `.regular`:** project policy. The `.clear` variant is more transparent and lets the screen background (and underlying content) bleed through more obviously, matching the intended "glassy, atmospheric" feel. Reach for `.regular` only with explicit Figma direction.
-  - **No tint by default.** Only add `.tint(...)` to a glass effect when the design specifically calls for a colored material (e.g. a prominent CTA on `.glassProminent`).
-  - **Padding stays on the content, not the glass.** Apply `.padding(N)` before `.glassEffect(...)` so the material wraps the padded content, not the bare content.
+  - **`.clear` over `.regular`** by default. `.regular` only with explicit Figma direction.
+  - **No tint by default.** `.tint(…)` only when the design specifically calls for a colored material (e.g. a prominent CTA via `.buttonStyle(.glassProminent)`).
+  - **Padding before glass.** `.padding(N).glassEffect(…)` so the material wraps the padded content.
+  - **Tappable cards** wrap in `NavigationLink { card }.buttonStyle(.plain).contextMenu { … }`. The `.contextMenu` MUST sit on the `NavigationLink`, not inside the card body — nested contextMenu loses the long-press race against the link's tap gesture.
+  - **Small accent surfaces** (e.g. the `FollowingTripRow` date pill) may use `Color(.secondarySystemBackground)` / `Color(.tertiarySystemBackground)` as their fill — those are still iOS-native semantic colors. Avoid raw `Color(red:green:blue:)` literals except for one-off Figma accent colors that are also worth promoting into an `Assets.xcassets` color set.
+
+- **D7-17 (typography — system text styles only):** Use SwiftUI text-style modifiers — `.font(.title)`, `.font(.title2)`, `.font(.title3)`, `.font(.headline)`, `.font(.subheadline)`, `.font(.body)`, `.font(.callout)`, `.font(.footnote)`, `.font(.caption)`, `.font(.caption2)` — optionally with `.weight(…)` and `.bold()`. Never use `.font(.system(size: N, weight: …))` with a hardcoded point size; that breaks Dynamic Type and forces a fixed visual scale. The single permitted exception: when Figma provides a measurement and **no system text style maps to it** within ~2pt, document the deviation in the SUMMARY.md for that wave.
+
+- **D7-18 (colors — system semantic colors + AccentColor only):** Foreground / background / fills come from SwiftUI semantic colors:
+  - **Foregrounds:** `.primary`, `.secondary`, `.white.opacity(N)` for prominent-on-glass content, never raw hex.
+  - **Backgrounds:** `Color(.systemBackground)`, `Color(.secondarySystemBackground)`, `Color(.tertiarySystemBackground)`, `Color(.systemGroupedBackground)`. The screen behind `TripListView` populated path uses `Color(.systemBackground)`. Glass cards layer on top of this without their own backgrounds.
+  - **Brand color** is the `AccentColor` asset (currently `#0091FF`). All "blue accent" surfaces (selected tab, prominent buttons, etc.) inherit via `Color.accentColor` automatically — no `.tint(.blue)` overrides needed.
+  - **One-off Figma accent colors** (e.g. the red `#FF4245` used on month labels in `DateBlock`) may be inlined as `Color(red: …, green: …, blue: …)` at the call site, OR promoted into `Assets.xcassets` if they appear in 3+ places.
+
+- **D7-19 (spacing + sizing — native scale, no design tokens):** Padding / spacing values are written as plain integer literals (`.padding(16)`, `.padding(.horizontal, 32)`, `VStack(spacing: 8)`, etc.) — no `DSSpacing.s16`-style constants. The system handles Dynamic Type scaling on text; container sizing uses fixed `.frame(width: 52, height: 52)` etc. straight from the Figma spec.
+
+- **D7-20 (no custom view code beyond composition):** Phase 7 introduces zero custom `ViewModifier`s, zero custom `ButtonStyle`s, zero custom `Font` extensions, zero token namespaces. Every screen is built from native SwiftUI primitives + `.glassEffect`. If a Figma direction can't be expressed in plain SwiftUI primitives, surface it as an open question for the user before reaching for custom code.
 
 </decisions>
 

@@ -83,6 +83,19 @@ See `TripEditSheet`, `DocumentEditSheet`, `ActivityEditSheet`. Do not split into
 
 Per project CLAUDE.md: no direct file edits outside a GSD command. Enter via `/gsd-quick`, `/gsd-debug`, or `/gsd-plan-phase` + `/gsd-execute-phase`. Planning artifacts live under `.planning/`; state machine in `.planning/STATE.md`.
 
+## UI implementation policy (Phase 7+, locked 2026-04-27)
+
+The Phase 7 UI Overhaul and every later visual phase use **strict native iOS 26 only** — see `.planning/phases/07-ui-overhaul/07-CONTEXT.md` decisions D7-16 through D7-20 for the canonical rules. Headline points:
+
+- **All cards have glass.** Outer wrappers + sub-cards + badges all use `.glassEffect(.clear, in: shape)`. No `.background(Color…)` solids on outer card surfaces, no `.regular` glass without explicit Figma direction, no `.ultraThinMaterial` overlays.
+- **System fonts only.** `.font(.title)`, `.font(.title2)`, `.font(.headline)`, `.font(.body)`, `.font(.caption)` — never `.font(.system(size: N, weight: …))` with hardcoded points.
+- **System semantic colors only.** `Color(.systemBackground)` / `Color(.secondarySystemBackground)` / `Color(.tertiarySystemBackground)` / `Color.accentColor` (`AccentColor` asset = `#0091FF`). One-off Figma accents inline as `Color(red: …, green: …, blue: …)` at call site, or graduate into `Assets.xcassets` if reused 3+ times.
+- **Plain integer spacing.** `.padding(16)`, `VStack(spacing: 8)`, `.frame(width: 52)`. No `DSSpacing` token namespaces.
+- **No custom view code.** No bespoke `ViewModifier`s / `ButtonStyle`s / `Font` extensions. If a Figma direction can't express in primitives, ask before reaching for custom code.
+- **Tappable cards** = `NavigationLink { card }.buttonStyle(.plain).contextMenu { … }`. The `.contextMenu` sits on the `NavigationLink`, not inside the card body — nested contextMenu loses long-press gesture races.
+
+Refer to `07-CONTEXT.md` for full text. Future phases either follow these rules or open them for revision before deviating.
+
 ---
 
-_Last updated: 2026-04-21 — after Phase 4 (Activities Core) closure._
+_Last updated: 2026-04-27 — Phase 7 native-iOS UI policy locked._
