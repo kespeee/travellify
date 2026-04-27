@@ -24,6 +24,7 @@ struct SettingsPlaceholderView: View {
             }
             .padding(.horizontal, 32)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.secondarySystemBackground).ignoresSafeArea())
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Settings coming soon. Settings will be available in a future update.")
             .navigationTitle("Settings")
