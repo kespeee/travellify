@@ -60,7 +60,7 @@ struct FollowingTripRow: View {
             .padding(.vertical, 5)
             .frame(width: 52, height: 52)
             .background(
-                Color(.tertiarySystemBackground),
+                Color(.secondarySystemBackground),
                 in: RoundedRectangle(cornerRadius: 12, style: .continuous)
             )
         }

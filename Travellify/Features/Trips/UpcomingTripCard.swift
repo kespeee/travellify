@@ -121,7 +121,7 @@ struct UpcomingTripCard: View {
             let crossYear = cal.component(.year, from: start) != cal.component(.year, from: end)
             let days = cal.dateComponents([.day], from: start, to: end).day ?? 0
 
-            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+            Grid(horizontalSpacing: -4, verticalSpacing: 0) {
                 GridRow {
                     monthCell(monthLabel(for: start, crossYear: crossYear))
                     Text("\(days)d")
@@ -132,7 +132,7 @@ struct UpcomingTripCard: View {
                 GridRow {
                     dayCell(cal.component(.day, from: start))
                     Text("→")
-                        .font(.headline)
+                        .font(.title3.weight(.semibold))
                         .foregroundStyle(.white.opacity(0.7))
                     dayCell(cal.component(.day, from: end))
                 }
@@ -150,7 +150,7 @@ struct UpcomingTripCard: View {
 
         private func dayCell(_ day: Int) -> some View {
             Text("\(day)")
-                .font(.system(size: 28, weight: .heavy))
+                .font(.title.weight(.bold))
                 .foregroundStyle(.white)
                 .tracking(0.38)
                 .frame(maxWidth: .infinity)
