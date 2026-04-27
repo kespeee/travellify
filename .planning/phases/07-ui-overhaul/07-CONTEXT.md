@@ -97,6 +97,15 @@ When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` form
 
 - **D7-15:** Section headers = "FOLLOWING" / "PAST" (uppercase string literals). Style: `.font(.caption.weight(.semibold))`, `.foregroundStyle(.white.opacity(0.7))`, leading-aligned via `HStack { Text … Spacer() }`. Padded with `.padding(.horizontal, 16)` and `.padding(.top, 24)` for breathing room before the first row of each section.
 
+## UI Spec — Liquid Glass on cards (added 2026-04-27 evening)
+
+- **D7-16 (mandatory for all card-like surfaces in Phase 7+):** Every card or container that visually "lifts" off the screen background uses iOS 26 native `.glassEffect(.clear, in: shape)` — never `.background(Color…)` solids, never `.regular` glass, never custom `.ultraThinMaterial` overlays. Specifically:
+  - **Outer card wrappers** (`UpcomingTripCard`, `FollowingTripRow`, future TripDetailView cards, document cards, packing rows-as-cards, activity cards, edit-sheet groupings, etc.): `.glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))`. No stroke. No drop shadow. Glass material does the entire visual job.
+  - **Inner sub-cards** (date block, packing block, badges, info pills): same modifier with the appropriate shape (`Capsule()` for badges, `RoundedRectangle` for blocks). Nesting `.clear` glass inside `.clear` glass is permitted and idiomatic — produces layered transparency.
+  - **`.clear` over `.regular`:** project policy. The `.clear` variant is more transparent and lets the screen background (and underlying content) bleed through more obviously, matching the intended "glassy, atmospheric" feel. Reach for `.regular` only with explicit Figma direction.
+  - **No tint by default.** Only add `.tint(...)` to a glass effect when the design specifically calls for a colored material (e.g. a prominent CTA on `.glassProminent`).
+  - **Padding stays on the content, not the glass.** Apply `.padding(N)` before `.glassEffect(...)` so the material wraps the padded content, not the bare content.
+
 </decisions>
 
 <canonical_refs>

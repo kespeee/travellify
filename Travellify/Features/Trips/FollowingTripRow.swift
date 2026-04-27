@@ -26,7 +26,7 @@ struct FollowingTripRow: View {
                 .foregroundStyle(.white.opacity(0.3))
         }
         .padding(16)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .contextMenu {
             Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
             Button(role: .destructive) { onDelete() } label: { Label("Delete", systemImage: "trash") }

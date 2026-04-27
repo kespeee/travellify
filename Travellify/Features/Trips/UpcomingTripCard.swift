@@ -14,7 +14,7 @@ struct UpcomingTripCard: View {
             rightPanel
         }
         .padding(16)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .frame(height: 271)
         .contextMenu {
             Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
@@ -114,10 +114,7 @@ struct UpcomingTripCard: View {
                 .foregroundStyle(.white)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 8)
-                .background(
-                    Color(red: 0/255, green: 16/255, blue: 36/255).opacity(0.22),
-                    in: Capsule()
-                )
+                .glassEffect(.clear, in: Capsule())
         }
     }
 
@@ -126,54 +123,52 @@ struct UpcomingTripCard: View {
         let end: Date
 
         var body: some View {
-            HStack(spacing: 0) {
-                side(date: start)
-                duration
-                side(date: end)
+            let cal = Calendar.current
+            let crossYear = cal.component(.year, from: start) != cal.component(.year, from: end)
+            let days = cal.dateComponents([.day], from: start, to: end).day ?? 0
+
+            Grid(horizontalSpacing: 0, verticalSpacing: 0) {
+                GridRow {
+                    monthCell(monthLabel(for: start, crossYear: crossYear))
+                    Text("\(days)d")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.7))
+                    monthCell(monthLabel(for: end, crossYear: crossYear))
+                }
+                GridRow {
+                    dayCell(cal.component(.day, from: start))
+                    Text("→")
+                        .font(.headline)
+                        .foregroundStyle(.white.opacity(0.7))
+                    dayCell(cal.component(.day, from: end))
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
 
-        private func side(date: Date) -> some View {
-            let cal = Calendar.current
-            let monthFmt: DateFormatter = {
-                let f = DateFormatter()
-                f.setLocalizedDateFormatFromTemplate("MMM")
-                return f
-            }()
-            let crossYear = cal.component(.year, from: start) != cal.component(.year, from: end)
-            let monthLabel: String = {
-                let m = monthFmt.string(from: date)
-                if crossYear {
-                    let yy = cal.component(.year, from: date) % 100
-                    return "\(m) ’\(String(format: "%02d", yy))"
-                }
-                return m
-            }()
-            let day = cal.component(.day, from: date)
-            return VStack(spacing: 0) {
-                Text(monthLabel)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color(red: 1.0, green: 0.259, blue: 0.271))
-                Text("\(day)")
-                    .font(.system(size: 28, weight: .heavy))
-                    .foregroundStyle(.white)
-                    .tracking(0.38)
-            }
-            .frame(maxWidth: .infinity)
+        private func monthCell(_ text: String) -> some View {
+            Text(text)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color(red: 1.0, green: 0.259, blue: 0.271))
+                .frame(maxWidth: .infinity)
         }
 
-        private var duration: some View {
-            let days = Calendar.current.dateComponents([.day], from: start, to: end).day ?? 0
-            return VStack(spacing: 0) {
-                Text("\(days)d")
-                    .font(.subheadline.weight(.semibold))
-                Text("→")
-                    .font(.headline)
-            }
-            .foregroundStyle(.white.opacity(0.7))
-            .frame(width: 20)
+        private func dayCell(_ day: Int) -> some View {
+            Text("\(day)")
+                .font(.system(size: 28, weight: .heavy))
+                .foregroundStyle(.white)
+                .tracking(0.38)
+                .frame(maxWidth: .infinity)
+        }
+
+        private func monthLabel(for date: Date, crossYear: Bool) -> String {
+            let f = DateFormatter()
+            f.setLocalizedDateFormatFromTemplate("MMM")
+            let m = f.string(from: date)
+            guard crossYear else { return m }
+            let yy = Calendar.current.component(.year, from: date) % 100
+            return "\(m) ’\(String(format: "%02d", yy))"
         }
     }
 
@@ -210,7 +205,7 @@ struct UpcomingTripCard: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
     }
 
