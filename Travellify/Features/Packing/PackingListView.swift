@@ -1,41 +1,31 @@
 import SwiftUI
 import SwiftData
 
-private enum PackingEntry: Identifiable {
-    case progress
-    case header(PackingCategory)
-    case item(PackingItem)
-    case addItem(PackingCategory)
-
-    var id: String {
-        switch self {
-        case .progress: return "progress"
-        case .header(let c): return "h-\(c.id.uuidString)"
-        case .item(let i): return "i-\(i.id.uuidString)"
-        case .addItem(let c): return "a-\(c.id.uuidString)"
-        }
-    }
-
-    var canMove: Bool {
-        if case .item = self { return true }
-        return false
-    }
-}
-
+/// Phase 7 (07-04) — Packing list redesign.
+/// - Chrome-stripped List matching TripListView 07-03 (D7-21)
+/// - Uncategorized items render as flat rows at the top; categories render as glass cards
+/// - Toolbar `+` adds a CATEGORY (D7-23); per-card "Add item" handles items
+/// - Phase 3 interactions preserved: tap-on-checkbox toggle, tap-on-label inline rename,
+///   swipe-trailing Delete, long-press contextMenu (D7-24)
+/// - Cross-category drag-and-drop deferred per D7-25
 struct PackingListView: View {
     let tripID: PersistentIdentifier
 
     @Environment(\.modelContext) private var modelContext
-    @Query private var categories: [PackingCategory]
 
-    @State private var isAddingCategory = false
-    @State private var newCategoryName: String = ""
-    @State private var pendingRenameCategory: PackingCategory?
-    @State private var renameCategoryDraft: String = ""
+    @Query private var categories: [PackingCategory]
+    @Query private var allTripItems: [PackingItem]
+
+    // Inline rename state (parent-owned per Phase 3 pattern)
+    @State private var renamingItem: PackingItem?
+    @State private var renamingCategory: PackingCategory?
+    @State private var categoryRenameDraft: String = ""
+
+    // Pending delete (existing alert flow)
     @State private var pendingDeleteCategory: PackingCategory?
 
-    @FocusState private var addItemFocus: PersistentIdentifier?
-    @State private var newItemNames: [PersistentIdentifier: String] = [:]
+    // Track which category title to focus on next render (toolbar +)
+    @State private var categoryToFocusOnAppear: PackingCategory?
 
     @State private var errorMessage: String?
 
@@ -48,43 +38,25 @@ struct PackingListView: View {
             sort: \PackingCategory.sortOrder,
             order: .forward
         )
+        _allTripItems = Query(
+            filter: #Predicate<PackingItem> { item in
+                item.trip?.persistentModelID == tripID
+            }
+        )
     }
 
     private var sortedCategories: [PackingCategory] {
         categories.sorted { $0.sortOrder < $1.sortOrder }
     }
 
-    private func sortedItems(_ category: PackingCategory) -> [PackingItem] {
-        (category.items ?? []).sorted { $0.sortOrder < $1.sortOrder }
+    private var uncategorizedItems: [PackingItem] {
+        allTripItems
+            .filter { $0.category == nil }
+            .sorted { $0.sortOrder < $1.sortOrder }
     }
 
-    private var allItems: [PackingItem] {
-        categories.flatMap { $0.items ?? [] }
-    }
-
-    private var tripCheckedCount: Int { allItems.filter(\.isChecked).count }
-    private var tripTotalCount: Int { allItems.count }
-
-    private var entries: [PackingEntry] {
-        var result: [PackingEntry] = []
-        if !categories.isEmpty {
-            result.append(.progress)
-            for cat in sortedCategories {
-                result.append(.header(cat))
-                for item in sortedItems(cat) {
-                    result.append(.item(item))
-                }
-                result.append(.addItem(cat))
-            }
-        }
-        return result
-    }
-
-    private func newItemNameBinding(for category: PackingCategory) -> Binding<String> {
-        Binding(
-            get: { newItemNames[category.persistentModelID] ?? "" },
-            set: { newItemNames[category.persistentModelID] = $0 }
-        )
+    private var trip: Trip? {
+        modelContext.model(for: tripID) as? Trip
     }
 
     // MARK: - Mutations
@@ -99,21 +71,63 @@ struct PackingListView: View {
         save("Couldn't delete item. Please try again.")
     }
 
-    private func insertItem(name: String, in category: PackingCategory) {
+    private func renameItem(_ item: PackingItem, to newName: String) {
+        item.name = newName
+        save("Couldn't rename. Please try again.")
+        renamingItem = nil
+    }
+
+    private func cancelItemRename() {
+        renamingItem = nil
+    }
+
+    private func insertItem(name: String, in category: PackingCategory?) {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
-        let nextSort = ((category.items ?? []).map(\.sortOrder).max() ?? -1) + 1
+        guard let trip else { return }
+
+        let nextSort: Int
+        if let category {
+            nextSort = ((category.items ?? []).map(\.sortOrder).max() ?? -1) + 1
+        } else {
+            nextSort = (uncategorizedItems.map(\.sortOrder).max() ?? -1) + 1
+        }
         let item = PackingItem()
         item.name = trimmed
         item.sortOrder = nextSort
         item.category = category
+        item.trip = trip
         modelContext.insert(item)
         save("Couldn't add item. Please try again.")
     }
 
-    private func renameItem(_ item: PackingItem, to newName: String) {
-        item.name = newName
-        save("Couldn't rename. Please try again.")
+    private func addCategory() {
+        guard let trip else { return }
+        let nextSort = (categories.map(\.sortOrder).max() ?? -1) + 1
+        let cat = PackingCategory()
+        cat.name = ""
+        cat.sortOrder = nextSort
+        cat.trip = trip
+        modelContext.insert(cat)
+        save("Couldn't add category. Please try again.")
+        // Trigger inline title rename for the new card.
+        renamingCategory = cat
+        categoryRenameDraft = ""
+    }
+
+    private func commitCategoryRename() {
+        guard let cat = renamingCategory else { return }
+        let trimmed = categoryRenameDraft.trimmingCharacters(in: .whitespaces)
+        cat.name = trimmed.isEmpty ? "Untitled" : trimmed
+        save("Couldn't rename category. Please try again.")
+        renamingCategory = nil
+        categoryRenameDraft = ""
+    }
+
+    private func deleteCategory(_ cat: PackingCategory) {
+        modelContext.delete(cat)
+        save("Couldn't delete category. Please try again.")
+        pendingDeleteCategory = nil
     }
 
     private func save(_ failureMessage: String) {
@@ -121,85 +135,61 @@ struct PackingListView: View {
         catch { errorMessage = failureMessage }
     }
 
-    // MARK: - Reorder via .onMove
-
-    private func handleMove(source: IndexSet, destination: Int) {
-        var working = entries
-        working.move(fromOffsets: source, toOffset: destination)
-
-        // Reject moves that would place an item before the first header or as the first entry
-        guard let firstHeaderIdx = working.firstIndex(where: { if case .header = $0 { return true } else { return false } }) else { return }
-        if working[..<firstHeaderIdx].contains(where: { if case .item = $0 { return true } else { return false } }) {
-            return
-        }
-
-        var currentCategory: PackingCategory?
-        var order = 0
-        for entry in working {
-            switch entry {
-            case .header(let cat):
-                currentCategory = cat
-                order = 0
-            case .item(let item):
-                if let cat = currentCategory {
-                    item.category = cat
-                    item.sortOrder = order
-                    order += 1
+    /// Lazy backfill: any existing PackingItem with `.category != nil` and `.trip == nil`
+    /// gets `item.trip = item.category?.trip`. Idempotent — re-running is safe.
+    private func backfillItemTripIfNeeded() {
+        var didChange = false
+        for cat in categories {
+            for item in (cat.items ?? []) {
+                if item.trip == nil, let parentTrip = cat.trip {
+                    item.trip = parentTrip
+                    didChange = true
                 }
-            case .progress, .addItem:
-                break
             }
         }
-        save("Couldn't reorder. Please try again.")
+        if didChange {
+            save("Couldn't update packing data. Please try again.")
+        }
     }
 
     // MARK: - Body
 
     var body: some View {
-        List {
-            if categories.isEmpty {
-                Section {
-                    EmptyPackingListView()
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                }
-            } else {
-                ForEach(entries) { entry in
-                    row(for: entry)
-                }
-                .onMove(perform: handleMove)
-            }
-        }
-        .listStyle(.insetGrouped)
-        .listRowSpacing(8)
-        .scrollDismissesKeyboard(.immediately)
-        .navigationTitle("Packing")
+        listView
+            .navigationTitle("Packing")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    newCategoryName = ""
-                    isAddingCategory = true
+                    addCategory()
                 } label: {
                     Image(systemName: "plus")
                 }
                 .accessibilityLabel("New Category")
             }
         }
-        .addCategoryAlert(
-            isPresented: $isAddingCategory,
-            name: $newCategoryName,
-            onAdd: addCategory
-        )
-        .renameCategoryAlert(
-            pending: $pendingRenameCategory,
-            draft: $renameCategoryDraft,
-            onSave: renameCategory
-        )
-        .deleteCategoryDialog(
-            pending: $pendingDeleteCategory,
-            onDelete: deleteCategory
-        )
+        .task {
+            backfillItemTripIfNeeded()
+        }
+        .confirmationDialog(
+            pendingDeleteCategory.map { "Delete \"\($0.name)\"?" } ?? "Delete category?",
+            isPresented: Binding(
+                get: { pendingDeleteCategory != nil },
+                set: { if !$0 { pendingDeleteCategory = nil } }
+            ),
+            titleVisibility: .visible,
+            presenting: pendingDeleteCategory
+        ) { cat in
+            Button("Delete", role: .destructive) { deleteCategory(cat) }
+            Button("Cancel", role: .cancel) { pendingDeleteCategory = nil }
+        } message: { cat in
+            let itemCount = (cat.items ?? []).count
+            if itemCount == 0 {
+                Text("This category is empty. Delete it?")
+            } else {
+                Text("This will also delete its \(itemCount) item\(itemCount == 1 ? "" : "s") and cannot be undone.")
+            }
+        }
         .alert(
             "Something went wrong",
             isPresented: Binding(
@@ -214,162 +204,198 @@ struct PackingListView: View {
         }
     }
 
+    // MARK: - List body (split to keep Swift 6 type-checker happy)
+
     @ViewBuilder
-    private func row(for entry: PackingEntry) -> some View {
-        switch entry {
-        case .progress:
-            PackingProgressRow(checkedCount: tripCheckedCount, totalCount: tripTotalCount)
-                .moveDisabled(true)
+    private var listView: some View {
+        List {
+            uncategorizedSection
+            categoriesSection
+        }
+        .listStyle(.plain)
+        .listRowSpacing(16)
+        .scrollContentBackground(.hidden)
+        .background(Color(.systemBackground).ignoresSafeArea())
+    }
 
-        case .header(let category):
-            CategoryHeader(
-                category: category,
-                onRename: {
-                    pendingRenameCategory = category
-                    renameCategoryDraft = category.name
-                },
-                onDelete: { pendingDeleteCategory = category }
-            )
-            .moveDisabled(true)
+    @ViewBuilder
+    private var uncategorizedSection: some View {
+        ForEach(uncategorizedItems, id: \.id) { item in
+            uncategorizedItemRow(item)
+        }
+        PackingItemRow(
+            mode: .addPlaceholder,
+            onCommitNewItem: { name in insertItem(name: name, in: nil) }
+        )
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+    }
 
-        case .item(let item):
-            PackingRow(
-                item: item,
-                onToggleCheck: { toggleChecked(item) },
-                onCommitRename: { newName in renameItem(item, to: newName) }
-            )
-            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                Button { toggleChecked(item) } label: {
-                    Label(item.isChecked ? "Unpack" : "Pack", systemImage: "checkmark")
-                }
-                .tint(.green)
+    @ViewBuilder
+    private func uncategorizedItemRow(_ item: PackingItem) -> some View {
+        Group {
+            if renamingItem?.id == item.id {
+                InlineItemRenameRow(
+                    item: item,
+                    onCommit: { newName in renameItem(item, to: newName) },
+                    onCancel: cancelItemRename
+                )
+            } else {
+                PackingItemRow(
+                    mode: .item(item),
+                    onToggle: { toggleChecked(item) },
+                    onTapLabel: { renamingItem = item }
+                )
             }
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button(role: .destructive) { deleteItem(item) } label: {
-                    Label("Delete", systemImage: "trash")
-                }
+        }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button(role: .destructive) { deleteItem(item) } label: {
+                Label("Delete", systemImage: "trash")
             }
-            .sensoryFeedback(.success, trigger: item.isChecked)
-
-        case .addItem(let category):
-            HStack {
-                Image(systemName: "plus.circle").foregroundStyle(.tint)
-                TextField("Add item", text: newItemNameBinding(for: category))
-                    .font(.body)
-                    .focused($addItemFocus, equals: category.persistentModelID)
-                    .submitLabel(.done)
-                    .onSubmit {
-                        let trimmed = (newItemNames[category.persistentModelID] ?? "")
-                            .trimmingCharacters(in: .whitespaces)
-                        if !trimmed.isEmpty {
-                            insertItem(name: trimmed, in: category)
-                            newItemNames[category.persistentModelID] = ""
-                        }
-                        addItemFocus = nil
-                    }
+        }
+        .contextMenu {
+            Button { renamingItem = item } label: {
+                Label("Rename", systemImage: "pencil")
             }
-            .accessibilityLabel("Add item to \(category.name)")
-            .moveDisabled(true)
+            Button(role: .destructive) { deleteItem(item) } label: {
+                Label("Delete", systemImage: "trash")
+            }
         }
     }
 
-    // MARK: - Category CRUD
-
-    private func addCategory() {
-        let trimmed = newCategoryName.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty else { newCategoryName = ""; return }
-        let nextSort = (categories.map(\.sortOrder).max() ?? -1) + 1
-        let cat = PackingCategory()
-        cat.name = trimmed
-        cat.sortOrder = nextSort
-        cat.trip = modelContext.model(for: tripID) as? Trip
-        modelContext.insert(cat)
-        save("Couldn't add category. Please try again.")
-        newCategoryName = ""
-    }
-
-    private func renameCategory() {
-        let trimmed = renameCategoryDraft.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty, let cat = pendingRenameCategory else {
-            pendingRenameCategory = nil
-            renameCategoryDraft = ""
-            return
+    @ViewBuilder
+    private var categoriesSection: some View {
+        ForEach(sortedCategories, id: \.id) { category in
+            categoryCardRow(category)
         }
-        cat.name = trimmed
-        save("Couldn't rename category. Please try again.")
-        pendingRenameCategory = nil
-        renameCategoryDraft = ""
     }
 
-    private func deleteCategory(_ cat: PackingCategory) {
-        modelContext.delete(cat)
-        save("Couldn't delete category. Please try again.")
-        pendingDeleteCategory = nil
+    @ViewBuilder
+    private func categoryCardRow(_ category: PackingCategory) -> some View {
+        Group {
+            if renamingCategory?.id == category.id {
+                InlineCategoryTitleCard(
+                    category: category,
+                    draft: $categoryRenameDraft,
+                    onCommit: commitCategoryRename
+                )
+            } else {
+                PackingCategoryCard(
+                    category: category,
+                    renamingItem: renamingItem,
+                    onToggleItem: { item in toggleChecked(item) },
+                    onTapItemLabel: { item in renamingItem = item },
+                    onCommitItemRename: { item, name in renameItem(item, to: name) },
+                    onCancelItemRename: cancelItemRename,
+                    onCommitNewItem: { name in insertItem(name: name, in: category) }
+                )
+            }
+        }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+        .contextMenu {
+            Button {
+                renamingCategory = category
+                categoryRenameDraft = category.name
+            } label: {
+                Label("Rename", systemImage: "pencil")
+            }
+            Button(role: .destructive) {
+                pendingDeleteCategory = category
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
     }
 }
 
-// MARK: - Alert/Dialog ViewModifiers
+// MARK: - Inline rename helpers (parent-owned per Phase 3 pattern)
 
-private extension View {
-    func addCategoryAlert(
-        isPresented: Binding<Bool>,
-        name: Binding<String>,
-        onAdd: @escaping () -> Void
-    ) -> some View {
-        self.alert("New Category", isPresented: isPresented) {
-            TextField("Category name", text: name)
-            Button("Add", action: onAdd)
-                .disabled(name.wrappedValue.trimmingCharacters(in: .whitespaces).isEmpty)
-            Button("Cancel", role: .cancel) { name.wrappedValue = "" }
+/// Single uncategorized item rename row.
+private struct InlineItemRenameRow: View {
+    let item: PackingItem
+    let onCommit: (String) -> Void
+    let onCancel: () -> Void
+
+    @State private var draft: String = ""
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        HStack(spacing: 8) {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(item.isChecked ? Color.accentColor : Color(.secondarySystemBackground))
+                .overlay {
+                    if item.isChecked {
+                        Image(systemName: "checkmark")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(.white)
+                    } else {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .strokeBorder(Color(.separator), lineWidth: 1)
+                    }
+                }
+                .frame(width: 24, height: 24)
+
+            TextField("Item name", text: $draft)
+                .font(.headline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .focused($focused)
+                .submitLabel(.done)
+                .onSubmit { commit() }
+                .onAppear {
+                    draft = item.name
+                    focused = true
+                }
+                .onChange(of: focused) { _, isFocused in
+                    if !isFocused { commit() }
+                }
         }
+        .frame(height: 40)
     }
 
-    func renameCategoryAlert(
-        pending: Binding<PackingCategory?>,
-        draft: Binding<String>,
-        onSave: @escaping () -> Void
-    ) -> some View {
-        self.alert(
-            "Rename Category",
-            isPresented: Binding(
-                get: { pending.wrappedValue != nil },
-                set: { if !$0 { pending.wrappedValue = nil; draft.wrappedValue = "" } }
-            ),
-            presenting: pending.wrappedValue
-        ) { _ in
-            TextField("Category name", text: draft)
-            Button("Save", action: onSave)
-                .disabled(draft.wrappedValue.trimmingCharacters(in: .whitespaces).isEmpty)
-            Button("Cancel", role: .cancel) {
-                pending.wrappedValue = nil
-                draft.wrappedValue = ""
-            }
+    private func commit() {
+        let trimmed = draft.trimmingCharacters(in: .whitespaces)
+        if !trimmed.isEmpty, trimmed != item.name {
+            onCommit(trimmed)
+        } else {
+            onCancel()
         }
     }
+}
 
-    func deleteCategoryDialog(
-        pending: Binding<PackingCategory?>,
-        onDelete: @escaping (PackingCategory) -> Void
-    ) -> some View {
-        self.confirmationDialog(
-            pending.wrappedValue.map { "Delete \"\($0.name)\"?" } ?? "Delete category?",
-            isPresented: Binding(
-                get: { pending.wrappedValue != nil },
-                set: { if !$0 { pending.wrappedValue = nil } }
-            ),
-            titleVisibility: .visible,
-            presenting: pending.wrappedValue
-        ) { cat in
-            Button("Delete", role: .destructive) { onDelete(cat) }
-            Button("Cancel", role: .cancel) { pending.wrappedValue = nil }
-        } message: { cat in
-            let itemCount = (cat.items ?? []).count
-            if itemCount == 0 {
-                Text("This category is empty. Delete it?")
-            } else {
-                Text("This will also delete its \(itemCount) item\(itemCount == 1 ? "" : "s") and cannot be undone.")
-            }
+/// Glass card showing only an inline TextField for the category title — used while
+/// renaming or for a freshly-created (toolbar +) category.
+private struct InlineCategoryTitleCard: View {
+    let category: PackingCategory
+    @Binding var draft: String
+    let onCommit: () -> Void
+
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            TextField("Category name", text: $draft)
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(.primary)
+                .focused($focused)
+                .submitLabel(.done)
+                .onSubmit { onCommit() }
+                .onAppear {
+                    if draft.isEmpty { draft = category.name }
+                    focused = true
+                }
+                .onChange(of: focused) { _, isFocused in
+                    if !isFocused { onCommit() }
+                }
         }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 }
 

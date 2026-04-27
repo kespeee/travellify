@@ -35,11 +35,6 @@
 		DA8160F4EA8340A3AB48030A /* PackingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */; };
 		AB1234567890ABCD01234501 /* PackingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD01234502 /* PackingCategory.swift */; };
 		AB1234567890ABCD01234503 /* PackingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD01234504 /* PackingListView.swift */; };
-		AB1234567890ABCD01234506 /* EmptyPackingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD01234507 /* EmptyPackingListView.swift */; };
-		AB1234567890ABCD01234508 /* PackingProgressRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD01234509 /* PackingProgressRow.swift */; };
-		AB1234567890ABCD0123450A /* CategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD0123450B /* CategoryHeader.swift */; };
-		AB1234567890ABCD0123450C /* PackingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD0123450D /* PackingRow.swift */; };
-		AB1234567890ABCD0123450C /* PackingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1234567890ABCD0123450D /* PackingRow.swift */; };
 		AD0704010203040506070801 /* PackingItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0704010203040506070802 /* PackingItemRow.swift */; };
 		AD0704010203040506070803 /* PackingCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0704010203040506070804 /* PackingCategoryCard.swift */; };
 		DAB9EE09C3DE4941957B13A3 /* SchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE033F3DAFC84CB69D4BF232 /* SchemaV1.swift */; };
@@ -136,10 +131,6 @@
 		38C2043E5EB94875A1F8AAC2 /* PackingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItem.swift; sourceTree = "<group>"; };
 		AB1234567890ABCD01234502 /* PackingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingCategory.swift; sourceTree = "<group>"; };
 		AB1234567890ABCD01234504 /* PackingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingListView.swift; sourceTree = "<group>"; };
-		AB1234567890ABCD01234507 /* EmptyPackingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPackingListView.swift; sourceTree = "<group>"; };
-		AB1234567890ABCD01234509 /* PackingProgressRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingProgressRow.swift; sourceTree = "<group>"; };
-		AB1234567890ABCD0123450B /* CategoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryHeader.swift; sourceTree = "<group>"; };
-		AB1234567890ABCD0123450D /* PackingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingRow.swift; sourceTree = "<group>"; };
 		AD0704010203040506070802 /* PackingItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingItemRow.swift; sourceTree = "<group>"; };
 		AD0704010203040506070804 /* PackingCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingCategoryCard.swift; sourceTree = "<group>"; };
 		44A46C12EA2F42C9B432262C /* TripListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListView.swift; sourceTree = "<group>"; };
@@ -255,10 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				AB1234567890ABCD01234504 /* PackingListView.swift */,
-				AB1234567890ABCD01234507 /* EmptyPackingListView.swift */,
-				AB1234567890ABCD01234509 /* PackingProgressRow.swift */,
-				AB1234567890ABCD0123450B /* CategoryHeader.swift */,
-				AB1234567890ABCD0123450D /* PackingRow.swift */,
 				AD0704010203040506070802 /* PackingItemRow.swift */,
 				AD0704010203040506070804 /* PackingCategoryCard.swift */,
 			);
@@ -570,10 +557,6 @@
 				DA8160F4EA8340A3AB48030A /* PackingItem.swift in Sources */,
 				AB1234567890ABCD01234501 /* PackingCategory.swift in Sources */,
 				AB1234567890ABCD01234503 /* PackingListView.swift in Sources */,
-				AB1234567890ABCD01234506 /* EmptyPackingListView.swift in Sources */,
-				AB1234567890ABCD01234508 /* PackingProgressRow.swift in Sources */,
-				AB1234567890ABCD0123450A /* CategoryHeader.swift in Sources */,
-				AB1234567890ABCD0123450C /* PackingRow.swift in Sources */,
 				AD0704010203040506070801 /* PackingItemRow.swift in Sources */,
 				AD0704010203040506070803 /* PackingCategoryCard.swift in Sources */,
 				164B93BCE9B64DA28F017D27 /* Activity.swift in Sources */,
