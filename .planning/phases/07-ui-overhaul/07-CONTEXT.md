@@ -77,6 +77,26 @@ Phase 7 delivers a full visual redesign of every shipped screen in v1.0 (Trips, 
 
 When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` formula at the call site or graduate the exact `#0091FF` into an AccentColor asset (Assets.xcassets, no code).
 
+## Revision 2026-04-27 — Populated TripListView (07-03)
+
+- **D7-03 (revised):** 07-03 belongs to **sub-phase 7.2 Trips** (continuation of 07-02), not its own sub-phase. The 7.2 Trips sub-phase now spans plans 07-02 (empty state) and 07-03 (populated list). Future plans 07-04 (TripDetailView) and 07-05 (TripEditSheet) land when designs are delivered. Documents redesign starts at 07-06+, then Packing, Activities, Notifications UI in subsequent plans.
+
+- **D7-08:** Hero pick = `TripPartition.upcoming.first` (soonest upcoming trip). When `upcomingTrips` is empty (past-only edge case), the populated branch skips the hero and renders only the PAST section. When `allTrips` is fully empty, the existing 07-02 `TripEmptyState` path takes over (unchanged).
+
+- **D7-09:** Past trips render in a `PAST` section after `FOLLOWING`, using the same `FollowingTripRow` styling. Designer can introduce dim/restyle differentiation in a later wave; Phase 7.2 ships PAST visually identical to FOLLOWING.
+
+- **D7-10:** Map snippet = `MKMapSnapshotter` driven by `CLGeocoder.geocodeAddressString` per `Destination.name`. In-memory cache only (no disk persistence) keyed by `Trip.id`. Concurrent requests for the same trip are coalesced via an inflight `Task` dictionary. Gradient fallback when geocoding yields nothing (no destinations or all geocodes fail). Provider lives at `Travellify/Features/Trips/TripMapSnapshotProvider.swift` as a `@MainActor` singleton.
+
+- **D7-11:** Scroll container = `ScrollView { LazyVStack(spacing: 16) { … } }`. Replaces `List(.insetGrouped)`. Loses native swipe-to-delete; long-press context menu Edit + Delete replaces it. Per-card row wrapped in `NavigationLink(value:)` with `.buttonStyle(.plain)` so card visuals survive.
+
+- **D7-12:** Tap = `NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID))` (re-uses existing destination). Long-press context menu surfaces Edit (sets `tripToEdit` → `.sheet(item:)` opens `TripEditSheet(mode: .edit(trip))`) and Delete (sets `tripPendingDelete` → existing confirmation alert). Both sheet and alert wires already existed in the populated path; only `.sheet(item: $tripToEdit)` was added.
+
+- **D7-13:** Components extracted = `UpcomingTripCard` + `FollowingTripRow` + `TripMapSnapshotProvider` (3 new files). DateBlock / PackingBlock / Badge / ProgressRing stay private nested in `UpcomingTripCard`. DatePill stays private nested in `FollowingTripRow`. No further breakdown — keeps the file count proportional to the design.
+
+- **D7-14:** Background = pure black (`Color.black.ignoresSafeArea()`) for the populated branch only. Empty-state branch keeps its 07-02 default background (`Color(.systemBackground)` cascade). Dark-mode-only this wave; light-mode variant deferred per the existing CONTEXT note.
+
+- **D7-15:** Section headers = "FOLLOWING" / "PAST" (uppercase string literals). Style: `.font(.caption.weight(.semibold))`, `.foregroundStyle(.white.opacity(0.7))`, leading-aligned via `HStack { Text … Spacer() }`. Padded with `.padding(.horizontal, 16)` and `.padding(.top, 24)` for breathing room before the first row of each section.
+
 </decisions>
 
 <canonical_refs>
