@@ -83,6 +83,7 @@
 		FDA2B3C4D5E641829A0B700D /* ViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2B3C4D5E641829A0B700E /* ViewerTests.swift */; };
 		FE0CC29EFA4C4426AEE16AAD /* TripEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB9AE41214545A6B00DE945 /* TripEditSheet.swift */; };
 		AD0703010203040506070801 /* TripMapSnapshotProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0703010203040506070802 /* TripMapSnapshotProvider.swift */; };
+		AD0703010203040506070803 /* UpcomingTripCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0703010203040506070804 /* UpcomingTripCard.swift */; };
 		AA0304010203040506070801 /* PackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070802 /* PackingTests.swift */; };
 		AD0402020304050607081001 /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0402020304050607081002 /* ActivityTests.swift */; };
 		AA0304010203040506070803 /* PackingProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0304010203040506070804 /* PackingProgressTests.swift */; };
@@ -171,6 +172,7 @@
 		F6A2B3C4D5E641829A0B7006 /* tiny-pdf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "tiny-pdf.pdf"; sourceTree = "<group>"; };
 		F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPartition.swift; sourceTree = "<group>"; };
 		AD0703010203040506070802 /* TripMapSnapshotProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripMapSnapshotProvider.swift; sourceTree = "<group>"; };
+		AD0703010203040506070804 /* UpcomingTripCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingTripCard.swift; sourceTree = "<group>"; };
 		F8A2B3C4D5E641829A0B7008 /* FileStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageTests.swift; sourceTree = "<group>"; };
 		FAA2B3C4D5E641829A0B700A /* DocumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTests.swift; sourceTree = "<group>"; };
 		FC0D1E2F304141829A0B2302 /* PartitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartitionTests.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				C2D3E4F5A6B741829A0B1C2E /* DestinationDraft.swift */,
 				F6A7B8C9DAEB41829A0B1D33 /* TripPartition.swift */,
 				AD0703010203040506070802 /* TripMapSnapshotProvider.swift */,
+				AD0703010203040506070804 /* UpcomingTripCard.swift */,
 			);
 			path = Trips;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				AD0701030203040506070802 /* TabBarRoot.swift in Sources */,
 				AD0701030203040506070804 /* SettingsPlaceholderView.swift in Sources */,
 				AD0703010203040506070801 /* TripMapSnapshotProvider.swift in Sources */,
+				AD0703010203040506070803 /* UpcomingTripCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,235 @@
+import SwiftUI
+
+/// Hero card for the soonest upcoming trip on TripListView (Figma node 122:2783).
+struct UpcomingTripCard: View {
+    let trip: Trip
+    let onEdit: () -> Void
+    let onDelete: () -> Void
+
+    @State private var mapImage: UIImage?
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            leftPanel
+            rightPanel
+        }
+        .padding(16)
+        .background(Color.clear)
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .frame(height: 271)
+        .contextMenu {
+            Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
+            Button(role: .destructive) { onDelete() } label: { Label("Delete", systemImage: "trash") }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("\(trip.name), upcoming trip, starts \(formattedFullDate(trip.startDate))"))
+    }
+
+    // MARK: - Left panel: map + gradient + badge + name/destinations
+
+    private var leftPanel: some View {
+        ZStack(alignment: .topLeading) {
+            // Map snapshot or gradient fallback
+            Group {
+                if let mapImage {
+                    Image(uiImage: mapImage)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.10, green: 0.15, blue: 0.25),
+                            Color(red: 0.05, green: 0.05, blue: 0.10)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+            }
+            // Bottom darkening gradient (Figma: 50% transparent → 70% black)
+            LinearGradient(
+                colors: [Color.black.opacity(0), Color.black.opacity(0.7)],
+                startPoint: UnitPoint(x: 0.5, y: 0.5),
+                endPoint: .bottom
+            )
+
+            VStack(alignment: .leading) {
+                Badge(text: "Upcoming")
+                Spacer()
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(trip.name)
+                        .font(.title2.bold())
+                        .foregroundStyle(.white)
+                        .lineLimit(2)
+                    Text(destinationsLabel)
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+            }
+            .padding(16)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 239)
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .task(id: trip.id) {
+            let pointSize = CGSize(width: 200, height: 239)
+            mapImage = await TripMapSnapshotProvider.shared.snapshot(
+                for: trip,
+                size: pointSize
+            )
+        }
+    }
+
+    // MARK: - Right panel: date block on top, packing block on bottom
+
+    private var rightPanel: some View {
+        VStack(spacing: 8) {
+            DateBlock(start: trip.startDate, end: trip.endDate)
+                .frame(width: 104, height: 116)
+            PackingBlock(categories: trip.packingCategories ?? [])
+                .frame(width: 104)
+                .frame(maxHeight: .infinity)
+        }
+        .frame(width: 104, height: 239)
+    }
+
+    private var destinationsLabel: String {
+        let count = trip.destinations?.count ?? 0
+        return "\(count) destination\(count == 1 ? "" : "s")"
+    }
+
+    private func formattedFullDate(_ date: Date) -> String {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
+        return f.string(from: date)
+    }
+
+    // MARK: - Nested views
+
+    private struct Badge: View {
+        let text: String
+        var body: some View {
+            Text(text)
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.white)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .background(
+                    Color(red: 0/255, green: 16/255, blue: 36/255).opacity(0.22),
+                    in: Capsule()
+                )
+        }
+    }
+
+    private struct DateBlock: View {
+        let start: Date
+        let end: Date
+
+        var body: some View {
+            HStack(spacing: 0) {
+                side(date: start)
+                duration
+                side(date: end)
+            }
+        }
+
+        private func side(date: Date) -> some View {
+            let cal = Calendar.current
+            let monthFmt: DateFormatter = {
+                let f = DateFormatter()
+                f.setLocalizedDateFormatFromTemplate("MMM")
+                return f
+            }()
+            let crossYear = cal.component(.year, from: start) != cal.component(.year, from: end)
+            let monthLabel: String = {
+                let m = monthFmt.string(from: date)
+                if crossYear {
+                    let yy = cal.component(.year, from: date) % 100
+                    return "\(m) ’\(String(format: "%02d", yy))"
+                }
+                return m
+            }()
+            let day = cal.component(.day, from: date)
+            return VStack(spacing: 0) {
+                Text(monthLabel)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color(red: 1.0, green: 0.259, blue: 0.271))
+                Text("\(day)")
+                    .font(.system(size: 28, weight: .heavy))
+                    .foregroundStyle(.white)
+                    .tracking(0.38)
+            }
+            .frame(maxWidth: .infinity)
+        }
+
+        private var duration: some View {
+            let days = Calendar.current.dateComponents([.day], from: start, to: end).day ?? 0
+            return VStack(spacing: 0) {
+                Text("\(days)d")
+                    .font(.subheadline.weight(.semibold))
+                Text("→")
+                    .font(.headline)
+            }
+            .foregroundStyle(.white.opacity(0.7))
+            .frame(width: 20)
+        }
+    }
+
+    private struct PackingBlock: View {
+        let categories: [PackingCategory]
+
+        private var stats: (checked: Int, total: Int) {
+            let items = categories.flatMap { $0.items ?? [] }
+            return (items.filter(\.isChecked).count, items.count)
+        }
+
+        var body: some View {
+            let s = stats
+            if s.total == 0 {
+                Text("No items in the packing list")
+                    .font(.footnote)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.horizontal, 4)
+            } else {
+                VStack(spacing: 12) {
+                    ProgressRing(progress: Double(s.checked) / Double(s.total))
+                        .frame(width: 32, height: 32)
+                    VStack(spacing: 2) {
+                        Text("\(s.checked)/\(s.total)")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.white)
+                        Text("Packing")
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.7))
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+    }
+
+    private struct ProgressRing: View {
+        let progress: Double  // 0.0 ... 1.0
+        var body: some View {
+            ZStack {
+                Circle()
+                    .stroke(Color.white.opacity(0.2), lineWidth: 4)
+                Circle()
+                    .trim(from: 0, to: max(0, min(1, progress)))
+                    .stroke(Color.accentColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+            }
+        }
+    }
+}
+
+#if DEBUG
+#Preview {
+    UpcomingTripCard(trip: Trip(), onEdit: {}, onDelete: {})
+        .padding()
+        .background(Color.black)
+}
+#endif
