@@ -9,6 +9,7 @@ struct TripListView: View {
 
     @State private var showNewTrip = false
     @State private var tripPendingDelete: Trip?
+    @State private var tripToEdit: Trip?
 
     private var upcomingTrips: [Trip] {
         TripPartition.upcoming(from: allTrips)
@@ -23,23 +24,59 @@ struct TripListView: View {
             if allTrips.isEmpty {
                 TripEmptyState(onCreateTrip: { showNewTrip = true })
             } else {
-                List {
-                    if !upcomingTrips.isEmpty {
-                        Section("Upcoming") {
-                            ForEach(upcomingTrips) { trip in
-                                row(for: trip)
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        if let hero = upcomingTrips.first {
+                            NavigationLink(value: AppDestination.tripDetail(hero.persistentModelID)) {
+                                UpcomingTripCard(
+                                    trip: hero,
+                                    onEdit: { tripToEdit = hero },
+                                    onDelete: { tripPendingDelete = hero }
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                        }
+
+                        let following = Array(upcomingTrips.dropFirst())
+                        if !following.isEmpty {
+                            sectionHeader("FOLLOWING")
+                                .padding(.horizontal, 16)
+                                .padding(.top, 24)
+                            ForEach(following, id: \.id) { trip in
+                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                    FollowingTripRow(
+                                        trip: trip,
+                                        onEdit: { tripToEdit = trip },
+                                        onDelete: { tripPendingDelete = trip }
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                                .padding(.horizontal, 16)
+                            }
+                        }
+
+                        if !pastTrips.isEmpty {
+                            sectionHeader("PAST")
+                                .padding(.horizontal, 16)
+                                .padding(.top, 24)
+                            ForEach(pastTrips, id: \.id) { trip in
+                                NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
+                                    FollowingTripRow(
+                                        trip: trip,
+                                        onEdit: { tripToEdit = trip },
+                                        onDelete: { tripPendingDelete = trip }
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                                .padding(.horizontal, 16)
                             }
                         }
                     }
-                    if !pastTrips.isEmpty {
-                        Section("Past") {
-                            ForEach(pastTrips) { trip in
-                                row(for: trip)
-                            }
-                        }
-                    }
+                    .padding(.bottom, 32)
                 }
-                .listStyle(.insetGrouped)
+                .background(Color.black.ignoresSafeArea())
             }
         }
         .navigationTitle("Trips")
@@ -58,6 +95,9 @@ struct TripListView: View {
         }
         .sheet(isPresented: $showNewTrip) {
             TripEditSheet(mode: .create)
+        }
+        .sheet(item: $tripToEdit) { trip in
+            TripEditSheet(mode: .edit(trip))
         }
         .alert(
             tripPendingDelete.map { "Delete \"\($0.name)\"?" } ?? "Delete trip?",
@@ -94,16 +134,12 @@ struct TripListView: View {
     }
 
     @ViewBuilder
-    private func row(for trip: Trip) -> some View {
-        NavigationLink(value: AppDestination.tripDetail(trip.persistentModelID)) {
-            TripRow(trip: trip)
-        }
-        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-            Button(role: .destructive) {
-                tripPendingDelete = trip
-            } label: {
-                Label("Delete", systemImage: "trash")
-            }
+    private func sectionHeader(_ text: String) -> some View {
+        HStack {
+            Text(text)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.7))
+            Spacer()
         }
     }
 }
