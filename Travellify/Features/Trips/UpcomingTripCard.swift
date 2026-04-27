@@ -14,8 +14,7 @@ struct UpcomingTripCard: View {
             rightPanel
         }
         .padding(16)
-        .background(Color.clear)
-        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .frame(height: 271)
         .contextMenu {
             Button { onEdit() } label: { Label("Edit", systemImage: "pencil") }
@@ -132,6 +131,8 @@ struct UpcomingTripCard: View {
                 duration
                 side(date: end)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
 
         private func side(date: Date) -> some View {
@@ -186,28 +187,30 @@ struct UpcomingTripCard: View {
 
         var body: some View {
             let s = stats
-            if s.total == 0 {
-                Text("No items in the packing list")
-                    .font(.footnote)
-                    .foregroundStyle(.white.opacity(0.7))
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(.horizontal, 4)
-            } else {
-                VStack(spacing: 12) {
-                    ProgressRing(progress: Double(s.checked) / Double(s.total))
-                        .frame(width: 32, height: 32)
-                    VStack(spacing: 2) {
-                        Text("\(s.checked)/\(s.total)")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.white)
-                        Text("Packing")
-                            .font(.caption)
-                            .foregroundStyle(.white.opacity(0.7))
+            Group {
+                if s.total == 0 {
+                    Text("No items in the packing list")
+                        .font(.footnote)
+                        .foregroundStyle(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 4)
+                } else {
+                    VStack(spacing: 12) {
+                        ProgressRing(progress: Double(s.checked) / Double(s.total))
+                            .frame(width: 32, height: 32)
+                        VStack(spacing: 2) {
+                            Text("\(s.checked)/\(s.total)")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(.white)
+                            Text("Packing")
+                                .font(.caption)
+                                .foregroundStyle(.white.opacity(0.7))
+                        }
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
     }
 
