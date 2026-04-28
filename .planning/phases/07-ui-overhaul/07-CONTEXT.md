@@ -89,6 +89,22 @@ When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` form
 
 - **D7-25:** Cross-category drag-and-drop deferred from this wave — fitting the existing flat-ForEach `.onMove` pattern into a card-based List structure has known SwiftUI quirks (Phase 3 gotcha: cross-section drag needs a flat ForEach, but the new card structure is multi-section). If users complain, add it as a 07-04 wave 2 follow-up. PackingProgressRow + EmptyPackingListView dropped (not in Figma; redundant with TripDetailView UpcomingTripCard PackingBlock). CategoryHeader + PackingRow replaced by PackingCategoryCard + PackingItemRow.
 
+## Revision 2026-04-28 — Haptics policy
+
+- **D7-26 (haptics — native `.sensoryFeedback` only):** Every haptic in Phase 7+ uses SwiftUI's iOS 17+ `.sensoryFeedback(_:trigger:)` modifier. Never `UIFeedbackGenerator`, `UIImpactFeedbackGenerator`, `UISelectionFeedbackGenerator`, or any custom haptic helper — that's UIKit-bridged custom code and violates D7-20.
+
+  **Semantic mapping:**
+  - **Toggle / selection** (checking a packing item, switching tabs that aren't already animated by iOS): `.sensoryFeedback(.selection, trigger: …)`
+  - **Confirmation / commit** (new item / category committed via the inline TextField): `.sensoryFeedback(.success, trigger: …)`
+  - **Destructive confirmed** (Delete tapped in alert): rely on iOS's native alert haptic — no explicit modifier
+  - **Long-press → contextMenu**: iOS handles the long-press impact natively — no explicit modifier
+  - **Tab-bar tap, NavigationLink push, sheet present/dismiss**: native iOS chrome handles haptics — no override
+
+  **Trigger discipline:**
+  - Bind triggers to the same `@State` / model property that drives the visible state change. Never invent a haptic-specific state token.
+  - Example: `Toggle("Checked", isOn: $item.isChecked).sensoryFeedback(.selection, trigger: item.isChecked)` — fires on every toggle without extra plumbing.
+  - When the haptic should fire on a one-shot event (e.g. successful add), use a counter: `@State private var addCount = 0` + `.sensoryFeedback(.success, trigger: addCount)` and increment on commit.
+
 ## Revision 2026-04-27 — Populated TripListView (07-03)
 
 - **D7-03 (revised):** 07-03 belongs to **sub-phase 7.2 Trips** (continuation of 07-02), not its own sub-phase. The 7.2 Trips sub-phase now spans plans 07-02 (empty state) and 07-03 (populated list). Future plans 07-04 (TripDetailView) and 07-05 (TripEditSheet) land when designs are delivered. Documents redesign starts at 07-06+, then Packing, Activities, Notifications UI in subsequent plans.

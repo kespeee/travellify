@@ -83,9 +83,9 @@ See `TripEditSheet`, `DocumentEditSheet`, `ActivityEditSheet`. Do not split into
 
 Per project CLAUDE.md: no direct file edits outside a GSD command. Enter via `/gsd-quick`, `/gsd-debug`, or `/gsd-plan-phase` + `/gsd-execute-phase`. Planning artifacts live under `.planning/`; state machine in `.planning/STATE.md`.
 
-## UI implementation policy (Phase 7+, locked 2026-04-27)
+## UI implementation policy (Phase 7+, locked 2026-04-27, haptics added 2026-04-28)
 
-The Phase 7 UI Overhaul and every later visual phase use **strict native iOS 26 only** — see `.planning/phases/07-ui-overhaul/07-CONTEXT.md` decisions D7-16 through D7-20 for the canonical rules. Headline points:
+The Phase 7 UI Overhaul and every later visual phase use **strict native iOS 26 only** — see `.planning/phases/07-ui-overhaul/07-CONTEXT.md` decisions D7-16 through D7-26 for the canonical rules. Headline points:
 
 - **All cards have glass.** Outer wrappers + sub-cards + badges all use `.glassEffect(.clear, in: shape)`. No `.background(Color…)` solids on outer card surfaces, no `.regular` glass without explicit Figma direction, no `.ultraThinMaterial` overlays.
 - **System fonts only.** `.font(.title)`, `.font(.title2)`, `.font(.headline)`, `.font(.body)`, `.font(.caption)` — never `.font(.system(size: N, weight: …))` with hardcoded points.
@@ -93,9 +93,15 @@ The Phase 7 UI Overhaul and every later visual phase use **strict native iOS 26 
 - **Plain integer spacing.** `.padding(16)`, `VStack(spacing: 8)`, `.frame(width: 52)`. No `DSSpacing` token namespaces.
 - **No custom view code.** No bespoke `ViewModifier`s / `ButtonStyle`s / `Font` extensions. If a Figma direction can't express in primitives, ask before reaching for custom code.
 - **Tappable cards** = `NavigationLink { card }.buttonStyle(.plain).contextMenu { … }`. The `.contextMenu` sits on the `NavigationLink`, not inside the card body — nested contextMenu loses long-press gesture races.
+- **Haptics — native `.sensoryFeedback` only.** Use SwiftUI's `.sensoryFeedback(_:trigger:)` (iOS 17+). Never `UIFeedbackGenerator` / `UIImpactFeedbackGenerator` — UIKit bridges count as custom code (D7-20 violation). Semantic mapping:
+  - Toggle / selection → `.sensoryFeedback(.selection, trigger: state)`
+  - Confirmation / commit → `.sensoryFeedback(.success, trigger: counter)`
+  - Destructive confirmed: rely on the iOS alert default
+  - Long-press → contextMenu / tab-bar tap / NavigationLink push / sheet present-dismiss: native chrome haptics, no override
+  - Triggers always bind to existing state — never a haptic-specific token.
 
 Refer to `07-CONTEXT.md` for full text. Future phases either follow these rules or open them for revision before deviating.
 
 ---
 
-_Last updated: 2026-04-27 — Phase 7 native-iOS UI policy locked._
+_Last updated: 2026-04-28 — D7-26 haptics policy added._
