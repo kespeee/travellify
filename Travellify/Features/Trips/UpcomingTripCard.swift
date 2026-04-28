@@ -79,7 +79,7 @@ struct UpcomingTripCard: View {
         VStack(spacing: 8) {
             DateBlock(start: trip.startDate, end: trip.endDate)
                 .frame(width: 104, height: 116)
-            PackingBlock(categories: trip.packingCategories ?? [])
+            PackingBlock(items: trip.packingItems ?? [])
                 .frame(width: 104)
                 .frame(maxHeight: .infinity)
         }
@@ -167,11 +167,10 @@ struct UpcomingTripCard: View {
     }
 
     private struct PackingBlock: View {
-        let categories: [PackingCategory]
+        let items: [PackingItem]
 
         private var stats: (checked: Int, total: Int) {
-            let items = categories.flatMap { $0.items ?? [] }
-            return (items.filter(\.isChecked).count, items.count)
+            (items.filter(\.isChecked).count, items.count)
         }
 
         var body: some View {
