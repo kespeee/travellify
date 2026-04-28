@@ -215,20 +215,22 @@ struct PackingListView: View {
 
     @ViewBuilder
     private var uncategorizedSection: some View {
-        ForEach(uncategorizedItems, id: \.id) { item in
-            uncategorizedItemRow(item)
+        VStack(spacing: 4) {
+            ForEach(uncategorizedItems, id: \.id) { item in
+                uncategorizedItemContent(item)
+            }
+            PackingItemRow(
+                mode: .addPlaceholder,
+                onCommitNewItem: { name in insertItem(name: name, in: nil) }
+            )
         }
-        PackingItemRow(
-            mode: .addPlaceholder,
-            onCommitNewItem: { name in insertItem(name: name, in: nil) }
-        )
         .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 
     @ViewBuilder
-    private func uncategorizedItemRow(_ item: PackingItem) -> some View {
+    private func uncategorizedItemContent(_ item: PackingItem) -> some View {
         Group {
             if renamingItem?.id == item.id {
                 InlineItemRenameRow(
@@ -242,14 +244,6 @@ struct PackingListView: View {
                     onToggle: { toggleChecked(item) },
                     onTapLabel: { renamingItem = item }
                 )
-            }
-        }
-        .listRowBackground(Color.clear)
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-            Button(role: .destructive) { deleteItem(item) } label: {
-                Label("Delete", systemImage: "trash")
             }
         }
         .contextMenu {
