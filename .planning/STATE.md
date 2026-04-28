@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: verifying
-stopped_at: 07-01 Design Foundation complete
-last_updated: "2026-04-27T09:34:02.114Z"
-last_activity: 2026-04-27
+stopped_at: 07-04 Packing redesign complete
+last_updated: "2026-04-28T00:00:00.000Z"
+last_activity: 2026-04-28
 progress:
   total_phases: 9
   completed_phases: 7
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-18)
 ## Current Position
 
 Phase: 07 (ui-overhaul) — EXECUTING
-Plan: 1 of 1 (07-01 complete; awaiting 07-02 plan)
-Status: Phase complete — ready for verification
-Last activity: 2026-04-27
+Plan: 4 of ? (07-01..07-04 complete; awaiting 07-05 Activities plan)
+Status: Wave 4 (Packing) complete
+Last activity: 2026-04-28
 
 Progress: [██████████] 100%
 
@@ -76,6 +76,7 @@ Progress: [██████████] 100%
 | Phase 07 P01 | ~25min | 4 tasks | 13 files |
 | Phase 07 P02 | 10min | 3 tasks | 9 files |
 | Phase 07 P03 | 30min | 5 tasks | 6 files |
+| Phase 07 P04 | ~50min | 5 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -166,6 +167,12 @@ Recent decisions affecting current work:
 - [Phase ?]: [07-03] CLGeocoder + geocodeAddressString retained per plan despite iOS 26 deprecation; migration to MKGeocodingRequest deferred
 - [Phase ?]: [07-03] ScrollView+LazyVStack replaces List(.insetGrouped) for populated branch; per-row NavigationLink with .buttonStyle(.plain); .sheet(item: $tripToEdit) added for context-menu Edit
 - [Phase ?]: [07-03] TripRow.swift left as orphan in pbxproj — unused after refactor but compiles harmlessly; cleanup deferred
+- [07-04]: Trip.packingItems + PackingItem.trip additive (D7-22) — lightweight migration, CloudKit-safe, no SchemaV2; existing items lazy-backfilled via PackingListView .task helper (idempotent)
+- [07-04]: PackingListView body split into 5 @ViewBuilder helpers — combined body tripped Swift 6 type-checker (Phase 3 pitfall recurrence)
+- [07-04]: Inline rename @FocusState lives on per-row helper views (InlineItemRenameRow / InlineRenameRow / InlineCategoryTitleCard), parent (PackingListView / PackingCategoryCard) owns renamingItem/renamingCategory state — re-renders during typing won't lose focus
+- [07-04]: Toolbar + adds CATEGORY (D7-23); per-card "Add item" row handles items; chained adds via @FocusState retention after onSubmit
+- [07-04]: Cross-category drag-and-drop deferred (D7-25); Phase 3 leading-swipe Pack/Unpack + Move contextMenu retired this wave
+- [07-04]: PackingProgressRow + EmptyPackingListView + CategoryHeader + PackingRow dropped (replaced by PackingItemRow + PackingCategoryCard); pbxproj net delta = +8 entries / −17 entries (incl. pre-existing duplicate PackingRow PBXBuildFile cleanup)
 
 ### Accumulated Technical Context
 
@@ -192,6 +199,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-27T09:34:02.108Z
-Stopped at: 07-01 Design Foundation complete
+Last session: 2026-04-28T00:00:00.000Z
+Stopped at: 07-04 Packing redesign complete
 Resume file: None
