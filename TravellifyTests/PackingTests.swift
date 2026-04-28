@@ -233,6 +233,113 @@ struct PackingTests {
         #expect(fetched.map(\.name) == ["Shirt", "Pants", "Belt"])
     }
 
+    // MARK: - Phase 7 (07-04, D7-22): Trip.packingItems direct relationship
+
+    /// Uncategorized item (category = nil) persists via Trip.packingItems and round-trips.
+    @Test func uncategorizedItemPersistsViaTrip() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        let trip = makeTrip(in: context)
+
+        let item = PackingItem()
+        item.name = "Loose passport"
+        item.sortOrder = 0
+        item.trip = trip
+        // category intentionally nil — uncategorized
+        context.insert(item)
+        try context.save()
+
+        // Re-read trip; .packingItems should contain the item
+        let trips = try context.fetch(FetchDescriptor<Trip>())
+        let fetchedTrip = trips.first(where: { $0.id == trip.id })
+        #expect(fetchedTrip != nil)
+        let packingItems = fetchedTrip?.packingItems ?? []
+        #expect(packingItems.count == 1)
+        #expect(packingItems.first?.name == "Loose passport")
+        #expect(packingItems.first?.category == nil)
+        #expect(packingItems.first?.trip?.persistentModelID == trip.persistentModelID)
+    }
+
+    /// Categorized item with .trip = nil gets backfilled to item.category?.trip; idempotent.
+    @Test func itemTripBackfillIdempotent() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        let trip = makeTrip(in: context)
+
+        let category = PackingCategory()
+        category.name = "Toiletries"
+        category.sortOrder = 0
+        category.trip = trip
+        context.insert(category)
+
+        let item = PackingItem()
+        item.name = "Toothbrush"
+        item.sortOrder = 0
+        item.category = category
+        // intentionally NOT setting item.trip (mimics pre-D7-22 data)
+        context.insert(item)
+        try context.save()
+
+        #expect(item.trip == nil, "Pre-backfill: item.trip is nil")
+
+        // Backfill helper logic (mirrors PackingListView.backfillItemTripIfNeeded)
+        for cat in (trip.packingCategories ?? []) {
+            for it in (cat.items ?? []) {
+                if it.trip == nil, let parentTrip = cat.trip {
+                    it.trip = parentTrip
+                }
+            }
+        }
+        try context.save()
+
+        #expect(item.trip?.persistentModelID == trip.persistentModelID,
+                "After backfill: item.trip == item.category?.trip")
+
+        // Idempotency — running again does not change state
+        for cat in (trip.packingCategories ?? []) {
+            for it in (cat.items ?? []) {
+                if it.trip == nil, let parentTrip = cat.trip {
+                    it.trip = parentTrip
+                }
+            }
+        }
+        try context.save()
+        #expect(item.trip?.persistentModelID == trip.persistentModelID)
+    }
+
+    /// Trip delete cascades through Trip.packingItems (covers uncategorized items).
+    @Test func deleteTripCascadesUncategorizedItems() throws {
+        let container = try makeContainer()
+        let context = container.mainContext
+        let trip = makeTrip(in: context)
+
+        // Mix of uncategorized + categorized
+        let uncat = PackingItem()
+        uncat.name = "Uncategorized item"
+        uncat.trip = trip
+        context.insert(uncat)
+
+        let category = PackingCategory()
+        category.name = "Cat"
+        category.trip = trip
+        context.insert(category)
+        let catItem = PackingItem()
+        catItem.name = "Cat item"
+        catItem.category = category
+        catItem.trip = trip
+        context.insert(catItem)
+
+        try context.save()
+        #expect(try context.fetch(FetchDescriptor<PackingItem>()).count == 2)
+
+        context.delete(trip)
+        try context.save()
+
+        let remainingItems = try context.fetch(FetchDescriptor<PackingItem>())
+        #expect(remainingItems.isEmpty,
+                "Trip delete must cascade to BOTH categorized and uncategorized PackingItems")
+    }
+
     // MARK: - Empty items array sanity check
 
     @Test func categoryWithoutItemsHasEmptyArrayNotNilAfterSave() throws {

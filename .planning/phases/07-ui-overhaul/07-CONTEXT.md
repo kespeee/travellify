@@ -77,6 +77,18 @@ Phase 7 delivers a full visual redesign of every shipped screen in v1.0 (Trips, 
 
 When 07-02 Trips needs a tinted CTA, inline the 3-line `.borderedProminent` formula at the call site or graduate the exact `#0091FF` into an AccentColor asset (Assets.xcassets, no code).
 
+## Revision 2026-04-28 — Packing redesign (07-04)
+
+- **D7-21:** PackingListView adopts the same chrome-stripped List + glass-card pattern as TripListView 07-03. Same `.listStyle(.plain)`, `.listRowBackground(.clear)`, `.listRowSeparator(.hidden)`, `.listRowInsets(...)`, `.listRowSpacing(16)`, `.scrollContentBackground(.hidden)`, `.background(Color(.systemBackground).ignoresSafeArea())`. Long-press → contextMenu transitions smoothly because List coordinates the gesture with the menu lift natively.
+
+- **D7-22:** Schema additive: `Trip.packingItems: [PackingItem]?` (cascade) + `PackingItem.trip: Trip?` back-ref. Both optional per CloudKit-safe rules. Lightweight migration (no SchemaV2 bump). Categorized items have both fields set; uncategorized have only `.trip`. Existing items lazily backfill on first `.task` walk via `PackingListView.backfillItemTripIfNeeded()` (idempotent: re-running after backfill is a no-op). Trip delete cascades through BOTH `Trip.packingCategories → items` and `Trip.packingItems`; SwiftData handles double-cascade idempotently. Verified by `deleteTripCascadesUncategorizedItems` test.
+
+- **D7-23:** Toolbar `+` adds CATEGORIES (not items). Each category card has its own per-card "Add item" row that handles items. Two distinct affordances, each does one thing. Newly-created category card surfaces an `InlineCategoryTitleCard` view with focused TextField; commit (`return` or focus loss) saves and falls back to `"Untitled"` if the user submits an empty name.
+
+- **D7-24:** Item rows preserve all Phase 3 interactions: tap-on-checkbox toggle (with strikethrough animation via `.animation(.easeInOut, value: isChecked)`), tap-on-label inline rename (parent-owned `renamingItem: PackingItem?` state plus per-row `InlineItemRenameRow` / `InlineRenameRow` helpers using their own `@FocusState`), swipe-trailing Delete, long-press contextMenu (Rename / Delete) on item rows AND category cards. Phase 3's "Move" context-menu action and the `+leading` swipe Pack/Unpack are retired in this redesign — toggle is the only check-off path now (matches Figma which shows no swipe affordance), and Move is rolled into the deferred D7-25 cross-category drag work.
+
+- **D7-25:** Cross-category drag-and-drop deferred from this wave — fitting the existing flat-ForEach `.onMove` pattern into a card-based List structure has known SwiftUI quirks (Phase 3 gotcha: cross-section drag needs a flat ForEach, but the new card structure is multi-section). If users complain, add it as a 07-04 wave 2 follow-up. PackingProgressRow + EmptyPackingListView dropped (not in Figma; redundant with TripDetailView UpcomingTripCard PackingBlock). CategoryHeader + PackingRow replaced by PackingCategoryCard + PackingItemRow.
+
 ## Revision 2026-04-27 — Populated TripListView (07-03)
 
 - **D7-03 (revised):** 07-03 belongs to **sub-phase 7.2 Trips** (continuation of 07-02), not its own sub-phase. The 7.2 Trips sub-phase now spans plans 07-02 (empty state) and 07-03 (populated list). Future plans 07-04 (TripDetailView) and 07-05 (TripEditSheet) land when designs are delivered. Documents redesign starts at 07-06+, then Packing, Activities, Notifications UI in subsequent plans.
