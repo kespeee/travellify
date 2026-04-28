@@ -171,24 +171,19 @@ struct PackingListView: View {
         .task {
             backfillItemTripIfNeeded()
         }
-        .confirmationDialog(
+        .alert(
             pendingDeleteCategory.map { "Delete \"\($0.name)\"?" } ?? "Delete category?",
             isPresented: Binding(
                 get: { pendingDeleteCategory != nil },
                 set: { if !$0 { pendingDeleteCategory = nil } }
             ),
-            titleVisibility: .visible,
             presenting: pendingDeleteCategory
         ) { cat in
             Button("Delete", role: .destructive) { deleteCategory(cat) }
             Button("Cancel", role: .cancel) { pendingDeleteCategory = nil }
         } message: { cat in
             let itemCount = (cat.items ?? []).count
-            if itemCount == 0 {
-                Text("This category is empty. Delete it?")
-            } else {
-                Text("This will also delete its \(itemCount) item\(itemCount == 1 ? "" : "s") and cannot be undone.")
-            }
+            Text("This will also delete its \(itemCount) item\(itemCount == 1 ? "" : "s") and cannot be undone.")
         }
         .alert(
             "Something went wrong",
@@ -209,8 +204,8 @@ struct PackingListView: View {
     @ViewBuilder
     private var listView: some View {
         List {
-            uncategorizedSection
             categoriesSection
+            uncategorizedSection
         }
         .listStyle(.plain)
         .listRowSpacing(16)
@@ -306,7 +301,11 @@ struct PackingListView: View {
                 Label("Rename", systemImage: "pencil")
             }
             Button(role: .destructive) {
-                pendingDeleteCategory = category
+                if (category.items ?? []).isEmpty {
+                    deleteCategory(category)
+                } else {
+                    pendingDeleteCategory = category
+                }
             } label: {
                 Label("Delete", systemImage: "trash")
             }
